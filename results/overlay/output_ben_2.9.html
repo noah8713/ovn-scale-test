@@ -1,0 +1,778 @@
+<!doctype html>
+<html ng-app="TaskApp">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rally | Rally Task Report</title>
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.15-beta/nv.d3.min.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.15-beta/nv.d3.min.js"></script>
+  
+
+  <script type="text/javascript">
+
+    "use strict";
+    if (typeof angular === "object") { angular.module("TaskApp", []).controller(
+      "TaskController", ["$scope", "$location", function($scope, $location) {
+
+        $scope.source = "{\n  \"OvnNetwork.create_routers_bind_ports\": [\n    {\n      \"args\": {\n        \"network_create_args\": {\n          \"batch\": 1, \n          \"start_cidr\": \"172.145.1.0/24\"\n        }, \n        \"networks_per_router\": 5, \n        \"port_bind_args\": {\n          \"wait_sync\": \"none\", \n          \"wait_up\": true\n        }, \n        \"port_create_args\": {\n          \"batch\": 100\n        }, \n        \"ports_per_network\": 250, \n        \"router_create_args\": {\n          \"amount\": 8, \n          \"batch\": 1\n        }\n      }, \n      \"context\": {\n        \"ovn_multihost\": {\n          \"controller\": \"ovn-overlay-controller-node\"\n        }, \n        \"sandbox\": {}\n      }, \n      \"runner\": {\n        \"times\": 1, \n        \"type\": \"serial\"\n      }\n    }\n  ]\n}";
+        $scope.scenarios = [{"load_profile": [["parallel iterations", [[66.0, 1], [132.0, 1], [198.0, 1], [264.0, 1], [330.0, 1], [396.0, 1], [462.0, 1], [528.0, 1], [594.0, 1], [660.0, 1], [726.0, 1], [792.0, 1], [858.0, 1], [924.0, 1], [990.0, 1], [1056.0, 1], [1122.0, 1], [1188.0, 1], [1254.0, 1], [1320.0, 1], [1386.0, 1], [1452.0, 1], [1518.0, 1], [1584.0, 1], [1650.0, 1], [1716.0, 1], [1782.0, 1], [1848.0, 1], [1914.0, 1], [1980.0, 1], [2046.0, 1], [2112.0, 1], [2178.0, 1], [2244.0, 1], [2310.0, 1], [2376.0, 1], [2442.0, 1], [2508.0, 1], [2574.0, 1], [2640.0, 1], [2706.0, 1], [2772.0, 1], [2838.0, 1], [2904.0, 1], [2970.0, 1], [3036.0, 1], [3102.0, 1], [3168.0, 1], [3234.0, 1], [3300.0, 1], [3366.0, 1], [3432.0, 1], [3498.0, 1], [3564.0, 1], [3630.0, 1], [3696.0, 1], [3762.0, 1], [3828.0, 1], [3894.0, 1], [3960.0, 1], [4026.0, 1], [4092.0, 1], [4158.0, 1], [4224.0, 1], [4290.0, 1], [4356.0, 1], [4422.0, 1], [4488.0, 1], [4554.0, 1], [4620.0, 1], [4686.0, 1], [4752.0, 1], [4818.0, 1], [4884.0, 1], [4950.0, 1], [5016.0, 1], [5082.0, 1], [5148.0, 1], [5214.0, 1], [5280.0, 1], [5346.0, 1], [5412.0, 1], [5478.0, 1], [5544.0, 1], [5610.0, 1], [5676.0, 1], [5742.0, 1], [5808.0, 1], [5874.0, 1], [5940.0, 1], [6006.0, 1], [6072.0, 1], [6138.0, 1], [6204.0, 1], [6270.0, 1], [6336.0, 1], [6402.0, 1], [6468.0, 1], [6534.0, 1], [6600.0, 1], [6666.0, 1], [6732.0, 1], [6798.0, 1], [6864.0, 1], [6930.0, 1], [6996.0, 1], [7062.0, 1], [7128.0, 1], [7194.0, 1], [7260.0, 1], [7326.0, 1], [7392.0, 1], [7458.0, 1], [7524.0, 1], [7590.0, 1], [7656.0, 1], [7722.0, 1], [7788.0, 1], [7854.0, 1], [7920.0, 1], [7986.0, 1], [8052.0, 1], [8118.0, 1], [8184.0, 1], [8250.0, 1], [8316.0, 1], [8382.0, 1], [8448.0, 1], [8514.0, 1], [8580.0, 1], [8646.0, 1], [8712.0, 1], [8778.0, 1], [8844.0, 1], [8910.0, 1], [8976.0, 1], [9042.0, 1], [9108.0, 1], [9174.0, 1], [9240.0, 1], [9306.0, 1], [9372.0, 1], [9438.0, 1], [9504.0, 1], [9570.0, 1], [9636.0, 1], [9702.0, 1], [9768.0, 1], [9834.0, 1], [9900.0, 1], [9966.0, 1], [10032.0, 1], [10098.0, 1], [10164.0, 1], [10230.0, 1], [10296.0, 1], [10362.0, 1], [10428.0, 1], [10494.0, 1], [10560.0, 1], [10626.0, 1], [10692.0, 1], [10758.0, 1], [10824.0, 1], [10890.0, 1], [10956.0, 1], [11022.0, 1], [11088.0, 1], [11154.0, 1], [11220.0, 1], [11286.0, 1], [11352.0, 1], [11418.0, 1], [11484.0, 1], [11550.0, 1], [11616.0, 1], [11682.0, 1], [11748.0, 1], [11814.0, 1], [11880.0, 1], [11946.0, 1], [12012.0, 1], [12078.0, 1], [12144.0, 1], [12210.0, 1], [12276.0, 1], [12342.0, 1], [12408.0, 1], [12474.0, 1], [12540.0, 1], [12606.0, 1], [12672.0, 1], [12738.0, 1], [12804.0, 1], [12870.0, 1], [12936.0, 1], [13002.0, 1], [13068.0, 1], [13134.0, 1], [13150.185117959976, 1]]]], "errors": [], "name": "create_routers_bind_ports", "runner": "serial", "iterations_count": 1, "output_errors": [], "pos": "0", "load_duration": 13150.185117959976, "sla_success": true, "met": "create_routers_bind_ports", "atomic": {"pie": [["ovn_network.create_routers", 0.5825932025909424], ["ovn_network.create_network", 1.901684045791626], ["ovn.create_lswitch", 1.9013898372650146], ["ovn.create_lport", 0.18869304656982422], ["ovn_network.bind_port", 177.49165606498718], ["ovn_network.wait_port_up", 0.0038039684295654297], ["ovn.create_lport (2)", 0.20433402061462402], ["ovn_network.bind_port (2)", 184.95227217674255], ["ovn_network.wait_port_up (2)", 0.003737926483154297], ["ovn.create_lport (3)", 0.23658418655395508], ["ovn_network.bind_port (3)", 214.34275698661804], ["ovn_network.wait_port_up (3)", 0.004188060760498047], ["ovn.create_lport (4)", 0.2662968635559082], ["ovn_network.bind_port (4)", 243.24577617645264], ["ovn_network.wait_port_up (4)", 0.0035810470581054688], ["ovn.create_lport (5)", 0.676185131072998], ["ovn_network.bind_port (5)", 264.6812038421631], ["ovn_network.wait_port_up (5)", 0.0036449432373046875], ["ovn.create_lport (6)", 0.9727330207824707], ["ovn_network.bind_port (6)", 168.32408714294434], ["ovn_network.wait_port_up (6)", 0.0036640167236328125], ["ovn.create_lport (7)", 0.38797688484191895], ["ovn_network.bind_port (7)", 180.88165187835693], ["ovn_network.wait_port_up (7)", 0.003849029541015625], ["ovn.create_lport (8)", 0.9525599479675293], ["ovn_network.bind_port (8)", 226.04831910133362], ["ovn_network.wait_port_up (8)", 0.0036270618438720703], ["ovn.create_lport (9)", 27.440000772476196], ["ovn_network.bind_port (9)", 257.12749886512756], ["ovn_network.wait_port_up (9)", 0.003587961196899414], ["ovn.create_lport (10)", 0.8039999008178711], ["ovn_network.bind_port (10)", 278.0477468967438], ["ovn_network.wait_port_up (10)", 0.0035178661346435547], ["ovn.create_lport (11)", 2.4127299785614014], ["ovn_network.bind_port (11)", 168.47287821769714], ["ovn_network.wait_port_up (11)", 0.0037698745727539062], ["ovn.create_lport (12)", 2.4143459796905518], ["ovn_network.bind_port (12)", 192.304771900177], ["ovn_network.wait_port_up (12)", 0.003634929656982422], ["ovn.create_lport (13)", 1.305372953414917], ["ovn_network.bind_port (13)", 240.44707798957825], ["ovn_network.wait_port_up (13)", 0.003762960433959961], ["ovn.create_lport (14)", 59.28108501434326], ["ovn_network.bind_port (14)", 262.32361006736755], ["ovn_network.wait_port_up (14)", 0.003729104995727539], ["ovn.create_lport (15)", 62.612046003341675], ["ovn_network.bind_port (15)", 274.9363398551941], ["ovn_network.wait_port_up (15)", 0.0035178661346435547], ["ovn.create_lport (16)", 59.159765005111694], ["ovn_network.bind_port (16)", 168.73708820343018], ["ovn_network.wait_port_up (16)", 0.0038909912109375], ["ovn.create_lport (17)", 20.052165985107422], ["ovn_network.bind_port (17)", 193.35037183761597], ["ovn_network.wait_port_up (17)", 0.0034050941467285156], ["ovn.create_lport (18)", 3.128681182861328], ["ovn_network.bind_port (18)", 250.4187889099121], ["ovn_network.wait_port_up (18)", 0.003756999969482422], ["ovn.create_lport (19)", 102.77245903015137], ["ovn_network.bind_port (19)", 263.5860171318054], ["ovn_network.wait_port_up (19)", 0.0035991668701171875], ["ovn.create_lport (20)", 179.7515070438385], ["ovn_network.bind_port (20)", 285.11449098587036], ["ovn_network.wait_port_up (20)", 0.003534078598022461], ["ovn.create_lport (21)", 185.76200795173645], ["ovn_network.bind_port (21)", 169.04520201683044], ["ovn_network.wait_port_up (21)", 0.0038678646087646484], ["ovn.create_lport (22)", 5.22290301322937], ["ovn_network.bind_port (22)", 199.1851041316986], ["ovn_network.wait_port_up (22)", 0.0037620067596435547], ["ovn.create_lport (23)", 60.0548779964447], ["ovn_network.bind_port (23)", 252.04840302467346], ["ovn_network.wait_port_up (23)", 0.0037469863891601562], ["ovn.create_lport (24)", 102.4726128578186], ["ovn_network.bind_port (24)", 267.3948678970337], ["ovn_network.wait_port_up (24)", 0.003984928131103516], ["ovn.create_lport (25)", 175.87228202819824], ["ovn_network.bind_port (25)", 283.84776616096497], ["ovn_network.wait_port_up (25)", 0.003997087478637695], ["ovn.create_lport (26)", 288.87816190719604], ["ovn_network.bind_port (26)", 170.03152084350586], ["ovn_network.wait_port_up (26)", 0.004639863967895508], ["ovn.create_lport (27)", 5.4887659549713135], ["ovn_network.bind_port (27)", 197.9663999080658], ["ovn_network.wait_port_up (27)", 0.0037789344787597656], ["ovn.create_lport (28)", 125.23886895179749], ["ovn_network.bind_port (28)", 255.81774711608887], ["ovn_network.wait_port_up (28)", 0.003824949264526367], ["ovn.create_lport (29)", 207.00659203529358], ["ovn_network.bind_port (29)", 269.0361819267273], ["ovn_network.wait_port_up (29)", 0.003876924514770508], ["ovn.create_lport (30)", 237.47775983810425], ["ovn_network.bind_port (30)", 284.1290509700775], ["ovn_network.wait_port_up (30)", 0.0035669803619384766], ["ovn.create_lport (31)", 306.8910129070282], ["ovn_network.bind_port (31)", 171.54769706726074], ["ovn_network.wait_port_up (31)", 0.0035059452056884766], ["ovn.create_lport (32)", 71.63735103607178], ["ovn_network.bind_port (32)", 201.84365916252136], ["ovn_network.wait_port_up (32)", 0.0036139488220214844], ["ovn.create_lport (33)", 145.71185302734375], ["ovn_network.bind_port (33)", 257.23582196235657], ["ovn_network.wait_port_up (33)", 0.0036301612854003906], ["ovn.create_lport (34)", 176.58699107170105], ["ovn_network.bind_port (34)", 267.21676898002625], ["ovn_network.wait_port_up (34)", 0.0036377906799316406], ["ovn.create_lport (35)", 237.6494140625], ["ovn_network.bind_port (35)", 280.8315451145172], ["ovn_network.wait_port_up (35)", 0.0035228729248046875], ["ovn.create_lport (36)", 320.2431709766388], ["ovn_network.bind_port (36)", 173.888081073761], ["ovn_network.wait_port_up (36)", 0.0038611888885498047], ["ovn.create_lport (37)", 70.7370297908783], ["ovn_network.bind_port (37)", 204.85632610321045], ["ovn_network.wait_port_up (37)", 0.003938913345336914], ["ovn.create_lport (38)", 134.25931906700134], ["ovn_network.bind_port (38)", 257.74821186065674], ["ovn_network.wait_port_up (38)", 0.0036590099334716797], ["ovn.create_lport (39)", 253.21281719207764], ["ovn_network.bind_port (39)", 270.55731892585754], ["ovn_network.wait_port_up (39)", 0.003567934036254883], ["ovn.create_lport (40)", 278.4603040218353], ["ovn_network.bind_port (40)", 298.4744830131531], ["ovn_network.wait_port_up (40)", 0.004136800765991211]], "iter": [["ovn_network.create_routers", [[1, 0.5825932025909424]]], ["ovn_network.create_network", [[1, 1.901684045791626]]], ["ovn.create_lswitch", [[1, 1.9013898372650146]]], ["ovn.create_lport", [[1, 0.18869304656982422]]], ["ovn_network.bind_port", [[1, 177.49165606498718]]], ["ovn_network.wait_port_up", [[1, 0.0038039684295654297]]], ["ovn.create_lport (2)", [[1, 0.20433402061462402]]], ["ovn_network.bind_port (2)", [[1, 184.95227217674255]]], ["ovn_network.wait_port_up (2)", [[1, 0.003737926483154297]]], ["ovn.create_lport (3)", [[1, 0.23658418655395508]]], ["ovn_network.bind_port (3)", [[1, 214.34275698661804]]], ["ovn_network.wait_port_up (3)", [[1, 0.004188060760498047]]], ["ovn.create_lport (4)", [[1, 0.2662968635559082]]], ["ovn_network.bind_port (4)", [[1, 243.24577617645264]]], ["ovn_network.wait_port_up (4)", [[1, 0.0035810470581054688]]], ["ovn.create_lport (5)", [[1, 0.676185131072998]]], ["ovn_network.bind_port (5)", [[1, 264.6812038421631]]], ["ovn_network.wait_port_up (5)", [[1, 0.0036449432373046875]]], ["ovn.create_lport (6)", [[1, 0.9727330207824707]]], ["ovn_network.bind_port (6)", [[1, 168.32408714294434]]], ["ovn_network.wait_port_up (6)", [[1, 0.0036640167236328125]]], ["ovn.create_lport (7)", [[1, 0.38797688484191895]]], ["ovn_network.bind_port (7)", [[1, 180.88165187835693]]], ["ovn_network.wait_port_up (7)", [[1, 0.003849029541015625]]], ["ovn.create_lport (8)", [[1, 0.9525599479675293]]], ["ovn_network.bind_port (8)", [[1, 226.04831910133362]]], ["ovn_network.wait_port_up (8)", [[1, 0.0036270618438720703]]], ["ovn.create_lport (9)", [[1, 27.440000772476196]]], ["ovn_network.bind_port (9)", [[1, 257.12749886512756]]], ["ovn_network.wait_port_up (9)", [[1, 0.003587961196899414]]], ["ovn.create_lport (10)", [[1, 0.8039999008178711]]], ["ovn_network.bind_port (10)", [[1, 278.0477468967438]]], ["ovn_network.wait_port_up (10)", [[1, 0.0035178661346435547]]], ["ovn.create_lport (11)", [[1, 2.4127299785614014]]], ["ovn_network.bind_port (11)", [[1, 168.47287821769714]]], ["ovn_network.wait_port_up (11)", [[1, 0.0037698745727539062]]], ["ovn.create_lport (12)", [[1, 2.4143459796905518]]], ["ovn_network.bind_port (12)", [[1, 192.304771900177]]], ["ovn_network.wait_port_up (12)", [[1, 0.003634929656982422]]], ["ovn.create_lport (13)", [[1, 1.305372953414917]]], ["ovn_network.bind_port (13)", [[1, 240.44707798957825]]], ["ovn_network.wait_port_up (13)", [[1, 0.003762960433959961]]], ["ovn.create_lport (14)", [[1, 59.28108501434326]]], ["ovn_network.bind_port (14)", [[1, 262.32361006736755]]], ["ovn_network.wait_port_up (14)", [[1, 0.003729104995727539]]], ["ovn.create_lport (15)", [[1, 62.612046003341675]]], ["ovn_network.bind_port (15)", [[1, 274.9363398551941]]], ["ovn_network.wait_port_up (15)", [[1, 0.0035178661346435547]]], ["ovn.create_lport (16)", [[1, 59.159765005111694]]], ["ovn_network.bind_port (16)", [[1, 168.73708820343018]]], ["ovn_network.wait_port_up (16)", [[1, 0.0038909912109375]]], ["ovn.create_lport (17)", [[1, 20.052165985107422]]], ["ovn_network.bind_port (17)", [[1, 193.35037183761597]]], ["ovn_network.wait_port_up (17)", [[1, 0.0034050941467285156]]], ["ovn.create_lport (18)", [[1, 3.128681182861328]]], ["ovn_network.bind_port (18)", [[1, 250.4187889099121]]], ["ovn_network.wait_port_up (18)", [[1, 0.003756999969482422]]], ["ovn.create_lport (19)", [[1, 102.77245903015137]]], ["ovn_network.bind_port (19)", [[1, 263.5860171318054]]], ["ovn_network.wait_port_up (19)", [[1, 0.0035991668701171875]]], ["ovn.create_lport (20)", [[1, 179.7515070438385]]], ["ovn_network.bind_port (20)", [[1, 285.11449098587036]]], ["ovn_network.wait_port_up (20)", [[1, 0.003534078598022461]]], ["ovn.create_lport (21)", [[1, 185.76200795173645]]], ["ovn_network.bind_port (21)", [[1, 169.04520201683044]]], ["ovn_network.wait_port_up (21)", [[1, 0.0038678646087646484]]], ["ovn.create_lport (22)", [[1, 5.22290301322937]]], ["ovn_network.bind_port (22)", [[1, 199.1851041316986]]], ["ovn_network.wait_port_up (22)", [[1, 0.0037620067596435547]]], ["ovn.create_lport (23)", [[1, 60.0548779964447]]], ["ovn_network.bind_port (23)", [[1, 252.04840302467346]]], ["ovn_network.wait_port_up (23)", [[1, 0.0037469863891601562]]], ["ovn.create_lport (24)", [[1, 102.4726128578186]]], ["ovn_network.bind_port (24)", [[1, 267.3948678970337]]], ["ovn_network.wait_port_up (24)", [[1, 0.003984928131103516]]], ["ovn.create_lport (25)", [[1, 175.87228202819824]]], ["ovn_network.bind_port (25)", [[1, 283.84776616096497]]], ["ovn_network.wait_port_up (25)", [[1, 0.003997087478637695]]], ["ovn.create_lport (26)", [[1, 288.87816190719604]]], ["ovn_network.bind_port (26)", [[1, 170.03152084350586]]], ["ovn_network.wait_port_up (26)", [[1, 0.004639863967895508]]], ["ovn.create_lport (27)", [[1, 5.4887659549713135]]], ["ovn_network.bind_port (27)", [[1, 197.9663999080658]]], ["ovn_network.wait_port_up (27)", [[1, 0.0037789344787597656]]], ["ovn.create_lport (28)", [[1, 125.23886895179749]]], ["ovn_network.bind_port (28)", [[1, 255.81774711608887]]], ["ovn_network.wait_port_up (28)", [[1, 0.003824949264526367]]], ["ovn.create_lport (29)", [[1, 207.00659203529358]]], ["ovn_network.bind_port (29)", [[1, 269.0361819267273]]], ["ovn_network.wait_port_up (29)", [[1, 0.003876924514770508]]], ["ovn.create_lport (30)", [[1, 237.47775983810425]]], ["ovn_network.bind_port (30)", [[1, 284.1290509700775]]], ["ovn_network.wait_port_up (30)", [[1, 0.0035669803619384766]]], ["ovn.create_lport (31)", [[1, 306.8910129070282]]], ["ovn_network.bind_port (31)", [[1, 171.54769706726074]]], ["ovn_network.wait_port_up (31)", [[1, 0.0035059452056884766]]], ["ovn.create_lport (32)", [[1, 71.63735103607178]]], ["ovn_network.bind_port (32)", [[1, 201.84365916252136]]], ["ovn_network.wait_port_up (32)", [[1, 0.0036139488220214844]]], ["ovn.create_lport (33)", [[1, 145.71185302734375]]], ["ovn_network.bind_port (33)", [[1, 257.23582196235657]]], ["ovn_network.wait_port_up (33)", [[1, 0.0036301612854003906]]], ["ovn.create_lport (34)", [[1, 176.58699107170105]]], ["ovn_network.bind_port (34)", [[1, 267.21676898002625]]], ["ovn_network.wait_port_up (34)", [[1, 0.0036377906799316406]]], ["ovn.create_lport (35)", [[1, 237.6494140625]]], ["ovn_network.bind_port (35)", [[1, 280.8315451145172]]], ["ovn_network.wait_port_up (35)", [[1, 0.0035228729248046875]]], ["ovn.create_lport (36)", [[1, 320.2431709766388]]], ["ovn_network.bind_port (36)", [[1, 173.888081073761]]], ["ovn_network.wait_port_up (36)", [[1, 0.0038611888885498047]]], ["ovn.create_lport (37)", [[1, 70.7370297908783]]], ["ovn_network.bind_port (37)", [[1, 204.85632610321045]]], ["ovn_network.wait_port_up (37)", [[1, 0.003938913345336914]]], ["ovn.create_lport (38)", [[1, 134.25931906700134]]], ["ovn_network.bind_port (38)", [[1, 257.74821186065674]]], ["ovn_network.wait_port_up (38)", [[1, 0.0036590099334716797]]], ["ovn.create_lport (39)", [[1, 253.21281719207764]]], ["ovn_network.bind_port (39)", [[1, 270.55731892585754]]], ["ovn_network.wait_port_up (39)", [[1, 0.003567934036254883]]], ["ovn.create_lport (40)", [[1, 278.4603040218353]]], ["ovn_network.bind_port (40)", [[1, 298.4744830131531]]], ["ovn_network.wait_port_up (40)", [[1, 0.004136800765991211]]]], "histogram": {"data": [[{"disabled": 0, "values": [{"y": 1, "x": 0.5825932025909424}], "key": "ovn_network.create_routers", "view": "Square Root Choice"}, {"disabled": 1, "values": [{"y": 1, "x": 1.901684045791626}], "key": "ovn_network.create_network", "view": "Square Root Choice"}, {"disabled": 2, "values": [{"y": 1, "x": 1.9013898372650146}], "key": "ovn.create_lswitch", "view": "Square Root Choice"}, {"disabled": 3, "values": [{"y": 1, "x": 0.18869304656982422}], "key": "ovn.create_lport", "view": "Square Root Choice"}, {"disabled": 4, "values": [{"y": 1, "x": 177.49165606498718}], "key": "ovn_network.bind_port", "view": "Square Root Choice"}, {"disabled": 5, "values": [{"y": 1, "x": 0.0038039684295654297}], "key": "ovn_network.wait_port_up", "view": "Square Root Choice"}, {"disabled": 6, "values": [{"y": 1, "x": 0.20433402061462402}], "key": "ovn.create_lport (2)", "view": "Square Root Choice"}, {"disabled": 7, "values": [{"y": 1, "x": 184.95227217674255}], "key": "ovn_network.bind_port (2)", "view": "Square Root Choice"}, {"disabled": 8, "values": [{"y": 1, "x": 0.003737926483154297}], "key": "ovn_network.wait_port_up (2)", "view": "Square Root Choice"}, {"disabled": 9, "values": [{"y": 1, "x": 0.23658418655395508}], "key": "ovn.create_lport (3)", "view": "Square Root Choice"}, {"disabled": 10, "values": [{"y": 1, "x": 214.34275698661804}], "key": "ovn_network.bind_port (3)", "view": "Square Root Choice"}, {"disabled": 11, "values": [{"y": 1, "x": 0.004188060760498047}], "key": "ovn_network.wait_port_up (3)", "view": "Square Root Choice"}, {"disabled": 12, "values": [{"y": 1, "x": 0.2662968635559082}], "key": "ovn.create_lport (4)", "view": "Square Root Choice"}, {"disabled": 13, "values": [{"y": 1, "x": 243.24577617645264}], "key": "ovn_network.bind_port (4)", "view": "Square Root Choice"}, {"disabled": 14, "values": [{"y": 1, "x": 0.0035810470581054688}], "key": "ovn_network.wait_port_up (4)", "view": "Square Root Choice"}, {"disabled": 15, "values": [{"y": 1, "x": 0.676185131072998}], "key": "ovn.create_lport (5)", "view": "Square Root Choice"}, {"disabled": 16, "values": [{"y": 1, "x": 264.6812038421631}], "key": "ovn_network.bind_port (5)", "view": "Square Root Choice"}, {"disabled": 17, "values": [{"y": 1, "x": 0.0036449432373046875}], "key": "ovn_network.wait_port_up (5)", "view": "Square Root Choice"}, {"disabled": 18, "values": [{"y": 1, "x": 0.9727330207824707}], "key": "ovn.create_lport (6)", "view": "Square Root Choice"}, {"disabled": 19, "values": [{"y": 1, "x": 168.32408714294434}], "key": "ovn_network.bind_port (6)", "view": "Square Root Choice"}, {"disabled": 20, "values": [{"y": 1, "x": 0.0036640167236328125}], "key": "ovn_network.wait_port_up (6)", "view": "Square Root Choice"}, {"disabled": 21, "values": [{"y": 1, "x": 0.38797688484191895}], "key": "ovn.create_lport (7)", "view": "Square Root Choice"}, {"disabled": 22, "values": [{"y": 1, "x": 180.88165187835693}], "key": "ovn_network.bind_port (7)", "view": "Square Root Choice"}, {"disabled": 23, "values": [{"y": 1, "x": 0.003849029541015625}], "key": "ovn_network.wait_port_up (7)", "view": "Square Root Choice"}, {"disabled": 24, "values": [{"y": 1, "x": 0.9525599479675293}], "key": "ovn.create_lport (8)", "view": "Square Root Choice"}, {"disabled": 25, "values": [{"y": 1, "x": 226.04831910133362}], "key": "ovn_network.bind_port (8)", "view": "Square Root Choice"}, {"disabled": 26, "values": [{"y": 1, "x": 0.0036270618438720703}], "key": "ovn_network.wait_port_up (8)", "view": "Square Root Choice"}, {"disabled": 27, "values": [{"y": 1, "x": 27.440000772476196}], "key": "ovn.create_lport (9)", "view": "Square Root Choice"}, {"disabled": 28, "values": [{"y": 1, "x": 257.12749886512756}], "key": "ovn_network.bind_port (9)", "view": "Square Root Choice"}, {"disabled": 29, "values": [{"y": 1, "x": 0.003587961196899414}], "key": "ovn_network.wait_port_up (9)", "view": "Square Root Choice"}, {"disabled": 30, "values": [{"y": 1, "x": 0.8039999008178711}], "key": "ovn.create_lport (10)", "view": "Square Root Choice"}, {"disabled": 31, "values": [{"y": 1, "x": 278.0477468967438}], "key": "ovn_network.bind_port (10)", "view": "Square Root Choice"}, {"disabled": 32, "values": [{"y": 1, "x": 0.0035178661346435547}], "key": "ovn_network.wait_port_up (10)", "view": "Square Root Choice"}, {"disabled": 33, "values": [{"y": 1, "x": 2.4127299785614014}], "key": "ovn.create_lport (11)", "view": "Square Root Choice"}, {"disabled": 34, "values": [{"y": 1, "x": 168.47287821769714}], "key": "ovn_network.bind_port (11)", "view": "Square Root Choice"}, {"disabled": 35, "values": [{"y": 1, "x": 0.0037698745727539062}], "key": "ovn_network.wait_port_up (11)", "view": "Square Root Choice"}, {"disabled": 36, "values": [{"y": 1, "x": 2.4143459796905518}], "key": "ovn.create_lport (12)", "view": "Square Root Choice"}, {"disabled": 37, "values": [{"y": 1, "x": 192.304771900177}], "key": "ovn_network.bind_port (12)", "view": "Square Root Choice"}, {"disabled": 38, "values": [{"y": 1, "x": 0.003634929656982422}], "key": "ovn_network.wait_port_up (12)", "view": "Square Root Choice"}, {"disabled": 39, "values": [{"y": 1, "x": 1.305372953414917}], "key": "ovn.create_lport (13)", "view": "Square Root Choice"}, {"disabled": 40, "values": [{"y": 1, "x": 240.44707798957825}], "key": "ovn_network.bind_port (13)", "view": "Square Root Choice"}, {"disabled": 41, "values": [{"y": 1, "x": 0.003762960433959961}], "key": "ovn_network.wait_port_up (13)", "view": "Square Root Choice"}, {"disabled": 42, "values": [{"y": 1, "x": 59.28108501434326}], "key": "ovn.create_lport (14)", "view": "Square Root Choice"}, {"disabled": 43, "values": [{"y": 1, "x": 262.32361006736755}], "key": "ovn_network.bind_port (14)", "view": "Square Root Choice"}, {"disabled": 44, "values": [{"y": 1, "x": 0.003729104995727539}], "key": "ovn_network.wait_port_up (14)", "view": "Square Root Choice"}, {"disabled": 45, "values": [{"y": 1, "x": 62.612046003341675}], "key": "ovn.create_lport (15)", "view": "Square Root Choice"}, {"disabled": 46, "values": [{"y": 1, "x": 274.9363398551941}], "key": "ovn_network.bind_port (15)", "view": "Square Root Choice"}, {"disabled": 47, "values": [{"y": 1, "x": 0.0035178661346435547}], "key": "ovn_network.wait_port_up (15)", "view": "Square Root Choice"}, {"disabled": 48, "values": [{"y": 1, "x": 59.159765005111694}], "key": "ovn.create_lport (16)", "view": "Square Root Choice"}, {"disabled": 49, "values": [{"y": 1, "x": 168.73708820343018}], "key": "ovn_network.bind_port (16)", "view": "Square Root Choice"}, {"disabled": 50, "values": [{"y": 1, "x": 0.0038909912109375}], "key": "ovn_network.wait_port_up (16)", "view": "Square Root Choice"}, {"disabled": 51, "values": [{"y": 1, "x": 20.052165985107422}], "key": "ovn.create_lport (17)", "view": "Square Root Choice"}, {"disabled": 52, "values": [{"y": 1, "x": 193.35037183761597}], "key": "ovn_network.bind_port (17)", "view": "Square Root Choice"}, {"disabled": 53, "values": [{"y": 1, "x": 0.0034050941467285156}], "key": "ovn_network.wait_port_up (17)", "view": "Square Root Choice"}, {"disabled": 54, "values": [{"y": 1, "x": 3.128681182861328}], "key": "ovn.create_lport (18)", "view": "Square Root Choice"}, {"disabled": 55, "values": [{"y": 1, "x": 250.4187889099121}], "key": "ovn_network.bind_port (18)", "view": "Square Root Choice"}, {"disabled": 56, "values": [{"y": 1, "x": 0.003756999969482422}], "key": "ovn_network.wait_port_up (18)", "view": "Square Root Choice"}, {"disabled": 57, "values": [{"y": 1, "x": 102.77245903015137}], "key": "ovn.create_lport (19)", "view": "Square Root Choice"}, {"disabled": 58, "values": [{"y": 1, "x": 263.5860171318054}], "key": "ovn_network.bind_port (19)", "view": "Square Root Choice"}, {"disabled": 59, "values": [{"y": 1, "x": 0.0035991668701171875}], "key": "ovn_network.wait_port_up (19)", "view": "Square Root Choice"}, {"disabled": 60, "values": [{"y": 1, "x": 179.7515070438385}], "key": "ovn.create_lport (20)", "view": "Square Root Choice"}, {"disabled": 61, "values": [{"y": 1, "x": 285.11449098587036}], "key": "ovn_network.bind_port (20)", "view": "Square Root Choice"}, {"disabled": 62, "values": [{"y": 1, "x": 0.003534078598022461}], "key": "ovn_network.wait_port_up (20)", "view": "Square Root Choice"}, {"disabled": 63, "values": [{"y": 1, "x": 185.76200795173645}], "key": "ovn.create_lport (21)", "view": "Square Root Choice"}, {"disabled": 64, "values": [{"y": 1, "x": 169.04520201683044}], "key": "ovn_network.bind_port (21)", "view": "Square Root Choice"}, {"disabled": 65, "values": [{"y": 1, "x": 0.0038678646087646484}], "key": "ovn_network.wait_port_up (21)", "view": "Square Root Choice"}, {"disabled": 66, "values": [{"y": 1, "x": 5.22290301322937}], "key": "ovn.create_lport (22)", "view": "Square Root Choice"}, {"disabled": 67, "values": [{"y": 1, "x": 199.1851041316986}], "key": "ovn_network.bind_port (22)", "view": "Square Root Choice"}, {"disabled": 68, "values": [{"y": 1, "x": 0.0037620067596435547}], "key": "ovn_network.wait_port_up (22)", "view": "Square Root Choice"}, {"disabled": 69, "values": [{"y": 1, "x": 60.0548779964447}], "key": "ovn.create_lport (23)", "view": "Square Root Choice"}, {"disabled": 70, "values": [{"y": 1, "x": 252.04840302467346}], "key": "ovn_network.bind_port (23)", "view": "Square Root Choice"}, {"disabled": 71, "values": [{"y": 1, "x": 0.0037469863891601562}], "key": "ovn_network.wait_port_up (23)", "view": "Square Root Choice"}, {"disabled": 72, "values": [{"y": 1, "x": 102.4726128578186}], "key": "ovn.create_lport (24)", "view": "Square Root Choice"}, {"disabled": 73, "values": [{"y": 1, "x": 267.3948678970337}], "key": "ovn_network.bind_port (24)", "view": "Square Root Choice"}, {"disabled": 74, "values": [{"y": 1, "x": 0.003984928131103516}], "key": "ovn_network.wait_port_up (24)", "view": "Square Root Choice"}, {"disabled": 75, "values": [{"y": 1, "x": 175.87228202819824}], "key": "ovn.create_lport (25)", "view": "Square Root Choice"}, {"disabled": 76, "values": [{"y": 1, "x": 283.84776616096497}], "key": "ovn_network.bind_port (25)", "view": "Square Root Choice"}, {"disabled": 77, "values": [{"y": 1, "x": 0.003997087478637695}], "key": "ovn_network.wait_port_up (25)", "view": "Square Root Choice"}, {"disabled": 78, "values": [{"y": 1, "x": 288.87816190719604}], "key": "ovn.create_lport (26)", "view": "Square Root Choice"}, {"disabled": 79, "values": [{"y": 1, "x": 170.03152084350586}], "key": "ovn_network.bind_port (26)", "view": "Square Root Choice"}, {"disabled": 80, "values": [{"y": 1, "x": 0.004639863967895508}], "key": "ovn_network.wait_port_up (26)", "view": "Square Root Choice"}, {"disabled": 81, "values": [{"y": 1, "x": 5.4887659549713135}], "key": "ovn.create_lport (27)", "view": "Square Root Choice"}, {"disabled": 82, "values": [{"y": 1, "x": 197.9663999080658}], "key": "ovn_network.bind_port (27)", "view": "Square Root Choice"}, {"disabled": 83, "values": [{"y": 1, "x": 0.0037789344787597656}], "key": "ovn_network.wait_port_up (27)", "view": "Square Root Choice"}, {"disabled": 84, "values": [{"y": 1, "x": 125.23886895179749}], "key": "ovn.create_lport (28)", "view": "Square Root Choice"}, {"disabled": 85, "values": [{"y": 1, "x": 255.81774711608887}], "key": "ovn_network.bind_port (28)", "view": "Square Root Choice"}, {"disabled": 86, "values": [{"y": 1, "x": 0.003824949264526367}], "key": "ovn_network.wait_port_up (28)", "view": "Square Root Choice"}, {"disabled": 87, "values": [{"y": 1, "x": 207.00659203529358}], "key": "ovn.create_lport (29)", "view": "Square Root Choice"}, {"disabled": 88, "values": [{"y": 1, "x": 269.0361819267273}], "key": "ovn_network.bind_port (29)", "view": "Square Root Choice"}, {"disabled": 89, "values": [{"y": 1, "x": 0.003876924514770508}], "key": "ovn_network.wait_port_up (29)", "view": "Square Root Choice"}, {"disabled": 90, "values": [{"y": 1, "x": 237.47775983810425}], "key": "ovn.create_lport (30)", "view": "Square Root Choice"}, {"disabled": 91, "values": [{"y": 1, "x": 284.1290509700775}], "key": "ovn_network.bind_port (30)", "view": "Square Root Choice"}, {"disabled": 92, "values": [{"y": 1, "x": 0.0035669803619384766}], "key": "ovn_network.wait_port_up (30)", "view": "Square Root Choice"}, {"disabled": 93, "values": [{"y": 1, "x": 306.8910129070282}], "key": "ovn.create_lport (31)", "view": "Square Root Choice"}, {"disabled": 94, "values": [{"y": 1, "x": 171.54769706726074}], "key": "ovn_network.bind_port (31)", "view": "Square Root Choice"}, {"disabled": 95, "values": [{"y": 1, "x": 0.0035059452056884766}], "key": "ovn_network.wait_port_up (31)", "view": "Square Root Choice"}, {"disabled": 96, "values": [{"y": 1, "x": 71.63735103607178}], "key": "ovn.create_lport (32)", "view": "Square Root Choice"}, {"disabled": 97, "values": [{"y": 1, "x": 201.84365916252136}], "key": "ovn_network.bind_port (32)", "view": "Square Root Choice"}, {"disabled": 98, "values": [{"y": 1, "x": 0.0036139488220214844}], "key": "ovn_network.wait_port_up (32)", "view": "Square Root Choice"}, {"disabled": 99, "values": [{"y": 1, "x": 145.71185302734375}], "key": "ovn.create_lport (33)", "view": "Square Root Choice"}, {"disabled": 100, "values": [{"y": 1, "x": 257.23582196235657}], "key": "ovn_network.bind_port (33)", "view": "Square Root Choice"}, {"disabled": 101, "values": [{"y": 1, "x": 0.0036301612854003906}], "key": "ovn_network.wait_port_up (33)", "view": "Square Root Choice"}, {"disabled": 102, "values": [{"y": 1, "x": 176.58699107170105}], "key": "ovn.create_lport (34)", "view": "Square Root Choice"}, {"disabled": 103, "values": [{"y": 1, "x": 267.21676898002625}], "key": "ovn_network.bind_port (34)", "view": "Square Root Choice"}, {"disabled": 104, "values": [{"y": 1, "x": 0.0036377906799316406}], "key": "ovn_network.wait_port_up (34)", "view": "Square Root Choice"}, {"disabled": 105, "values": [{"y": 1, "x": 237.6494140625}], "key": "ovn.create_lport (35)", "view": "Square Root Choice"}, {"disabled": 106, "values": [{"y": 1, "x": 280.8315451145172}], "key": "ovn_network.bind_port (35)", "view": "Square Root Choice"}, {"disabled": 107, "values": [{"y": 1, "x": 0.0035228729248046875}], "key": "ovn_network.wait_port_up (35)", "view": "Square Root Choice"}, {"disabled": 108, "values": [{"y": 1, "x": 320.2431709766388}], "key": "ovn.create_lport (36)", "view": "Square Root Choice"}, {"disabled": 109, "values": [{"y": 1, "x": 173.888081073761}], "key": "ovn_network.bind_port (36)", "view": "Square Root Choice"}, {"disabled": 110, "values": [{"y": 1, "x": 0.0038611888885498047}], "key": "ovn_network.wait_port_up (36)", "view": "Square Root Choice"}, {"disabled": 111, "values": [{"y": 1, "x": 70.7370297908783}], "key": "ovn.create_lport (37)", "view": "Square Root Choice"}, {"disabled": 112, "values": [{"y": 1, "x": 204.85632610321045}], "key": "ovn_network.bind_port (37)", "view": "Square Root Choice"}, {"disabled": 113, "values": [{"y": 1, "x": 0.003938913345336914}], "key": "ovn_network.wait_port_up (37)", "view": "Square Root Choice"}, {"disabled": 114, "values": [{"y": 1, "x": 134.25931906700134}], "key": "ovn.create_lport (38)", "view": "Square Root Choice"}, {"disabled": 115, "values": [{"y": 1, "x": 257.74821186065674}], "key": "ovn_network.bind_port (38)", "view": "Square Root Choice"}, {"disabled": 116, "values": [{"y": 1, "x": 0.0036590099334716797}], "key": "ovn_network.wait_port_up (38)", "view": "Square Root Choice"}, {"disabled": 117, "values": [{"y": 1, "x": 253.21281719207764}], "key": "ovn.create_lport (39)", "view": "Square Root Choice"}, {"disabled": 118, "values": [{"y": 1, "x": 270.55731892585754}], "key": "ovn_network.bind_port (39)", "view": "Square Root Choice"}, {"disabled": 119, "values": [{"y": 1, "x": 0.003567934036254883}], "key": "ovn_network.wait_port_up (39)", "view": "Square Root Choice"}, {"disabled": 120, "values": [{"y": 1, "x": 278.4603040218353}], "key": "ovn.create_lport (40)", "view": "Square Root Choice"}, {"disabled": 121, "values": [{"y": 1, "x": 298.4744830131531}], "key": "ovn_network.bind_port (40)", "view": "Square Root Choice"}, {"disabled": 122, "values": [{"y": 1, "x": 0.004136800765991211}], "key": "ovn_network.wait_port_up (40)", "view": "Square Root Choice"}], [{"disabled": 0, "values": [{"y": 1, "x": 0.5825932025909424}], "key": "ovn_network.create_routers", "view": "Sturges Formula"}, {"disabled": 1, "values": [{"y": 1, "x": 1.901684045791626}], "key": "ovn_network.create_network", "view": "Sturges Formula"}, {"disabled": 2, "values": [{"y": 1, "x": 1.9013898372650146}], "key": "ovn.create_lswitch", "view": "Sturges Formula"}, {"disabled": 3, "values": [{"y": 1, "x": 0.18869304656982422}], "key": "ovn.create_lport", "view": "Sturges Formula"}, {"disabled": 4, "values": [{"y": 1, "x": 177.49165606498718}], "key": "ovn_network.bind_port", "view": "Sturges Formula"}, {"disabled": 5, "values": [{"y": 1, "x": 0.0038039684295654297}], "key": "ovn_network.wait_port_up", "view": "Sturges Formula"}, {"disabled": 6, "values": [{"y": 1, "x": 0.20433402061462402}], "key": "ovn.create_lport (2)", "view": "Sturges Formula"}, {"disabled": 7, "values": [{"y": 1, "x": 184.95227217674255}], "key": "ovn_network.bind_port (2)", "view": "Sturges Formula"}, {"disabled": 8, "values": [{"y": 1, "x": 0.003737926483154297}], "key": "ovn_network.wait_port_up (2)", "view": "Sturges Formula"}, {"disabled": 9, "values": [{"y": 1, "x": 0.23658418655395508}], "key": "ovn.create_lport (3)", "view": "Sturges Formula"}, {"disabled": 10, "values": [{"y": 1, "x": 214.34275698661804}], "key": "ovn_network.bind_port (3)", "view": "Sturges Formula"}, {"disabled": 11, "values": [{"y": 1, "x": 0.004188060760498047}], "key": "ovn_network.wait_port_up (3)", "view": "Sturges Formula"}, {"disabled": 12, "values": [{"y": 1, "x": 0.2662968635559082}], "key": "ovn.create_lport (4)", "view": "Sturges Formula"}, {"disabled": 13, "values": [{"y": 1, "x": 243.24577617645264}], "key": "ovn_network.bind_port (4)", "view": "Sturges Formula"}, {"disabled": 14, "values": [{"y": 1, "x": 0.0035810470581054688}], "key": "ovn_network.wait_port_up (4)", "view": "Sturges Formula"}, {"disabled": 15, "values": [{"y": 1, "x": 0.676185131072998}], "key": "ovn.create_lport (5)", "view": "Sturges Formula"}, {"disabled": 16, "values": [{"y": 1, "x": 264.6812038421631}], "key": "ovn_network.bind_port (5)", "view": "Sturges Formula"}, {"disabled": 17, "values": [{"y": 1, "x": 0.0036449432373046875}], "key": "ovn_network.wait_port_up (5)", "view": "Sturges Formula"}, {"disabled": 18, "values": [{"y": 1, "x": 0.9727330207824707}], "key": "ovn.create_lport (6)", "view": "Sturges Formula"}, {"disabled": 19, "values": [{"y": 1, "x": 168.32408714294434}], "key": "ovn_network.bind_port (6)", "view": "Sturges Formula"}, {"disabled": 20, "values": [{"y": 1, "x": 0.0036640167236328125}], "key": "ovn_network.wait_port_up (6)", "view": "Sturges Formula"}, {"disabled": 21, "values": [{"y": 1, "x": 0.38797688484191895}], "key": "ovn.create_lport (7)", "view": "Sturges Formula"}, {"disabled": 22, "values": [{"y": 1, "x": 180.88165187835693}], "key": "ovn_network.bind_port (7)", "view": "Sturges Formula"}, {"disabled": 23, "values": [{"y": 1, "x": 0.003849029541015625}], "key": "ovn_network.wait_port_up (7)", "view": "Sturges Formula"}, {"disabled": 24, "values": [{"y": 1, "x": 0.9525599479675293}], "key": "ovn.create_lport (8)", "view": "Sturges Formula"}, {"disabled": 25, "values": [{"y": 1, "x": 226.04831910133362}], "key": "ovn_network.bind_port (8)", "view": "Sturges Formula"}, {"disabled": 26, "values": [{"y": 1, "x": 0.0036270618438720703}], "key": "ovn_network.wait_port_up (8)", "view": "Sturges Formula"}, {"disabled": 27, "values": [{"y": 1, "x": 27.440000772476196}], "key": "ovn.create_lport (9)", "view": "Sturges Formula"}, {"disabled": 28, "values": [{"y": 1, "x": 257.12749886512756}], "key": "ovn_network.bind_port (9)", "view": "Sturges Formula"}, {"disabled": 29, "values": [{"y": 1, "x": 0.003587961196899414}], "key": "ovn_network.wait_port_up (9)", "view": "Sturges Formula"}, {"disabled": 30, "values": [{"y": 1, "x": 0.8039999008178711}], "key": "ovn.create_lport (10)", "view": "Sturges Formula"}, {"disabled": 31, "values": [{"y": 1, "x": 278.0477468967438}], "key": "ovn_network.bind_port (10)", "view": "Sturges Formula"}, {"disabled": 32, "values": [{"y": 1, "x": 0.0035178661346435547}], "key": "ovn_network.wait_port_up (10)", "view": "Sturges Formula"}, {"disabled": 33, "values": [{"y": 1, "x": 2.4127299785614014}], "key": "ovn.create_lport (11)", "view": "Sturges Formula"}, {"disabled": 34, "values": [{"y": 1, "x": 168.47287821769714}], "key": "ovn_network.bind_port (11)", "view": "Sturges Formula"}, {"disabled": 35, "values": [{"y": 1, "x": 0.0037698745727539062}], "key": "ovn_network.wait_port_up (11)", "view": "Sturges Formula"}, {"disabled": 36, "values": [{"y": 1, "x": 2.4143459796905518}], "key": "ovn.create_lport (12)", "view": "Sturges Formula"}, {"disabled": 37, "values": [{"y": 1, "x": 192.304771900177}], "key": "ovn_network.bind_port (12)", "view": "Sturges Formula"}, {"disabled": 38, "values": [{"y": 1, "x": 0.003634929656982422}], "key": "ovn_network.wait_port_up (12)", "view": "Sturges Formula"}, {"disabled": 39, "values": [{"y": 1, "x": 1.305372953414917}], "key": "ovn.create_lport (13)", "view": "Sturges Formula"}, {"disabled": 40, "values": [{"y": 1, "x": 240.44707798957825}], "key": "ovn_network.bind_port (13)", "view": "Sturges Formula"}, {"disabled": 41, "values": [{"y": 1, "x": 0.003762960433959961}], "key": "ovn_network.wait_port_up (13)", "view": "Sturges Formula"}, {"disabled": 42, "values": [{"y": 1, "x": 59.28108501434326}], "key": "ovn.create_lport (14)", "view": "Sturges Formula"}, {"disabled": 43, "values": [{"y": 1, "x": 262.32361006736755}], "key": "ovn_network.bind_port (14)", "view": "Sturges Formula"}, {"disabled": 44, "values": [{"y": 1, "x": 0.003729104995727539}], "key": "ovn_network.wait_port_up (14)", "view": "Sturges Formula"}, {"disabled": 45, "values": [{"y": 1, "x": 62.612046003341675}], "key": "ovn.create_lport (15)", "view": "Sturges Formula"}, {"disabled": 46, "values": [{"y": 1, "x": 274.9363398551941}], "key": "ovn_network.bind_port (15)", "view": "Sturges Formula"}, {"disabled": 47, "values": [{"y": 1, "x": 0.0035178661346435547}], "key": "ovn_network.wait_port_up (15)", "view": "Sturges Formula"}, {"disabled": 48, "values": [{"y": 1, "x": 59.159765005111694}], "key": "ovn.create_lport (16)", "view": "Sturges Formula"}, {"disabled": 49, "values": [{"y": 1, "x": 168.73708820343018}], "key": "ovn_network.bind_port (16)", "view": "Sturges Formula"}, {"disabled": 50, "values": [{"y": 1, "x": 0.0038909912109375}], "key": "ovn_network.wait_port_up (16)", "view": "Sturges Formula"}, {"disabled": 51, "values": [{"y": 1, "x": 20.052165985107422}], "key": "ovn.create_lport (17)", "view": "Sturges Formula"}, {"disabled": 52, "values": [{"y": 1, "x": 193.35037183761597}], "key": "ovn_network.bind_port (17)", "view": "Sturges Formula"}, {"disabled": 53, "values": [{"y": 1, "x": 0.0034050941467285156}], "key": "ovn_network.wait_port_up (17)", "view": "Sturges Formula"}, {"disabled": 54, "values": [{"y": 1, "x": 3.128681182861328}], "key": "ovn.create_lport (18)", "view": "Sturges Formula"}, {"disabled": 55, "values": [{"y": 1, "x": 250.4187889099121}], "key": "ovn_network.bind_port (18)", "view": "Sturges Formula"}, {"disabled": 56, "values": [{"y": 1, "x": 0.003756999969482422}], "key": "ovn_network.wait_port_up (18)", "view": "Sturges Formula"}, {"disabled": 57, "values": [{"y": 1, "x": 102.77245903015137}], "key": "ovn.create_lport (19)", "view": "Sturges Formula"}, {"disabled": 58, "values": [{"y": 1, "x": 263.5860171318054}], "key": "ovn_network.bind_port (19)", "view": "Sturges Formula"}, {"disabled": 59, "values": [{"y": 1, "x": 0.0035991668701171875}], "key": "ovn_network.wait_port_up (19)", "view": "Sturges Formula"}, {"disabled": 60, "values": [{"y": 1, "x": 179.7515070438385}], "key": "ovn.create_lport (20)", "view": "Sturges Formula"}, {"disabled": 61, "values": [{"y": 1, "x": 285.11449098587036}], "key": "ovn_network.bind_port (20)", "view": "Sturges Formula"}, {"disabled": 62, "values": [{"y": 1, "x": 0.003534078598022461}], "key": "ovn_network.wait_port_up (20)", "view": "Sturges Formula"}, {"disabled": 63, "values": [{"y": 1, "x": 185.76200795173645}], "key": "ovn.create_lport (21)", "view": "Sturges Formula"}, {"disabled": 64, "values": [{"y": 1, "x": 169.04520201683044}], "key": "ovn_network.bind_port (21)", "view": "Sturges Formula"}, {"disabled": 65, "values": [{"y": 1, "x": 0.0038678646087646484}], "key": "ovn_network.wait_port_up (21)", "view": "Sturges Formula"}, {"disabled": 66, "values": [{"y": 1, "x": 5.22290301322937}], "key": "ovn.create_lport (22)", "view": "Sturges Formula"}, {"disabled": 67, "values": [{"y": 1, "x": 199.1851041316986}], "key": "ovn_network.bind_port (22)", "view": "Sturges Formula"}, {"disabled": 68, "values": [{"y": 1, "x": 0.0037620067596435547}], "key": "ovn_network.wait_port_up (22)", "view": "Sturges Formula"}, {"disabled": 69, "values": [{"y": 1, "x": 60.0548779964447}], "key": "ovn.create_lport (23)", "view": "Sturges Formula"}, {"disabled": 70, "values": [{"y": 1, "x": 252.04840302467346}], "key": "ovn_network.bind_port (23)", "view": "Sturges Formula"}, {"disabled": 71, "values": [{"y": 1, "x": 0.0037469863891601562}], "key": "ovn_network.wait_port_up (23)", "view": "Sturges Formula"}, {"disabled": 72, "values": [{"y": 1, "x": 102.4726128578186}], "key": "ovn.create_lport (24)", "view": "Sturges Formula"}, {"disabled": 73, "values": [{"y": 1, "x": 267.3948678970337}], "key": "ovn_network.bind_port (24)", "view": "Sturges Formula"}, {"disabled": 74, "values": [{"y": 1, "x": 0.003984928131103516}], "key": "ovn_network.wait_port_up (24)", "view": "Sturges Formula"}, {"disabled": 75, "values": [{"y": 1, "x": 175.87228202819824}], "key": "ovn.create_lport (25)", "view": "Sturges Formula"}, {"disabled": 76, "values": [{"y": 1, "x": 283.84776616096497}], "key": "ovn_network.bind_port (25)", "view": "Sturges Formula"}, {"disabled": 77, "values": [{"y": 1, "x": 0.003997087478637695}], "key": "ovn_network.wait_port_up (25)", "view": "Sturges Formula"}, {"disabled": 78, "values": [{"y": 1, "x": 288.87816190719604}], "key": "ovn.create_lport (26)", "view": "Sturges Formula"}, {"disabled": 79, "values": [{"y": 1, "x": 170.03152084350586}], "key": "ovn_network.bind_port (26)", "view": "Sturges Formula"}, {"disabled": 80, "values": [{"y": 1, "x": 0.004639863967895508}], "key": "ovn_network.wait_port_up (26)", "view": "Sturges Formula"}, {"disabled": 81, "values": [{"y": 1, "x": 5.4887659549713135}], "key": "ovn.create_lport (27)", "view": "Sturges Formula"}, {"disabled": 82, "values": [{"y": 1, "x": 197.9663999080658}], "key": "ovn_network.bind_port (27)", "view": "Sturges Formula"}, {"disabled": 83, "values": [{"y": 1, "x": 0.0037789344787597656}], "key": "ovn_network.wait_port_up (27)", "view": "Sturges Formula"}, {"disabled": 84, "values": [{"y": 1, "x": 125.23886895179749}], "key": "ovn.create_lport (28)", "view": "Sturges Formula"}, {"disabled": 85, "values": [{"y": 1, "x": 255.81774711608887}], "key": "ovn_network.bind_port (28)", "view": "Sturges Formula"}, {"disabled": 86, "values": [{"y": 1, "x": 0.003824949264526367}], "key": "ovn_network.wait_port_up (28)", "view": "Sturges Formula"}, {"disabled": 87, "values": [{"y": 1, "x": 207.00659203529358}], "key": "ovn.create_lport (29)", "view": "Sturges Formula"}, {"disabled": 88, "values": [{"y": 1, "x": 269.0361819267273}], "key": "ovn_network.bind_port (29)", "view": "Sturges Formula"}, {"disabled": 89, "values": [{"y": 1, "x": 0.003876924514770508}], "key": "ovn_network.wait_port_up (29)", "view": "Sturges Formula"}, {"disabled": 90, "values": [{"y": 1, "x": 237.47775983810425}], "key": "ovn.create_lport (30)", "view": "Sturges Formula"}, {"disabled": 91, "values": [{"y": 1, "x": 284.1290509700775}], "key": "ovn_network.bind_port (30)", "view": "Sturges Formula"}, {"disabled": 92, "values": [{"y": 1, "x": 0.0035669803619384766}], "key": "ovn_network.wait_port_up (30)", "view": "Sturges Formula"}, {"disabled": 93, "values": [{"y": 1, "x": 306.8910129070282}], "key": "ovn.create_lport (31)", "view": "Sturges Formula"}, {"disabled": 94, "values": [{"y": 1, "x": 171.54769706726074}], "key": "ovn_network.bind_port (31)", "view": "Sturges Formula"}, {"disabled": 95, "values": [{"y": 1, "x": 0.0035059452056884766}], "key": "ovn_network.wait_port_up (31)", "view": "Sturges Formula"}, {"disabled": 96, "values": [{"y": 1, "x": 71.63735103607178}], "key": "ovn.create_lport (32)", "view": "Sturges Formula"}, {"disabled": 97, "values": [{"y": 1, "x": 201.84365916252136}], "key": "ovn_network.bind_port (32)", "view": "Sturges Formula"}, {"disabled": 98, "values": [{"y": 1, "x": 0.0036139488220214844}], "key": "ovn_network.wait_port_up (32)", "view": "Sturges Formula"}, {"disabled": 99, "values": [{"y": 1, "x": 145.71185302734375}], "key": "ovn.create_lport (33)", "view": "Sturges Formula"}, {"disabled": 100, "values": [{"y": 1, "x": 257.23582196235657}], "key": "ovn_network.bind_port (33)", "view": "Sturges Formula"}, {"disabled": 101, "values": [{"y": 1, "x": 0.0036301612854003906}], "key": "ovn_network.wait_port_up (33)", "view": "Sturges Formula"}, {"disabled": 102, "values": [{"y": 1, "x": 176.58699107170105}], "key": "ovn.create_lport (34)", "view": "Sturges Formula"}, {"disabled": 103, "values": [{"y": 1, "x": 267.21676898002625}], "key": "ovn_network.bind_port (34)", "view": "Sturges Formula"}, {"disabled": 104, "values": [{"y": 1, "x": 0.0036377906799316406}], "key": "ovn_network.wait_port_up (34)", "view": "Sturges Formula"}, {"disabled": 105, "values": [{"y": 1, "x": 237.6494140625}], "key": "ovn.create_lport (35)", "view": "Sturges Formula"}, {"disabled": 106, "values": [{"y": 1, "x": 280.8315451145172}], "key": "ovn_network.bind_port (35)", "view": "Sturges Formula"}, {"disabled": 107, "values": [{"y": 1, "x": 0.0035228729248046875}], "key": "ovn_network.wait_port_up (35)", "view": "Sturges Formula"}, {"disabled": 108, "values": [{"y": 1, "x": 320.2431709766388}], "key": "ovn.create_lport (36)", "view": "Sturges Formula"}, {"disabled": 109, "values": [{"y": 1, "x": 173.888081073761}], "key": "ovn_network.bind_port (36)", "view": "Sturges Formula"}, {"disabled": 110, "values": [{"y": 1, "x": 0.0038611888885498047}], "key": "ovn_network.wait_port_up (36)", "view": "Sturges Formula"}, {"disabled": 111, "values": [{"y": 1, "x": 70.7370297908783}], "key": "ovn.create_lport (37)", "view": "Sturges Formula"}, {"disabled": 112, "values": [{"y": 1, "x": 204.85632610321045}], "key": "ovn_network.bind_port (37)", "view": "Sturges Formula"}, {"disabled": 113, "values": [{"y": 1, "x": 0.003938913345336914}], "key": "ovn_network.wait_port_up (37)", "view": "Sturges Formula"}, {"disabled": 114, "values": [{"y": 1, "x": 134.25931906700134}], "key": "ovn.create_lport (38)", "view": "Sturges Formula"}, {"disabled": 115, "values": [{"y": 1, "x": 257.74821186065674}], "key": "ovn_network.bind_port (38)", "view": "Sturges Formula"}, {"disabled": 116, "values": [{"y": 1, "x": 0.0036590099334716797}], "key": "ovn_network.wait_port_up (38)", "view": "Sturges Formula"}, {"disabled": 117, "values": [{"y": 1, "x": 253.21281719207764}], "key": "ovn.create_lport (39)", "view": "Sturges Formula"}, {"disabled": 118, "values": [{"y": 1, "x": 270.55731892585754}], "key": "ovn_network.bind_port (39)", "view": "Sturges Formula"}, {"disabled": 119, "values": [{"y": 1, "x": 0.003567934036254883}], "key": "ovn_network.wait_port_up (39)", "view": "Sturges Formula"}, {"disabled": 120, "values": [{"y": 1, "x": 278.4603040218353}], "key": "ovn.create_lport (40)", "view": "Sturges Formula"}, {"disabled": 121, "values": [{"y": 1, "x": 298.4744830131531}], "key": "ovn_network.bind_port (40)", "view": "Sturges Formula"}, {"disabled": 122, "values": [{"y": 1, "x": 0.004136800765991211}], "key": "ovn_network.wait_port_up (40)", "view": "Sturges Formula"}], [{"disabled": 0, "values": [{"y": 1, "x": 0.5825932025909424}, {"y": 0, "x": 0.5825932025909424}], "key": "ovn_network.create_routers", "view": "Rice Rule"}, {"disabled": 1, "values": [{"y": 1, "x": 1.901684045791626}, {"y": 0, "x": 1.901684045791626}], "key": "ovn_network.create_network", "view": "Rice Rule"}, {"disabled": 2, "values": [{"y": 1, "x": 1.9013898372650146}, {"y": 0, "x": 1.9013898372650146}], "key": "ovn.create_lswitch", "view": "Rice Rule"}, {"disabled": 3, "values": [{"y": 1, "x": 0.18869304656982422}, {"y": 0, "x": 0.18869304656982422}], "key": "ovn.create_lport", "view": "Rice Rule"}, {"disabled": 4, "values": [{"y": 1, "x": 177.49165606498718}, {"y": 0, "x": 177.49165606498718}], "key": "ovn_network.bind_port", "view": "Rice Rule"}, {"disabled": 5, "values": [{"y": 1, "x": 0.0038039684295654297}, {"y": 0, "x": 0.0038039684295654297}], "key": "ovn_network.wait_port_up", "view": "Rice Rule"}, {"disabled": 6, "values": [{"y": 1, "x": 0.20433402061462402}, {"y": 0, "x": 0.20433402061462402}], "key": "ovn.create_lport (2)", "view": "Rice Rule"}, {"disabled": 7, "values": [{"y": 1, "x": 184.95227217674255}, {"y": 0, "x": 184.95227217674255}], "key": "ovn_network.bind_port (2)", "view": "Rice Rule"}, {"disabled": 8, "values": [{"y": 1, "x": 0.003737926483154297}, {"y": 0, "x": 0.003737926483154297}], "key": "ovn_network.wait_port_up (2)", "view": "Rice Rule"}, {"disabled": 9, "values": [{"y": 1, "x": 0.23658418655395508}, {"y": 0, "x": 0.23658418655395508}], "key": "ovn.create_lport (3)", "view": "Rice Rule"}, {"disabled": 10, "values": [{"y": 1, "x": 214.34275698661804}, {"y": 0, "x": 214.34275698661804}], "key": "ovn_network.bind_port (3)", "view": "Rice Rule"}, {"disabled": 11, "values": [{"y": 1, "x": 0.004188060760498047}, {"y": 0, "x": 0.004188060760498047}], "key": "ovn_network.wait_port_up (3)", "view": "Rice Rule"}, {"disabled": 12, "values": [{"y": 1, "x": 0.2662968635559082}, {"y": 0, "x": 0.2662968635559082}], "key": "ovn.create_lport (4)", "view": "Rice Rule"}, {"disabled": 13, "values": [{"y": 1, "x": 243.24577617645264}, {"y": 0, "x": 243.24577617645264}], "key": "ovn_network.bind_port (4)", "view": "Rice Rule"}, {"disabled": 14, "values": [{"y": 1, "x": 0.0035810470581054688}, {"y": 0, "x": 0.0035810470581054688}], "key": "ovn_network.wait_port_up (4)", "view": "Rice Rule"}, {"disabled": 15, "values": [{"y": 1, "x": 0.676185131072998}, {"y": 0, "x": 0.676185131072998}], "key": "ovn.create_lport (5)", "view": "Rice Rule"}, {"disabled": 16, "values": [{"y": 1, "x": 264.6812038421631}, {"y": 0, "x": 264.6812038421631}], "key": "ovn_network.bind_port (5)", "view": "Rice Rule"}, {"disabled": 17, "values": [{"y": 1, "x": 0.0036449432373046875}, {"y": 0, "x": 0.0036449432373046875}], "key": "ovn_network.wait_port_up (5)", "view": "Rice Rule"}, {"disabled": 18, "values": [{"y": 1, "x": 0.9727330207824707}, {"y": 0, "x": 0.9727330207824707}], "key": "ovn.create_lport (6)", "view": "Rice Rule"}, {"disabled": 19, "values": [{"y": 1, "x": 168.32408714294434}, {"y": 0, "x": 168.32408714294434}], "key": "ovn_network.bind_port (6)", "view": "Rice Rule"}, {"disabled": 20, "values": [{"y": 1, "x": 0.0036640167236328125}, {"y": 0, "x": 0.0036640167236328125}], "key": "ovn_network.wait_port_up (6)", "view": "Rice Rule"}, {"disabled": 21, "values": [{"y": 1, "x": 0.38797688484191895}, {"y": 0, "x": 0.38797688484191895}], "key": "ovn.create_lport (7)", "view": "Rice Rule"}, {"disabled": 22, "values": [{"y": 1, "x": 180.88165187835693}, {"y": 0, "x": 180.88165187835693}], "key": "ovn_network.bind_port (7)", "view": "Rice Rule"}, {"disabled": 23, "values": [{"y": 1, "x": 0.003849029541015625}, {"y": 0, "x": 0.003849029541015625}], "key": "ovn_network.wait_port_up (7)", "view": "Rice Rule"}, {"disabled": 24, "values": [{"y": 1, "x": 0.9525599479675293}, {"y": 0, "x": 0.9525599479675293}], "key": "ovn.create_lport (8)", "view": "Rice Rule"}, {"disabled": 25, "values": [{"y": 1, "x": 226.04831910133362}, {"y": 0, "x": 226.04831910133362}], "key": "ovn_network.bind_port (8)", "view": "Rice Rule"}, {"disabled": 26, "values": [{"y": 1, "x": 0.0036270618438720703}, {"y": 0, "x": 0.0036270618438720703}], "key": "ovn_network.wait_port_up (8)", "view": "Rice Rule"}, {"disabled": 27, "values": [{"y": 1, "x": 27.440000772476196}, {"y": 0, "x": 27.440000772476196}], "key": "ovn.create_lport (9)", "view": "Rice Rule"}, {"disabled": 28, "values": [{"y": 1, "x": 257.12749886512756}, {"y": 0, "x": 257.12749886512756}], "key": "ovn_network.bind_port (9)", "view": "Rice Rule"}, {"disabled": 29, "values": [{"y": 1, "x": 0.003587961196899414}, {"y": 0, "x": 0.003587961196899414}], "key": "ovn_network.wait_port_up (9)", "view": "Rice Rule"}, {"disabled": 30, "values": [{"y": 1, "x": 0.8039999008178711}, {"y": 0, "x": 0.8039999008178711}], "key": "ovn.create_lport (10)", "view": "Rice Rule"}, {"disabled": 31, "values": [{"y": 1, "x": 278.0477468967438}, {"y": 0, "x": 278.0477468967438}], "key": "ovn_network.bind_port (10)", "view": "Rice Rule"}, {"disabled": 32, "values": [{"y": 1, "x": 0.0035178661346435547}, {"y": 0, "x": 0.0035178661346435547}], "key": "ovn_network.wait_port_up (10)", "view": "Rice Rule"}, {"disabled": 33, "values": [{"y": 1, "x": 2.4127299785614014}, {"y": 0, "x": 2.4127299785614014}], "key": "ovn.create_lport (11)", "view": "Rice Rule"}, {"disabled": 34, "values": [{"y": 1, "x": 168.47287821769714}, {"y": 0, "x": 168.47287821769714}], "key": "ovn_network.bind_port (11)", "view": "Rice Rule"}, {"disabled": 35, "values": [{"y": 1, "x": 0.0037698745727539062}, {"y": 0, "x": 0.0037698745727539062}], "key": "ovn_network.wait_port_up (11)", "view": "Rice Rule"}, {"disabled": 36, "values": [{"y": 1, "x": 2.4143459796905518}, {"y": 0, "x": 2.4143459796905518}], "key": "ovn.create_lport (12)", "view": "Rice Rule"}, {"disabled": 37, "values": [{"y": 1, "x": 192.304771900177}, {"y": 0, "x": 192.304771900177}], "key": "ovn_network.bind_port (12)", "view": "Rice Rule"}, {"disabled": 38, "values": [{"y": 1, "x": 0.003634929656982422}, {"y": 0, "x": 0.003634929656982422}], "key": "ovn_network.wait_port_up (12)", "view": "Rice Rule"}, {"disabled": 39, "values": [{"y": 1, "x": 1.305372953414917}, {"y": 0, "x": 1.305372953414917}], "key": "ovn.create_lport (13)", "view": "Rice Rule"}, {"disabled": 40, "values": [{"y": 1, "x": 240.44707798957825}, {"y": 0, "x": 240.44707798957825}], "key": "ovn_network.bind_port (13)", "view": "Rice Rule"}, {"disabled": 41, "values": [{"y": 1, "x": 0.003762960433959961}, {"y": 0, "x": 0.003762960433959961}], "key": "ovn_network.wait_port_up (13)", "view": "Rice Rule"}, {"disabled": 42, "values": [{"y": 1, "x": 59.28108501434326}, {"y": 0, "x": 59.28108501434326}], "key": "ovn.create_lport (14)", "view": "Rice Rule"}, {"disabled": 43, "values": [{"y": 1, "x": 262.32361006736755}, {"y": 0, "x": 262.32361006736755}], "key": "ovn_network.bind_port (14)", "view": "Rice Rule"}, {"disabled": 44, "values": [{"y": 1, "x": 0.003729104995727539}, {"y": 0, "x": 0.003729104995727539}], "key": "ovn_network.wait_port_up (14)", "view": "Rice Rule"}, {"disabled": 45, "values": [{"y": 1, "x": 62.612046003341675}, {"y": 0, "x": 62.612046003341675}], "key": "ovn.create_lport (15)", "view": "Rice Rule"}, {"disabled": 46, "values": [{"y": 1, "x": 274.9363398551941}, {"y": 0, "x": 274.9363398551941}], "key": "ovn_network.bind_port (15)", "view": "Rice Rule"}, {"disabled": 47, "values": [{"y": 1, "x": 0.0035178661346435547}, {"y": 0, "x": 0.0035178661346435547}], "key": "ovn_network.wait_port_up (15)", "view": "Rice Rule"}, {"disabled": 48, "values": [{"y": 1, "x": 59.159765005111694}, {"y": 0, "x": 59.159765005111694}], "key": "ovn.create_lport (16)", "view": "Rice Rule"}, {"disabled": 49, "values": [{"y": 1, "x": 168.73708820343018}, {"y": 0, "x": 168.73708820343018}], "key": "ovn_network.bind_port (16)", "view": "Rice Rule"}, {"disabled": 50, "values": [{"y": 1, "x": 0.0038909912109375}, {"y": 0, "x": 0.0038909912109375}], "key": "ovn_network.wait_port_up (16)", "view": "Rice Rule"}, {"disabled": 51, "values": [{"y": 1, "x": 20.052165985107422}, {"y": 0, "x": 20.052165985107422}], "key": "ovn.create_lport (17)", "view": "Rice Rule"}, {"disabled": 52, "values": [{"y": 1, "x": 193.35037183761597}, {"y": 0, "x": 193.35037183761597}], "key": "ovn_network.bind_port (17)", "view": "Rice Rule"}, {"disabled": 53, "values": [{"y": 1, "x": 0.0034050941467285156}, {"y": 0, "x": 0.0034050941467285156}], "key": "ovn_network.wait_port_up (17)", "view": "Rice Rule"}, {"disabled": 54, "values": [{"y": 1, "x": 3.128681182861328}, {"y": 0, "x": 3.128681182861328}], "key": "ovn.create_lport (18)", "view": "Rice Rule"}, {"disabled": 55, "values": [{"y": 1, "x": 250.4187889099121}, {"y": 0, "x": 250.4187889099121}], "key": "ovn_network.bind_port (18)", "view": "Rice Rule"}, {"disabled": 56, "values": [{"y": 1, "x": 0.003756999969482422}, {"y": 0, "x": 0.003756999969482422}], "key": "ovn_network.wait_port_up (18)", "view": "Rice Rule"}, {"disabled": 57, "values": [{"y": 1, "x": 102.77245903015137}, {"y": 0, "x": 102.77245903015137}], "key": "ovn.create_lport (19)", "view": "Rice Rule"}, {"disabled": 58, "values": [{"y": 1, "x": 263.5860171318054}, {"y": 0, "x": 263.5860171318054}], "key": "ovn_network.bind_port (19)", "view": "Rice Rule"}, {"disabled": 59, "values": [{"y": 1, "x": 0.0035991668701171875}, {"y": 0, "x": 0.0035991668701171875}], "key": "ovn_network.wait_port_up (19)", "view": "Rice Rule"}, {"disabled": 60, "values": [{"y": 1, "x": 179.7515070438385}, {"y": 0, "x": 179.7515070438385}], "key": "ovn.create_lport (20)", "view": "Rice Rule"}, {"disabled": 61, "values": [{"y": 1, "x": 285.11449098587036}, {"y": 0, "x": 285.11449098587036}], "key": "ovn_network.bind_port (20)", "view": "Rice Rule"}, {"disabled": 62, "values": [{"y": 1, "x": 0.003534078598022461}, {"y": 0, "x": 0.003534078598022461}], "key": "ovn_network.wait_port_up (20)", "view": "Rice Rule"}, {"disabled": 63, "values": [{"y": 1, "x": 185.76200795173645}, {"y": 0, "x": 185.76200795173645}], "key": "ovn.create_lport (21)", "view": "Rice Rule"}, {"disabled": 64, "values": [{"y": 1, "x": 169.04520201683044}, {"y": 0, "x": 169.04520201683044}], "key": "ovn_network.bind_port (21)", "view": "Rice Rule"}, {"disabled": 65, "values": [{"y": 1, "x": 0.0038678646087646484}, {"y": 0, "x": 0.0038678646087646484}], "key": "ovn_network.wait_port_up (21)", "view": "Rice Rule"}, {"disabled": 66, "values": [{"y": 1, "x": 5.22290301322937}, {"y": 0, "x": 5.22290301322937}], "key": "ovn.create_lport (22)", "view": "Rice Rule"}, {"disabled": 67, "values": [{"y": 1, "x": 199.1851041316986}, {"y": 0, "x": 199.1851041316986}], "key": "ovn_network.bind_port (22)", "view": "Rice Rule"}, {"disabled": 68, "values": [{"y": 1, "x": 0.0037620067596435547}, {"y": 0, "x": 0.0037620067596435547}], "key": "ovn_network.wait_port_up (22)", "view": "Rice Rule"}, {"disabled": 69, "values": [{"y": 1, "x": 60.0548779964447}, {"y": 0, "x": 60.0548779964447}], "key": "ovn.create_lport (23)", "view": "Rice Rule"}, {"disabled": 70, "values": [{"y": 1, "x": 252.04840302467346}, {"y": 0, "x": 252.04840302467346}], "key": "ovn_network.bind_port (23)", "view": "Rice Rule"}, {"disabled": 71, "values": [{"y": 1, "x": 0.0037469863891601562}, {"y": 0, "x": 0.0037469863891601562}], "key": "ovn_network.wait_port_up (23)", "view": "Rice Rule"}, {"disabled": 72, "values": [{"y": 1, "x": 102.4726128578186}, {"y": 0, "x": 102.4726128578186}], "key": "ovn.create_lport (24)", "view": "Rice Rule"}, {"disabled": 73, "values": [{"y": 1, "x": 267.3948678970337}, {"y": 0, "x": 267.3948678970337}], "key": "ovn_network.bind_port (24)", "view": "Rice Rule"}, {"disabled": 74, "values": [{"y": 1, "x": 0.003984928131103516}, {"y": 0, "x": 0.003984928131103516}], "key": "ovn_network.wait_port_up (24)", "view": "Rice Rule"}, {"disabled": 75, "values": [{"y": 1, "x": 175.87228202819824}, {"y": 0, "x": 175.87228202819824}], "key": "ovn.create_lport (25)", "view": "Rice Rule"}, {"disabled": 76, "values": [{"y": 1, "x": 283.84776616096497}, {"y": 0, "x": 283.84776616096497}], "key": "ovn_network.bind_port (25)", "view": "Rice Rule"}, {"disabled": 77, "values": [{"y": 1, "x": 0.003997087478637695}, {"y": 0, "x": 0.003997087478637695}], "key": "ovn_network.wait_port_up (25)", "view": "Rice Rule"}, {"disabled": 78, "values": [{"y": 1, "x": 288.87816190719604}, {"y": 0, "x": 288.87816190719604}], "key": "ovn.create_lport (26)", "view": "Rice Rule"}, {"disabled": 79, "values": [{"y": 1, "x": 170.03152084350586}, {"y": 0, "x": 170.03152084350586}], "key": "ovn_network.bind_port (26)", "view": "Rice Rule"}, {"disabled": 80, "values": [{"y": 1, "x": 0.004639863967895508}, {"y": 0, "x": 0.004639863967895508}], "key": "ovn_network.wait_port_up (26)", "view": "Rice Rule"}, {"disabled": 81, "values": [{"y": 1, "x": 5.4887659549713135}, {"y": 0, "x": 5.4887659549713135}], "key": "ovn.create_lport (27)", "view": "Rice Rule"}, {"disabled": 82, "values": [{"y": 1, "x": 197.9663999080658}, {"y": 0, "x": 197.9663999080658}], "key": "ovn_network.bind_port (27)", "view": "Rice Rule"}, {"disabled": 83, "values": [{"y": 1, "x": 0.0037789344787597656}, {"y": 0, "x": 0.0037789344787597656}], "key": "ovn_network.wait_port_up (27)", "view": "Rice Rule"}, {"disabled": 84, "values": [{"y": 1, "x": 125.23886895179749}, {"y": 0, "x": 125.23886895179749}], "key": "ovn.create_lport (28)", "view": "Rice Rule"}, {"disabled": 85, "values": [{"y": 1, "x": 255.81774711608887}, {"y": 0, "x": 255.81774711608887}], "key": "ovn_network.bind_port (28)", "view": "Rice Rule"}, {"disabled": 86, "values": [{"y": 1, "x": 0.003824949264526367}, {"y": 0, "x": 0.003824949264526367}], "key": "ovn_network.wait_port_up (28)", "view": "Rice Rule"}, {"disabled": 87, "values": [{"y": 1, "x": 207.00659203529358}, {"y": 0, "x": 207.00659203529358}], "key": "ovn.create_lport (29)", "view": "Rice Rule"}, {"disabled": 88, "values": [{"y": 1, "x": 269.0361819267273}, {"y": 0, "x": 269.0361819267273}], "key": "ovn_network.bind_port (29)", "view": "Rice Rule"}, {"disabled": 89, "values": [{"y": 1, "x": 0.003876924514770508}, {"y": 0, "x": 0.003876924514770508}], "key": "ovn_network.wait_port_up (29)", "view": "Rice Rule"}, {"disabled": 90, "values": [{"y": 1, "x": 237.47775983810425}, {"y": 0, "x": 237.47775983810425}], "key": "ovn.create_lport (30)", "view": "Rice Rule"}, {"disabled": 91, "values": [{"y": 1, "x": 284.1290509700775}, {"y": 0, "x": 284.1290509700775}], "key": "ovn_network.bind_port (30)", "view": "Rice Rule"}, {"disabled": 92, "values": [{"y": 1, "x": 0.0035669803619384766}, {"y": 0, "x": 0.0035669803619384766}], "key": "ovn_network.wait_port_up (30)", "view": "Rice Rule"}, {"disabled": 93, "values": [{"y": 1, "x": 306.8910129070282}, {"y": 0, "x": 306.8910129070282}], "key": "ovn.create_lport (31)", "view": "Rice Rule"}, {"disabled": 94, "values": [{"y": 1, "x": 171.54769706726074}, {"y": 0, "x": 171.54769706726074}], "key": "ovn_network.bind_port (31)", "view": "Rice Rule"}, {"disabled": 95, "values": [{"y": 1, "x": 0.0035059452056884766}, {"y": 0, "x": 0.0035059452056884766}], "key": "ovn_network.wait_port_up (31)", "view": "Rice Rule"}, {"disabled": 96, "values": [{"y": 1, "x": 71.63735103607178}, {"y": 0, "x": 71.63735103607178}], "key": "ovn.create_lport (32)", "view": "Rice Rule"}, {"disabled": 97, "values": [{"y": 1, "x": 201.84365916252136}, {"y": 0, "x": 201.84365916252136}], "key": "ovn_network.bind_port (32)", "view": "Rice Rule"}, {"disabled": 98, "values": [{"y": 1, "x": 0.0036139488220214844}, {"y": 0, "x": 0.0036139488220214844}], "key": "ovn_network.wait_port_up (32)", "view": "Rice Rule"}, {"disabled": 99, "values": [{"y": 1, "x": 145.71185302734375}, {"y": 0, "x": 145.71185302734375}], "key": "ovn.create_lport (33)", "view": "Rice Rule"}, {"disabled": 100, "values": [{"y": 1, "x": 257.23582196235657}, {"y": 0, "x": 257.23582196235657}], "key": "ovn_network.bind_port (33)", "view": "Rice Rule"}, {"disabled": 101, "values": [{"y": 1, "x": 0.0036301612854003906}, {"y": 0, "x": 0.0036301612854003906}], "key": "ovn_network.wait_port_up (33)", "view": "Rice Rule"}, {"disabled": 102, "values": [{"y": 1, "x": 176.58699107170105}, {"y": 0, "x": 176.58699107170105}], "key": "ovn.create_lport (34)", "view": "Rice Rule"}, {"disabled": 103, "values": [{"y": 1, "x": 267.21676898002625}, {"y": 0, "x": 267.21676898002625}], "key": "ovn_network.bind_port (34)", "view": "Rice Rule"}, {"disabled": 104, "values": [{"y": 1, "x": 0.0036377906799316406}, {"y": 0, "x": 0.0036377906799316406}], "key": "ovn_network.wait_port_up (34)", "view": "Rice Rule"}, {"disabled": 105, "values": [{"y": 1, "x": 237.6494140625}, {"y": 0, "x": 237.6494140625}], "key": "ovn.create_lport (35)", "view": "Rice Rule"}, {"disabled": 106, "values": [{"y": 1, "x": 280.8315451145172}, {"y": 0, "x": 280.8315451145172}], "key": "ovn_network.bind_port (35)", "view": "Rice Rule"}, {"disabled": 107, "values": [{"y": 1, "x": 0.0035228729248046875}, {"y": 0, "x": 0.0035228729248046875}], "key": "ovn_network.wait_port_up (35)", "view": "Rice Rule"}, {"disabled": 108, "values": [{"y": 1, "x": 320.2431709766388}, {"y": 0, "x": 320.2431709766388}], "key": "ovn.create_lport (36)", "view": "Rice Rule"}, {"disabled": 109, "values": [{"y": 1, "x": 173.888081073761}, {"y": 0, "x": 173.888081073761}], "key": "ovn_network.bind_port (36)", "view": "Rice Rule"}, {"disabled": 110, "values": [{"y": 1, "x": 0.0038611888885498047}, {"y": 0, "x": 0.0038611888885498047}], "key": "ovn_network.wait_port_up (36)", "view": "Rice Rule"}, {"disabled": 111, "values": [{"y": 1, "x": 70.7370297908783}, {"y": 0, "x": 70.7370297908783}], "key": "ovn.create_lport (37)", "view": "Rice Rule"}, {"disabled": 112, "values": [{"y": 1, "x": 204.85632610321045}, {"y": 0, "x": 204.85632610321045}], "key": "ovn_network.bind_port (37)", "view": "Rice Rule"}, {"disabled": 113, "values": [{"y": 1, "x": 0.003938913345336914}, {"y": 0, "x": 0.003938913345336914}], "key": "ovn_network.wait_port_up (37)", "view": "Rice Rule"}, {"disabled": 114, "values": [{"y": 1, "x": 134.25931906700134}, {"y": 0, "x": 134.25931906700134}], "key": "ovn.create_lport (38)", "view": "Rice Rule"}, {"disabled": 115, "values": [{"y": 1, "x": 257.74821186065674}, {"y": 0, "x": 257.74821186065674}], "key": "ovn_network.bind_port (38)", "view": "Rice Rule"}, {"disabled": 116, "values": [{"y": 1, "x": 0.0036590099334716797}, {"y": 0, "x": 0.0036590099334716797}], "key": "ovn_network.wait_port_up (38)", "view": "Rice Rule"}, {"disabled": 117, "values": [{"y": 1, "x": 253.21281719207764}, {"y": 0, "x": 253.21281719207764}], "key": "ovn.create_lport (39)", "view": "Rice Rule"}, {"disabled": 118, "values": [{"y": 1, "x": 270.55731892585754}, {"y": 0, "x": 270.55731892585754}], "key": "ovn_network.bind_port (39)", "view": "Rice Rule"}, {"disabled": 119, "values": [{"y": 1, "x": 0.003567934036254883}, {"y": 0, "x": 0.003567934036254883}], "key": "ovn_network.wait_port_up (39)", "view": "Rice Rule"}, {"disabled": 120, "values": [{"y": 1, "x": 278.4603040218353}, {"y": 0, "x": 278.4603040218353}], "key": "ovn.create_lport (40)", "view": "Rice Rule"}, {"disabled": 121, "values": [{"y": 1, "x": 298.4744830131531}, {"y": 0, "x": 298.4744830131531}], "key": "ovn_network.bind_port (40)", "view": "Rice Rule"}, {"disabled": 122, "values": [{"y": 1, "x": 0.004136800765991211}, {"y": 0, "x": 0.004136800765991211}], "key": "ovn_network.wait_port_up (40)", "view": "Rice Rule"}]], "views": [{"id": 0, "name": "Square Root Choice"}, {"id": 1, "name": "Sturges Formula"}, {"id": 2, "name": "Rice Rule"}]}}, "iterations": {"pie": [["success", 1], ["errors", 0]], "iter": [["duration", [[1, 13150.17700600624]]], ["idle_duration", [[1, 0]]]], "histogram": {"data": [[{"disabled": null, "values": [{"y": 1, "x": 13150.17700600624}], "key": "task", "view": "Square Root Choice"}], [{"disabled": null, "values": [{"y": 1, "x": 13150.17700600624}], "key": "task", "view": "Sturges Formula"}], [{"disabled": null, "values": [{"y": 1, "x": 13150.17700600624}, {"y": 0, "x": 13150.17700600624}], "key": "task", "view": "Rice Rule"}]], "views": [{"id": 0, "name": "Square Root Choice"}, {"id": 1, "name": "Sturges Formula"}, {"id": 2, "name": "Rice Rule"}]}}, "additive_output": [], "table": {"rows": [["ovn_network.create_routers", 0.583, 0.583, 0.583, 0.583, 0.583, 0.583, "100.0%", 1], ["ovn_network.create_network", 1.902, 1.902, 1.902, 1.902, 1.902, 1.902, "100.0%", 1], ["ovn.create_lswitch", 1.901, 1.901, 1.901, 1.901, 1.901, 1.901, "100.0%", 1], ["ovn.create_lport", 0.189, 0.189, 0.189, 0.189, 0.189, 0.189, "100.0%", 1], ["ovn_network.bind_port", 177.492, 177.492, 177.492, 177.492, 177.492, 177.492, "100.0%", 1], ["ovn_network.wait_port_up", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (2)", 0.204, 0.204, 0.204, 0.204, 0.204, 0.204, "100.0%", 1], ["ovn_network.bind_port (2)", 184.952, 184.952, 184.952, 184.952, 184.952, 184.952, "100.0%", 1], ["ovn_network.wait_port_up (2)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (3)", 0.237, 0.237, 0.237, 0.237, 0.237, 0.237, "100.0%", 1], ["ovn_network.bind_port (3)", 214.343, 214.343, 214.343, 214.343, 214.343, 214.343, "100.0%", 1], ["ovn_network.wait_port_up (3)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (4)", 0.266, 0.266, 0.266, 0.266, 0.266, 0.266, "100.0%", 1], ["ovn_network.bind_port (4)", 243.246, 243.246, 243.246, 243.246, 243.246, 243.246, "100.0%", 1], ["ovn_network.wait_port_up (4)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (5)", 0.676, 0.676, 0.676, 0.676, 0.676, 0.676, "100.0%", 1], ["ovn_network.bind_port (5)", 264.681, 264.681, 264.681, 264.681, 264.681, 264.681, "100.0%", 1], ["ovn_network.wait_port_up (5)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (6)", 0.973, 0.973, 0.973, 0.973, 0.973, 0.973, "100.0%", 1], ["ovn_network.bind_port (6)", 168.324, 168.324, 168.324, 168.324, 168.324, 168.324, "100.0%", 1], ["ovn_network.wait_port_up (6)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (7)", 0.388, 0.388, 0.388, 0.388, 0.388, 0.388, "100.0%", 1], ["ovn_network.bind_port (7)", 180.882, 180.882, 180.882, 180.882, 180.882, 180.882, "100.0%", 1], ["ovn_network.wait_port_up (7)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (8)", 0.953, 0.953, 0.953, 0.953, 0.953, 0.953, "100.0%", 1], ["ovn_network.bind_port (8)", 226.048, 226.048, 226.048, 226.048, 226.048, 226.048, "100.0%", 1], ["ovn_network.wait_port_up (8)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (9)", 27.44, 27.44, 27.44, 27.44, 27.44, 27.44, "100.0%", 1], ["ovn_network.bind_port (9)", 257.127, 257.127, 257.127, 257.127, 257.127, 257.127, "100.0%", 1], ["ovn_network.wait_port_up (9)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (10)", 0.804, 0.804, 0.804, 0.804, 0.804, 0.804, "100.0%", 1], ["ovn_network.bind_port (10)", 278.048, 278.048, 278.048, 278.048, 278.048, 278.048, "100.0%", 1], ["ovn_network.wait_port_up (10)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (11)", 2.413, 2.413, 2.413, 2.413, 2.413, 2.413, "100.0%", 1], ["ovn_network.bind_port (11)", 168.473, 168.473, 168.473, 168.473, 168.473, 168.473, "100.0%", 1], ["ovn_network.wait_port_up (11)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (12)", 2.414, 2.414, 2.414, 2.414, 2.414, 2.414, "100.0%", 1], ["ovn_network.bind_port (12)", 192.305, 192.305, 192.305, 192.305, 192.305, 192.305, "100.0%", 1], ["ovn_network.wait_port_up (12)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (13)", 1.305, 1.305, 1.305, 1.305, 1.305, 1.305, "100.0%", 1], ["ovn_network.bind_port (13)", 240.447, 240.447, 240.447, 240.447, 240.447, 240.447, "100.0%", 1], ["ovn_network.wait_port_up (13)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (14)", 59.281, 59.281, 59.281, 59.281, 59.281, 59.281, "100.0%", 1], ["ovn_network.bind_port (14)", 262.324, 262.324, 262.324, 262.324, 262.324, 262.324, "100.0%", 1], ["ovn_network.wait_port_up (14)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (15)", 62.612, 62.612, 62.612, 62.612, 62.612, 62.612, "100.0%", 1], ["ovn_network.bind_port (15)", 274.936, 274.936, 274.936, 274.936, 274.936, 274.936, "100.0%", 1], ["ovn_network.wait_port_up (15)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (16)", 59.16, 59.16, 59.16, 59.16, 59.16, 59.16, "100.0%", 1], ["ovn_network.bind_port (16)", 168.737, 168.737, 168.737, 168.737, 168.737, 168.737, "100.0%", 1], ["ovn_network.wait_port_up (16)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (17)", 20.052, 20.052, 20.052, 20.052, 20.052, 20.052, "100.0%", 1], ["ovn_network.bind_port (17)", 193.35, 193.35, 193.35, 193.35, 193.35, 193.35, "100.0%", 1], ["ovn_network.wait_port_up (17)", 0.003, 0.003, 0.003, 0.003, 0.003, 0.003, "100.0%", 1], ["ovn.create_lport (18)", 3.129, 3.129, 3.129, 3.129, 3.129, 3.129, "100.0%", 1], ["ovn_network.bind_port (18)", 250.419, 250.419, 250.419, 250.419, 250.419, 250.419, "100.0%", 1], ["ovn_network.wait_port_up (18)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (19)", 102.772, 102.772, 102.772, 102.772, 102.772, 102.772, "100.0%", 1], ["ovn_network.bind_port (19)", 263.586, 263.586, 263.586, 263.586, 263.586, 263.586, "100.0%", 1], ["ovn_network.wait_port_up (19)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (20)", 179.752, 179.752, 179.752, 179.752, 179.752, 179.752, "100.0%", 1], ["ovn_network.bind_port (20)", 285.114, 285.114, 285.114, 285.114, 285.114, 285.114, "100.0%", 1], ["ovn_network.wait_port_up (20)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (21)", 185.762, 185.762, 185.762, 185.762, 185.762, 185.762, "100.0%", 1], ["ovn_network.bind_port (21)", 169.045, 169.045, 169.045, 169.045, 169.045, 169.045, "100.0%", 1], ["ovn_network.wait_port_up (21)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (22)", 5.223, 5.223, 5.223, 5.223, 5.223, 5.223, "100.0%", 1], ["ovn_network.bind_port (22)", 199.185, 199.185, 199.185, 199.185, 199.185, 199.185, "100.0%", 1], ["ovn_network.wait_port_up (22)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (23)", 60.055, 60.055, 60.055, 60.055, 60.055, 60.055, "100.0%", 1], ["ovn_network.bind_port (23)", 252.048, 252.048, 252.048, 252.048, 252.048, 252.048, "100.0%", 1], ["ovn_network.wait_port_up (23)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (24)", 102.473, 102.473, 102.473, 102.473, 102.473, 102.473, "100.0%", 1], ["ovn_network.bind_port (24)", 267.395, 267.395, 267.395, 267.395, 267.395, 267.395, "100.0%", 1], ["ovn_network.wait_port_up (24)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (25)", 175.872, 175.872, 175.872, 175.872, 175.872, 175.872, "100.0%", 1], ["ovn_network.bind_port (25)", 283.848, 283.848, 283.848, 283.848, 283.848, 283.848, "100.0%", 1], ["ovn_network.wait_port_up (25)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (26)", 288.878, 288.878, 288.878, 288.878, 288.878, 288.878, "100.0%", 1], ["ovn_network.bind_port (26)", 170.032, 170.032, 170.032, 170.032, 170.032, 170.032, "100.0%", 1], ["ovn_network.wait_port_up (26)", 0.005, 0.005, 0.005, 0.005, 0.005, 0.005, "100.0%", 1], ["ovn.create_lport (27)", 5.489, 5.489, 5.489, 5.489, 5.489, 5.489, "100.0%", 1], ["ovn_network.bind_port (27)", 197.966, 197.966, 197.966, 197.966, 197.966, 197.966, "100.0%", 1], ["ovn_network.wait_port_up (27)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (28)", 125.239, 125.239, 125.239, 125.239, 125.239, 125.239, "100.0%", 1], ["ovn_network.bind_port (28)", 255.818, 255.818, 255.818, 255.818, 255.818, 255.818, "100.0%", 1], ["ovn_network.wait_port_up (28)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (29)", 207.007, 207.007, 207.007, 207.007, 207.007, 207.007, "100.0%", 1], ["ovn_network.bind_port (29)", 269.036, 269.036, 269.036, 269.036, 269.036, 269.036, "100.0%", 1], ["ovn_network.wait_port_up (29)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (30)", 237.478, 237.478, 237.478, 237.478, 237.478, 237.478, "100.0%", 1], ["ovn_network.bind_port (30)", 284.129, 284.129, 284.129, 284.129, 284.129, 284.129, "100.0%", 1], ["ovn_network.wait_port_up (30)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (31)", 306.891, 306.891, 306.891, 306.891, 306.891, 306.891, "100.0%", 1], ["ovn_network.bind_port (31)", 171.548, 171.548, 171.548, 171.548, 171.548, 171.548, "100.0%", 1], ["ovn_network.wait_port_up (31)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (32)", 71.637, 71.637, 71.637, 71.637, 71.637, 71.637, "100.0%", 1], ["ovn_network.bind_port (32)", 201.844, 201.844, 201.844, 201.844, 201.844, 201.844, "100.0%", 1], ["ovn_network.wait_port_up (32)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (33)", 145.712, 145.712, 145.712, 145.712, 145.712, 145.712, "100.0%", 1], ["ovn_network.bind_port (33)", 257.236, 257.236, 257.236, 257.236, 257.236, 257.236, "100.0%", 1], ["ovn_network.wait_port_up (33)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (34)", 176.587, 176.587, 176.587, 176.587, 176.587, 176.587, "100.0%", 1], ["ovn_network.bind_port (34)", 267.217, 267.217, 267.217, 267.217, 267.217, 267.217, "100.0%", 1], ["ovn_network.wait_port_up (34)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (35)", 237.649, 237.649, 237.649, 237.649, 237.649, 237.649, "100.0%", 1], ["ovn_network.bind_port (35)", 280.832, 280.832, 280.832, 280.832, 280.832, 280.832, "100.0%", 1], ["ovn_network.wait_port_up (35)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (36)", 320.243, 320.243, 320.243, 320.243, 320.243, 320.243, "100.0%", 1], ["ovn_network.bind_port (36)", 173.888, 173.888, 173.888, 173.888, 173.888, 173.888, "100.0%", 1], ["ovn_network.wait_port_up (36)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (37)", 70.737, 70.737, 70.737, 70.737, 70.737, 70.737, "100.0%", 1], ["ovn_network.bind_port (37)", 204.856, 204.856, 204.856, 204.856, 204.856, 204.856, "100.0%", 1], ["ovn_network.wait_port_up (37)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (38)", 134.259, 134.259, 134.259, 134.259, 134.259, 134.259, "100.0%", 1], ["ovn_network.bind_port (38)", 257.748, 257.748, 257.748, 257.748, 257.748, 257.748, "100.0%", 1], ["ovn_network.wait_port_up (38)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (39)", 253.213, 253.213, 253.213, 253.213, 253.213, 253.213, "100.0%", 1], ["ovn_network.bind_port (39)", 270.557, 270.557, 270.557, 270.557, 270.557, 270.557, "100.0%", 1], ["ovn_network.wait_port_up (39)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["ovn.create_lport (40)", 278.46, 278.46, 278.46, 278.46, 278.46, 278.46, "100.0%", 1], ["ovn_network.bind_port (40)", 298.474, 298.474, 298.474, 298.474, 298.474, 298.474, "100.0%", 1], ["ovn_network.wait_port_up (40)", 0.004, 0.004, 0.004, 0.004, 0.004, 0.004, "100.0%", 1], ["total", 13150.177, 13150.177, 13150.177, 13150.177, 13150.177, 13150.177, "100.0%", 1]], "cols": ["Action", "Min (sec)", "Median (sec)", "90%ile (sec)", "95%ile (sec)", "Max (sec)", "Avg (sec)", "Success", "Count"]}, "full_duration": 13150.303462028503, "config": "{\n  \"OvnNetwork.create_routers_bind_ports\": [\n    {\n      \"runner\": {\n        \"type\": \"serial\", \n        \"times\": 1\n      }, \n      \"args\": {\n        \"port_create_args\": {\n          \"batch\": 100\n        }, \n        \"router_create_args\": {\n          \"amount\": 8, \n          \"batch\": 1\n        }, \n        \"network_create_args\": {\n          \"start_cidr\": \"172.145.1.0/24\", \n          \"batch\": 1\n        }, \n        \"networks_per_router\": 5, \n        \"ports_per_network\": 250, \n        \"port_bind_args\": {\n          \"wait_up\": true, \n          \"wait_sync\": \"none\"\n        }\n      }, \n      \"context\": {\n        \"sandbox\": {}, \n        \"ovn_multihost\": {\n          \"controller\": \"ovn-overlay-controller-node\"\n        }\n      }\n    }\n  ]\n}", "sla": [], "complete_output": [[]], "cls": "OvnNetwork"}];
+
+      $scope.location = {
+        /* #/path/hash/sub/div */
+        normalize: function(str) {
+          /* Remove unwanted characters from string */
+          if (typeof str !== "string") { return "" }
+          return str.replace(/[^\w\-\.]/g, "")
+        },
+        uri: function(obj) {
+          /* Getter/Setter */
+          if (! obj) {
+            var uri = {path: "", hash: "", sub: "", div: ""};
+            var arr = ["div", "sub", "hash", "path"];
+            angular.forEach($location.url().split("/"), function(value){
+              var v = $scope.location.normalize(value);
+              if (v) { var k = arr.pop(); if (k) { this[k] = v }}
+            }, uri);
+            return uri
+          }
+          var arr = [obj.path, obj.hash, obj.sub, obj.div], res = [];
+          for (var i in arr) { if (! arr[i]) { break }; res.push(arr[i]) }
+          return $location.url("/" + res.join("/"))
+        },
+        path: function(path, hash) {
+          /* Getter/Setter */
+          if (path === "") { return this.uri({}) }
+          path = this.normalize(path);
+          var uri = this.uri();
+          if (! path) { return uri.path }
+          uri.path = path;
+          var _hash = this.normalize(hash);
+          if (_hash || hash === "") { uri.hash = _hash }
+          return this.uri(uri)
+        },
+        hash: function(hash) {
+          /* Getter/Setter */
+          if (hash) { this.uri({path:this.uri().path, hash:hash}) }
+          return this.uri().hash
+        }
+      }
+
+      /* Dispatch */
+
+      $scope.route = function(uri) {
+        if (! $scope.scenarios_map) { return }
+        if (uri.path in $scope.scenarios_map) {
+          $scope.view = {is_scenario:true};
+          $scope.scenario = $scope.scenarios_map[uri.path];
+          $scope.nav_idx = $scope.nav_map[uri.path];
+          if ($scope.scenario.iterations.histogram.views.length) {
+            $scope.mainHistogram = $scope.scenario.iterations.histogram.views[0]
+          }
+          if ($scope.scenario.atomic.histogram.views.length) {
+            $scope.atomicHistogram = $scope.scenario.atomic.histogram.views[0]
+          }
+          $scope.outputIteration = 0;
+          $scope.showTab(uri);
+        } else {
+          $scope.scenario = null;
+          if (uri.path === "source") {
+            $scope.view = {is_source:true}
+          } else {
+            $scope.view = {is_main:true}
+          }
+        }
+      }
+
+      $scope.$on("$locationChangeSuccess", function (event, newUrl, oldUrl) {
+        $scope.route($scope.location.uri())
+      });
+
+      $scope.showNav = function(nav_idx) { $scope.nav_idx = nav_idx }
+
+      /* Tabs */
+
+      $scope.tabs = [
+        {
+          id: "overview",
+          name: "Overview",
+          visible: function(){ return !! $scope.scenario.iterations.pie.length }
+        },{
+          id: "details",
+          name: "Details",
+          visible: function(){ return !! $scope.scenario.atomic.pie.length }
+        },{
+          id: "output",
+          name: "Scenario Data",
+          visible: function(){ return $scope.scenario.output.length }
+        },{
+          id: "failures",
+          name: "Failures",
+          visible: function(){ return !! $scope.scenario.errors.length }
+        },{
+          id: "task",
+          name: "Input task",
+          visible: function(){ return !! $scope.scenario.config }
+        }
+      ];
+      $scope.tabs_map = {};
+      angular.forEach($scope.tabs,
+                      function(tab){ this[tab.id] = tab }, $scope.tabs_map);
+
+      $scope.showTab = function(uri) {
+        $scope.tab = uri.hash in $scope.tabs_map ? uri.hash : "overview";
+        if (! $scope.scenario.output) {
+          var has_additive = !! $scope.scenario.additive_output.length;
+          var has_complete = !! ($scope.scenario.complete_output.length
+                                 && $scope.scenario.complete_output[0].length);
+          $scope.scenario.output = {
+            has_additive: has_additive,
+            has_complete: has_complete,
+            length: has_additive + has_complete,
+            active: has_additive ? "additive" : (has_complete ? "complete" : "")
+          }
+        }
+        if (uri.hash === "output") {
+          if (uri.sub && $scope.scenario.output["has_" + uri.sub]) {
+            $scope.scenario.output.active = uri.sub
+          }
+        }
+      }
+
+      for (var i in $scope.tabs) {
+        if ($scope.tabs[i].id === $scope.location.hash()) {
+          $scope.tab = $scope.tabs[i].id
+        }
+        $scope.tabs[i].isVisible = function() {
+          if ($scope.scenario) {
+            if (this.visible()) { return true }
+            /* If tab should be hidden but is selected - show another one */
+            if (this.id === $scope.location.hash()) {
+              for (var i in $scope.tabs) {
+                var tab = $scope.tabs[i];
+                if (tab.id != this.id && tab.visible()) {
+                  $scope.tab = tab.id;
+                  return false
+                }
+              }
+            }
+          }
+          return false
+        }
+      }
+
+      $scope.showError = function(message) {
+          return (function (e) {
+            e.style.display = "block";
+            e.textContent = message
+          })(document.getElementById("page-error"))
+      }
+
+      /* Initialization */
+
+      angular.element(document).ready(function(){
+        if (! $scope.scenarios.length) {
+          return $scope.showError("No data...")
+        }
+
+        /* Compose data mapping */
+
+        $scope.nav = [];
+        $scope.nav_map = {};
+        $scope.scenarios_map = {};
+        var met = [], itr = 0, cls_idx = 0;
+        var prev_cls, prev_met;
+
+        for (var idx in $scope.scenarios) {
+          var sc = $scope.scenarios[idx];
+          if (! prev_cls) {
+            prev_cls = sc.cls
+          }
+          else if (prev_cls !== sc.cls) {
+            $scope.nav.push({cls:prev_cls, met:met, idx:cls_idx});
+            prev_cls = sc.cls;
+            met = [];
+            itr = 1;
+            cls_idx += 1
+          }
+
+          if (prev_met !== sc.met) { itr = 1 };
+          sc.ref = $scope.location.normalize(sc.cls+"."+sc.met+(itr > 1 ? "-"+itr : ""));
+          $scope.scenarios_map[sc.ref] = sc;
+          $scope.nav_map[sc.ref] = cls_idx;
+          met.push({name:sc.name, itr:itr, idx:idx, ref:sc.ref});
+          prev_met = sc.met;
+          itr += 1;
+        }
+
+        if (met.length) {
+          $scope.nav.push({cls:prev_cls, met:met, idx:cls_idx})
+        }
+
+        /* Start */
+
+        var uri = $scope.location.uri();
+        uri.path = $scope.location.path();
+        $scope.route(uri);
+        $scope.$digest()
+      });
+    }])
+    .directive("widget", function($compile) {
+
+      var Chart = {
+        _render: function(node, data, chart){
+          nv.addGraph(function() {
+            d3.select(node).datum(data).transition().duration(0).call(chart);
+            nv.utils.windowResize(chart.update)
+          })
+        },
+        /* NOTE(amaretskiy): this is actually a result of
+           d3.scale.category20().range(), excluding red color (#d62728)
+           which is reserved for errors */
+        _colors: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c",
+                  "#98df8a", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b",
+                  "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7",
+                  "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"],
+        _widgets: {
+          Pie: "pie",
+          StackedArea: "stack",
+          Histogram: "histogram"
+        },
+        get_chart: function(widget) {
+          if (widget in this._widgets) {
+            var name = this._widgets[widget];
+            return Chart[name]
+          }
+          return function() { console.log("Error: unexpected widget:", widget) }
+        },
+        pie: function(node, data) {
+          var chart = nv.models.pieChart()
+            .x(function(d) { return d.key })
+            .y(function(d) { return d.values })
+            .showLabels(true)
+            .labelType("percent")
+            .donut(true)
+            .donutRatio(0.25)
+            .donutLabelsOutside(true)
+            .color(function(d){
+              if (d.data && d.data.color) { return d.data.color }
+            });
+
+          var data_ = [], colors = [], colors_map = {errors: "#d62728"};
+          for (var i in data) {
+            var key = data[i][0];
+            if (! (key in colors_map)) {
+              if (! colors.length) { colors = Chart._colors.slice() }
+              colors_map[key] = colors.shift()
+            }
+            data_.push({key:key, values:data[i][1], color:colors_map[key]})
+          }
+          Chart._render(node, data_, chart)
+        },
+        stack: function(node, data, opts) {
+          var chart = nv.models.stackedAreaChart()
+            .x(function(d) { return d[0] })
+            .y(function(d) { return d[1] })
+            .useInteractiveGuideline(opts.guide)
+            .showControls(opts.controls)
+            .clipEdge(true);
+          chart.xAxis
+            .tickFormat(d3.format(opts.xformat || "d"))
+            .axisLabel(opts.xname || "")
+            .showMaxMin(false);
+          chart.yAxis
+            .tickFormat(d3.format(opts.yformat || ",.3f"))
+            .axisLabel(opts.yname || "");
+          var data_ = [];
+          for (var i in data) {
+            var d = {key:data[i][0], values:data[i][1]};
+            if (d.key === "failed_duration") {
+              d.color = "#d62728"
+            }
+            data_.push(d)
+          }
+          Chart._render(node, data_, chart)
+        },
+        histogram: function(node, data) {
+          var chart = nv.models.multiBarChart()
+            .reduceXTicks(true)
+            .showControls(false)
+            .transitionDuration(0)
+            .groupSpacing(0.05);
+          chart
+            .legend.radioButtonMode(true);
+          chart.xAxis
+            .axisLabel("Duration (seconds)")
+            .tickFormat(d3.format(",.2f"));
+          chart.yAxis
+            .axisLabel("Iterations (frequency)")
+            .tickFormat(d3.format("d"));
+          Chart._render(node, data, chart)
+        }
+      };
+
+      return {
+        restrict: "A",
+        scope: { data: "=" },
+        link: function(scope, element, attrs) {
+          scope.$watch("data", function(data) {
+            if (! data) { return console.log("Chart has no data to render!") }
+            if (attrs.widget === "Table") {
+              var ng_class = attrs.lastrowClass ? " ng-class='{"+attrs.lastrowClass+":$last}'" : "";
+              var template = "<table class='striped'><thead>" +
+                "<tr><th ng-repeat='i in data.cols track by $index'>{{i}}<tr>" +
+                "</thead><tbody>" +
+                "<tr" + ng_class + " ng-repeat='row in data.rows track by $index'>" +
+                "<td ng-repeat='i in row track by $index'>{{i}}" +
+                "<tr>" +
+                "</tbody></table>";
+              var el = element.empty().append($compile(template)(scope)).children()[0]
+            } else {
+              /* Hide widget if not enough data */
+              if (attrs.widget === "StackedArea") {
+                if ((! data.length) || (data[0].length < 1) || (data[0][1].length < 2)) {
+                  return element.empty().css({display:"none"})
+                }
+              }
+              else if (attrs.widget === "Pie") {
+                if (! data.length) {
+                  return element.empty().css({display:"none"})
+                }
+              }
+
+              var options = {
+                xname: attrs.nameX || "",
+                yname: attrs.nameY || "",
+                xformat: attrs.formatX || "d",
+                yformat: attrs.formatY || ",.3f",
+                controls: attrs.controls === "true",
+                guide: attrs.guide === "true"
+              };
+              var el = element.addClass("chart").css({display:"block"}).html("<svg></svg>").children()[0];
+              Chart.get_chart(attrs.widget)(el, data, options)
+            }
+
+            if (attrs.description) {
+              var desc_el = angular.element("<div>").addClass(attrs.descriptionClass || "h3").text(attrs.description);
+              angular.element(el).parent().prepend(desc_el)
+            }
+
+            if (attrs.title) {
+              var title_el = angular.element("<div>").addClass(attrs.titleClass || "h2").text(attrs.title);
+              angular.element(el).parent().prepend(title_el)
+            }
+          });
+        }
+      }
+    })
+  }
+
+</script>
+  <style>
+    body { margin:0; padding:0 0 50px; font-size:14px; font-family:Helvetica,Arial,sans-serif }
+    a, a:active, a:focus, a:visited { text-decoration:none; outline:none }
+    p { margin:0; padding:5px 0 }
+    p.thesis { padding:10px 0 }
+    h1 { color:#666; margin:0 0 20px; font-size:30px; font-weight:normal }
+    h2, .h2 { color:#666; margin:24px 0 6px; font-size:25px; font-weight:normal }
+    h3, .h3 { color:#777; margin:12px 0 4px; font-size:18px; font-weight:normal }
+    table { border-collapse:collapse; border-spacing:0; width:100%; font-size:12px; margin:0 0 10px }
+    table th { text-align:left; padding:8px; color:#000; border:2px solid #ddd; border-width:0 0 2px 0 }
+    table th.sortable { cursor:pointer }
+    table td { text-align:left; border-top:1px solid #ddd; padding:8px; color:#333 }
+    table.compact td { padding:4px 8px }
+    table.striped tr:nth-child(odd) td { background:#f9f9f9 }
+    table.linked tbody tr:hover { background:#f9f9f9; cursor:pointer }
+    .rich, .rich td { font-weight:bold }
+    .code { padding:10px; font-size:13px; color:#333; background:#f6f6f6; border:1px solid #e5e5e5; border-radius:4px }
+
+    .header { text-align:left; background:#333; font-size:18px; padding:13px 0; margin-bottom:20px; color:#fff; background-image:linear-gradient(to bottom, #444 0px, #222 100%) }
+    .header a, .header a:visited, .header a:focus { color:#999 }
+
+    .notify-error { padding:5px 10px; background:#fee; color:red }
+    .status-skip, .status-skip td { color:grey }
+    .status-pass, .status-pass td { color:green }
+    .status-fail, .status-fail td { color:red }
+    .capitalize { text-transform:capitalize }
+    
+    .aside { margin:0 20px 0 0; display:block; width:255px; float:left }
+    .aside > div { margin-bottom: 15px }
+    .aside > div div:first-child { border-top-left-radius:4px; border-top-right-radius:4px }
+    .aside > div div:last-child { border-bottom-left-radius:4px; border-bottom-right-radius:4px }
+    .navcls { color:#678; background:#eee; border:1px solid #ddd; margin-bottom:-1px; display:block; padding:8px 9px; font-weight:bold; text-align:left; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; cursor:pointer }
+    .navcls.expanded { color:#469 }
+    .navcls.active { background:#428bca; background-image:linear-gradient(to bottom, #428bca 0px, #3278b3 100%); border-color:#3278b3; color:#fff }
+    .navmet { color:#555; background:#fff; border:1px solid #ddd; font-size:12px; display:block; margin-bottom:-1px; padding:8px 10px; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; cursor:pointer }
+    .navmet:hover { background:#f8f8f8 }
+    .navmet.active, .navmet.active:hover { background:#428bca; background-image:linear-gradient(to bottom, #428bca 0px, #3278b3 100%); border-color:#3278b3; color:#fff }
+
+    .tabs { list-style:outside none none; margin:0 0 5px; padding:0; border-bottom:1px solid #ddd }
+    .tabs:after { clear:both }
+    .tabs li { float:left; margin-bottom:-1px; display:block; position:relative }
+    .tabs li div { border:1px solid transparent; border-radius:4px 4px 0 0; line-height:20px; margin-right:2px; padding:10px 15px; color:#428bca }
+    .tabs li div:hover { border-color:#eee #eee #ddd; background:#eee; cursor:pointer; }
+    .tabs li.active div { background:#fff; border-color:#ddd #ddd transparent; border-style:solid; border-width:1px; color:#555; cursor:default }
+    .failure-mesg { color:#900 }
+    .failure-trace { color:#333; white-space:pre; overflow:auto }
+
+    .link { color:#428BCA; padding:5px 15px 5px 5px; text-decoration:underline; cursor:pointer }
+    .link.active { color:#333; text-decoration:none }
+
+    .chart { padding:0; margin:0 }
+    .chart svg { height:300px; padding:0; margin:0 }
+    .chart.lower svg { height:180px }
+
+    .expandable { cursor:pointer }
+    .clearfix { clear:both }
+    .sortable > .arrow { display:inline-block; width:12px; height:inherit; color:#c90 }
+    .content-main { margin:0 5px; display:block; float:left }
+
+    .content-wrap {  margin:0 auto; padding:0 5px </%block>}
+    
+    @media only screen and (min-width: 320px)  { .content-wrap { width:900px  } .content-main { width:600px } }
+    @media only screen and (min-width: 900px)  { .content-wrap { width:880px  } .content-main { width:590px } }
+    @media only screen and (min-width: 1000px) { .content-wrap { width:980px  } .content-main { width:690px } }
+    @media only screen and (min-width: 1100px) { .content-wrap { width:1080px } .content-main { width:790px } }
+    @media only screen and (min-width: 1200px) { .content-wrap { width:1180px } .content-main { width:890px } }
+
+  </style>
+</head>
+<body ng-controller="TaskController">
+
+  <div class="header">
+    <div class="content-wrap">
+      <a href="https://github.com/openstack/rally">Rally</a>&nbsp;
+      <span>task results</span>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+    
+
+    <p id="page-error" class="notify-error" style="display:none"></p>
+
+    <div id="content-nav" class="aside" ng-show="scenarios.length" ng-cloack>
+      <div>
+        <div class="navcls"
+             ng-class="{active:view.is_main}"
+             ng-click="location.path('')">Task overview</div>
+        <div class="navcls"
+             ng-class="{active:view.is_source}"
+             ng-click="location.path('source', '')">Input file</div>
+      </div>
+      <div>
+        <div class="navcls" title="{{n.cls}}"
+             ng-repeat-start="n in nav track by $index"
+             ng-click="showNav(n.idx)"
+             ng-class="{expanded:n.idx==nav_idx}">
+                <span ng-hide="n.idx==nav_idx">&#9658;</span>
+                <span ng-show="n.idx==nav_idx">&#9660;</span>
+                {{n.cls}}</div>
+        <div class="navmet" title="{{m.name}}"
+             ng-show="n.idx==nav_idx"
+             ng-class="{active:m.ref==scenario.ref}"
+             ng-click="location.path(m.ref)"
+             ng-repeat="m in n.met track by $index"
+             ng-repeat-end>{{m.name}}</div>
+      </div>
+    </div>
+
+    <div id="content-main" class="content-main" ng-show="scenarios.length" ng-cloak>
+
+      <div ng-show="view.is_main">
+        <h1>Task overview</h1>
+        <table class="linked compact"
+               ng-init="ov_srt='ref'; ov_dir=false">
+          <thead>
+            <tr>
+              <th class="sortable"
+                  title="Scenario name, with optional suffix of call number"
+                  ng-click="ov_srt='ref'; ov_dir=!ov_dir">
+                Scenario
+                <span class="arrow">
+                  <b ng-show="ov_srt=='ref' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='ref' && ov_dir">&#x25be;</b>
+                </span>
+              <th class="sortable"
+                  title="How long the scenario run, without context duration"
+                  ng-click="ov_srt='load_duration'; ov_dir=!ov_dir">
+                Load duration (s)
+                <span class="arrow">
+                  <b ng-show="ov_srt=='load_duration' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='load_duration' && ov_dir">&#x25be;</b>
+                </span>
+              <th class="sortable"
+                  title="Scenario duration plus context duration"
+                  ng-click="ov_srt='full_duration'; ov_dir=!ov_dir">
+                Full duration (s)
+                <span class="arrow">
+                  <b ng-show="ov_srt=='full_duration' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='full_duration' && ov_dir">&#x25be;</b>
+                </span>
+              <th class="sortable" title="Number of iterations"
+                  ng-click="ov_srt='iterations_count'; ov_dir=!ov_dir">
+                Iterations
+                <span class="arrow">
+                  <b ng-show="ov_srt=='iterations_count' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='iterations_count' && ov_dir">&#x25be;</b>
+                </span>
+              <th class="sortable" title="Scenario runner type"
+                  ng-click="ov_srt='runner'; ov_dir=!ov_dir">
+                Runner
+                <span class="arrow">
+                  <b ng-show="ov_srt=='runner' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='runner' && ov_dir">&#x25be;</b>
+                </span>
+              <th class="sortable" title="Number of errors occurred"
+                  ng-click="ov_srt='errors.length'; ov_dir=!ov_dir">
+                Errors
+                <span class="arrow">
+                  <b ng-show="ov_srt=='errors.length' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='errors.length' && ov_dir">&#x25be;</b>
+                </span>
+              <th class="sortable" title="Whether SLA check is successful"
+                  ng-click="ov_srt='sla_success'; ov_dir=!ov_dir">
+                Success (SLA)
+                <span class="arrow">
+                  <b ng-show="ov_srt=='sla_success' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='sla_success' && ov_dir">&#x25be;</b>
+                </span>
+            <tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="sc in scenarios | orderBy:ov_srt:ov_dir"
+                ng-click="location.path(sc.ref)">
+              <td>{{sc.ref}}
+              <td>{{sc.load_duration | number:3}}
+              <td>{{sc.full_duration | number:3}}
+              <td>{{sc.iterations_count}}
+              <td>{{sc.runner}}
+              <td>{{sc.errors.length}}
+              <td>
+                <span ng-show="sc.sla_success" class="status-pass">&#x2714;</span>
+                <span ng-hide="sc.sla_success" class="status-fail">&#x2716;</span>
+            <tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div ng-show="view.is_source">
+        <h1>Input file</h1>
+        <pre class="code">{{source}}</pre>
+      </div>
+
+      <div ng-show="view.is_scenario">
+        <h1>{{scenario.cls}}.<wbr>{{scenario.name}} ({{scenario.full_duration | number:3}}s)</h1>
+        <ul class="tabs">
+          <li ng-repeat="t in tabs"
+              ng-show="t.isVisible()"
+              ng-class="{active:t.id == tab}"
+              ng-click="location.hash(t.id)">
+            <div>{{t.name}}</div>
+          </li>
+          <div class="clearfix"></div>
+        </ul>
+        <div ng-include="tab"></div>
+
+        <script type="text/ng-template" id="overview">
+          <p class="thesis">
+            Load duration: <b>{{scenario.load_duration | number:3}} s</b> &nbsp;
+            Full duration: <b>{{scenario.full_duration | number:3}} s</b> &nbsp;
+            Iterations: <b>{{scenario.iterations_count}}</b> &nbsp;
+            Failures: <b>{{scenario.errors.length}}</b>
+          </p>
+
+          <div ng-show="scenario.sla.length">
+            <h2>Service-level agreement</h2>
+            <table class="striped">
+              <thead>
+                <tr>
+                  <th>Criterion
+                  <th>Detail
+                  <th>Success
+                <tr>
+              </thead>
+              <tbody>
+                <tr class="rich"
+                    ng-repeat="row in scenario.sla track by $index"
+                    ng-class="{'status-fail':!row.success, 'status-pass':row.success}">
+                  <td>{{row.criterion}}
+                  <td>{{row.detail}}
+                  <td class="capitalize">{{row.success}}
+                <tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div widget="Table"
+               data="scenario.table"
+               lastrow-class="rich"
+               title="Total durations">
+          </div>
+
+          <div widget="StackedArea"
+               data="scenario.iterations.iter"
+               name-x="Iteration sequence number"
+               controls="true"
+               guide="true">
+          </div>
+
+          <div widget="StackedArea"
+               data="scenario.load_profile"
+               title="Load Profile"
+               title-class="h3"
+               name-x="Timeline (seconds)"
+               format-x=",.2f"
+               class="lower">
+          </div>
+
+          <div widget="Pie"
+               data="scenario.iterations.pie"
+               title="Distribution"
+               title-class="h3"
+               style="float:left; width:40%; margin-top:15px">
+          </div>
+
+          <div widget="Histogram"
+               ng-if="scenario.iterations.histogram.data.length"
+               data="scenario.iterations.histogram.data[mainHistogram.id]"
+               style="float:left; width:59%; margin-top:15px; position:relative; top:40px">
+          </div>
+
+          <select ng-model="mainHistogram"
+                  ng-show="scenario.iterations.histogram.data.length"
+                  ng-options="i.name for i in scenario.iterations.histogram.views track by i.id"
+                  style="float:right; margin:45px 35px 0">
+          </select>
+
+          <div class="clearfix"></div>
+
+        </script>
+
+        <script type="text/ng-template" id="details">
+
+          <div widget="StackedArea"
+               data="scenario.atomic.iter"
+               title="Atomic Action Durations"
+               name-x="Iteration sequence number"
+               controls="true"
+               guide="true">
+          </div>
+
+          <div widget="Pie"
+               data="scenario.atomic.pie"
+               title="Distribution"
+               title-class="h3"
+               style="float:left; width:40%; margin-top:15px">
+          </div>
+
+          <div widget="Histogram" data="scenario.atomic.histogram.data[atomicHistogram.id]"
+               ng-if="scenario.atomic.histogram.data.length"
+               style="float:left; width:59%; margin-top:15px; position:relative; top:40px">
+          </div>
+
+          <select ng-show="scenario.atomic.histogram.data.length"
+                  ng-model="atomicHistogram"
+                  ng-options="i.name for i in scenario.atomic.histogram.views track by i.id"
+                  style="float:right; margin:45px 35px 0">
+          </select>
+
+          <div class="clearfix"></div>
+
+        </script>
+
+        <script type="text/ng-template" id="output">
+
+          <div style="padding:10px 0 0">
+            <span class="link"
+                  ng-click="location.hash('output/additive')"
+                  ng-class="{active:scenario.output.active === 'additive'}"
+                  ng-if="scenario.output.has_additive">Aggregated</span>
+            <span class="link"
+                  ng-click="location.hash('output/complete')"
+                  ng-class="{active:scenario.output.active === 'complete'}"
+                  ng-if="scenario.output.has_complete">Per iteration</span>
+          </div>
+
+          <div ng-repeat="chart in scenario.additive_output"
+               ng-if="scenario.output.active === 'additive'">
+            <div widget="{{chart.widget}}"
+                 title="{{chart.title}}"
+                 description="{{chart.description}}"
+                 data="chart.data">
+            </div>
+          </div>
+
+          <div ng-if="scenario.output.active === 'complete'" style="padding:10px 0 0">
+            <select ng-model="outputIteration">
+              <option ng-repeat="i in scenario.complete_output track by $index"
+                      value="{{$index}}">
+                Iteration {{$index}}
+            </select>
+
+            <div ng-repeat="chart in scenario.complete_output[outputIteration]">
+              <div widget="{{chart.widget}}"
+                   title="{{chart.title}}"
+                   description="{{chart.description}}"
+                   data="chart.data">
+              </div>
+            </div>
+          </div>
+        </script>
+
+        <script type="text/ng-template" id="failures">
+          <h2>Task failures (<ng-pluralize
+            count="scenario.errors.length"
+            when="{'1': '1 iteration', 'other': '{} iterations'}"></ng-pluralize> failed)
+          </h2>
+          <table class="striped">
+            <thead>
+              <tr>
+                <th>
+                <th>Iteration
+                <th>Exception type
+                <th>Exception message
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="expandable"
+                  ng-repeat-start="i in scenario.errors track by $index"
+                  ng-click="i.expanded = ! i.expanded">
+                <td>
+                  <span ng-hide="i.expanded">&#9658;</span>
+                  <span ng-show="i.expanded">&#9660;</span>
+                <td>{{i.iteration}}
+                <td>{{i.type}}
+                <td class="failure-mesg">{{i.message}}
+              </tr>
+              <tr ng-show="i.expanded" ng-repeat-end>
+                <td colspan="4" class="failure-trace">{{i.traceback}}
+              </tr>
+            </tbody>
+          </table>
+        </script>
+
+        <script type="text/ng-template" id="task">
+          <h2>Subtask Configuration</h2>
+          <pre class="code">{{scenario.config}}</pre>
+        </script>
+      </div>
+
+    </div>
+    <div class="clearfix"></div>
+
+
+  </div>
+
+  <script type="text/javascript">
+    if (! window.angular) {(function(f){
+      f(document.getElementById("content-nav"), "none");
+      f(document.getElementById("content-main"), "none");
+      f(document.getElementById("page-error"), "block").textContent = "Failed to load AngularJS framework"
+    })(function(e, s){e.style.display = s; return e})}
+</script>
+</body>
+</html>
