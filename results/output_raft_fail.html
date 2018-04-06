@@ -1,0 +1,778 @@
+<!doctype html>
+<html ng-app="TaskApp">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rally | Rally Task Report</title>
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.15-beta/nv.d3.min.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.1.15-beta/nv.d3.min.js"></script>
+  
+
+  <script type="text/javascript">
+
+    "use strict";
+    if (typeof angular === "object") { angular.module("TaskApp", []).controller(
+      "TaskController", ["$scope", "$location", function($scope, $location) {
+
+        $scope.source = "{\n  \"OvnNetwork.create_routers_bind_ports\": [\n    {\n      \"args\": {\n        \"network_create_args\": {\n          \"batch\": 1, \n          \"start_cidr\": \"172.145.1.0/24\"\n        }, \n        \"networks_per_router\": 5, \n        \"port_bind_args\": {\n          \"wait_sync\": \"none\", \n          \"wait_up\": true\n        }, \n        \"port_create_args\": {\n          \"batch\": 100\n        }, \n        \"ports_per_network\": 250, \n        \"router_create_args\": {\n          \"amount\": 8, \n          \"batch\": 1\n        }\n      }, \n      \"context\": {\n        \"ovn_multihost\": {\n          \"controller\": \"ovn-overlay-controller-node\"\n        }, \n        \"sandbox\": {}\n      }, \n      \"runner\": {\n        \"times\": 1, \n        \"type\": \"serial\"\n      }\n    }\n  ]\n}";
+        $scope.scenarios = [{"load_profile": [["parallel iterations", [[4.0, 1], [8.0, 0], [12.0, 0], [16.0, 0], [20.0, 0], [24.0, 0], [28.0, 0], [32.0, 0], [36.0, 0], [40.0, 0], [44.0, 0], [48.0, 0], [52.0, 0], [56.0, 0], [60.0, 0], [64.0, 0], [68.0, 0], [72.0, 0], [76.0, 0], [80.0, 0], [84.0, 0], [88.0, 0], [92.0, 0], [96.0, 0], [100.0, 0], [104.0, 0], [108.0, 0], [112.0, 0], [116.0, 0], [120.0, 0], [124.0, 0], [128.0, 0], [132.0, 0], [136.0, 0], [140.0, 0], [144.0, 0], [148.0, 0], [152.0, 0], [156.0, 0], [160.0, 0], [164.0, 0], [168.0, 0], [172.0, 0], [176.0, 0], [180.0, 0], [184.0, 0], [188.0, 0], [192.0, 0], [196.0, 0], [200.0, 0], [204.0, 0], [208.0, 0], [212.0, 0], [216.0, 0], [220.0, 0], [224.0, 0], [228.0, 0], [232.0, 0], [236.0, 0], [240.0, 0], [244.0, 0], [248.0, 0], [252.0, 0], [256.0, 0], [260.0, 0], [264.0, 0], [268.0, 0], [272.0, 0], [276.0, 0], [280.0, 0], [284.0, 0], [288.0, 0], [292.0, 0], [296.0, 0], [300.0, 0], [304.0, 0], [308.0, 0], [312.0, 0], [316.0, 0], [320.0, 0], [324.0, 0], [328.0, 0], [332.0, 0], [336.0, 0], [340.0, 0], [344.0, 0], [348.0, 0], [352.0, 0], [356.0, 0], [360.0, 0], [364.0, 0], [368.0, 0], [372.0, 0], [376.0, 0], [380.0, 0], [384.0, 0], [388.0, 0], [392.0, 0], [396.0, 0], [400.0, 0], [404.0, 0], [408.0, 0], [412.0, 0], [416.0, 0], [420.0, 0], [424.0, 0], [428.0, 0], [432.0, 0], [436.0, 0], [440.0, 0], [444.0, 0], [448.0, 0], [452.0, 0], [456.0, 0], [460.0, 0], [464.0, 0], [468.0, 0], [472.0, 0], [476.0, 0], [480.0, 0], [484.0, 0], [488.0, 0], [492.0, 0], [496.0, 0], [500.0, 0], [504.0, 0], [508.0, 0], [512.0, 0], [516.0, 0], [520.0, 0], [524.0, 0], [528.0, 0], [532.0, 0], [536.0, 0], [540.0, 0], [544.0, 0], [548.0, 0], [552.0, 0], [556.0, 0], [560.0, 0], [564.0, 0], [568.0, 0], [572.0, 0], [576.0, 0], [580.0, 0], [584.0, 0], [588.0, 0], [592.0, 0], [596.0, 0], [600.0, 0], [604.0, 0], [608.0, 0], [612.0, 0], [616.0, 0], [620.0, 0], [624.0, 0], [628.0, 0], [632.0, 0], [636.0, 0], [640.0, 0], [644.0, 0], [648.0, 0], [652.0, 0], [656.0, 0], [660.0, 0], [664.0, 0], [668.0, 0], [672.0, 0], [676.0, 0], [680.0, 0], [684.0, 0], [688.0, 0], [692.0, 0], [696.0, 0], [700.0, 0], [704.0, 0], [708.0, 0], [712.0, 0], [716.0, 0], [720.0, 0], [724.0, 0], [728.0, 0], [732.0, 0], [736.0, 0], [740.0, 0], [744.0, 0], [748.0, 0], [752.0, 0], [756.0, 0], [760.0, 0], [764.0, 0], [768.0, 0], [772.0, 0], [776.0, 0], [780.0, 0], [784.0, 0], [788.0, 0], [792.0, 0], [796.0, 0], [799.6804630756378, 0]]]], "errors": [{"type": "SSHError", "message": "Command '. controller-sandbox/sandbox.rc\novn-nbctl --db=\"tcp:192.168.220.101:6641,tcp:192.168.220.102:6641,tcp:192.168.220.103:6641\" --  wait-until Logical_Switch_Port lport_061655_SKbDHz up=true  --  wait-until Logical_Switch_Port lport_061655_zx9LXe up=true  --  wait-until Logical_Switch_Port lport_061655_WaZhYY up=true  --  wait-until Logical_Switch_Port lport_061655_ndoqXt up=true  --  wait-until Logical_Switch_Port lport_061655_VErBZE up=true  --  wait-until Logical_Switch_Port lport_061655_Rt23JP up=true  --  wait-until Logical_Switch_Port lport_061655_IjoLd4 up=true  --  wait-until Logical_Switch_Port lport_061655_QrCthK up=true  --  wait-until Logical_Switch_Port lport_061655_DWwdfo up=true  --  wait-until Logical_Switch_Port lport_061655_IddIIJ up=true  --  wait-until Logical_Switch_Port lport_061655_Hh5DMX up=true  --  wait-until Logical_Switch_Port lport_061655_2h7anv up=true  --  wait-until Logical_Switch_Port lport_061655_VnNNs1 up=true  --  wait-until Logical_Switch_Port lport_061655_en8ICi up=true  --  wait-until Logical_Switch_Port lport_061655_GDe1mV up=true  --  wait-until Logical_Switch_Port lport_061655_T2wmZY up=true  --  wait-until Logical_Switch_Port lport_061655_EDVF7x up=true  --  wait-until Logical_Switch_Port lport_061655_A7FY7Y up=true  --  wait-until Logical_Switch_Port lport_061655_L3U8XT up=true  --  wait-until Logical_Switch_Port lport_061655_MSqUMP up=true  --  wait-until Logical_Switch_Port lport_061655_OyLaVp up=true  --  wait-until Logical_Switch_Port lport_061655_tO1yfH up=true  --  wait-until Logical_Switch_Port lport_061655_5v1hJA up=true  --  wait-until Logical_Switch_Port lport_061655_LTKoZW up=true  --  wait-until Logical_Switch_Port lport_061655_G965Jh up=true  --  wait-until Logical_Switch_Port lport_061655_F4Ei67 up=true  --  wait-until Logical_Switch_Port lport_061655_SS6ZHi up=true  --  wait-until Logical_Switch_Port lport_061655_Nt2OHs up=true  --  wait-until Logical_Switch_Port lport_061655_XdWzIP up=true  --  wait-until Logical_Switch_Port lport_061655_nPvc8X up=true  --  wait-until Logical_Switch_Port lport_061655_8pWpyC up=true  --  wait-until Logical_Switch_Port lport_061655_FGNg3Q up=true  --  wait-until Logical_Switch_Port lport_061655_qmetyE up=true  --  wait-until Logical_Switch_Port lport_061655_FyZSLr up=true  --  wait-until Logical_Switch_Port lport_061655_wBOt3h up=true  --  wait-until Logical_Switch_Port lport_061655_XUENpz up=true  --  wait-until Logical_Switch_Port lport_061655_CPiJuj up=true  --  wait-until Logical_Switch_Port lport_061655_HNpYOI up=true  --  wait-until Logical_Switch_Port lport_061655_9r1Q4x up=true  --  wait-until Logical_Switch_Port lport_061655_pWwG33 up=true  --  wait-until Logical_Switch_Port lport_061655_t1c2pN up=true  --  wait-until Logical_Switch_Port lport_061655_5aQPdM up=true  --  wait-until Logical_Switch_Port lport_061655_EpDUJB up=true  --  wait-until Logical_Switch_Port lport_061655_5Lzon9 up=true  --  wait-until Logical_Switch_Port lport_061655_xQ62L4 up=true  --  wait-until Logical_Switch_Port lport_061655_p970K6 up=true  --  wait-until Logical_Switch_Port lport_061655_SxIEr2 up=true  --  wait-until Logical_Switch_Port lport_061655_y1D9Qd up=true  --  wait-until Logical_Switch_Port lport_061655_wJI7zl up=true  --  wait-until Logical_Switch_Port lport_061655_miLRcI up=true  --  wait-until Logical_Switch_Port lport_061655_GXROYj up=true  --  wait-until Logical_Switch_Port lport_061655_1U1vn1 up=true  --  wait-until Logical_Switch_Port lport_061655_0YCDDu up=true  --  wait-until Logical_Switch_Port lport_061655_mmW2A6 up=true  --  wait-until Logical_Switch_Port lport_061655_JuWwDg up=true  --  wait-until Logical_Switch_Port lport_061655_zA7C68 up=true  --  wait-until Logical_Switch_Port lport_061655_Mt3zly up=true  --  wait-until Logical_Switch_Port lport_061655_Kk8wDO up=true  --  wait-until Logical_Switch_Port lport_061655_3xF6CV up=true  --  wait-until Logical_Switch_Port lport_061655_bicaWl up=true  --  wait-until Logical_Switch_Port lport_061655_aVe2LH up=true  --  wait-until Logical_Switch_Port lport_061655_HtY5uI up=true  --  wait-until Logical_Switch_Port lport_061655_vLcGBv up=true  --  wait-until Logical_Switch_Port lport_061655_O9a9QL up=true  --  wait-until Logical_Switch_Port lport_061655_4ZzXTz up=true  --  wait-until Logical_Switch_Port lport_061655_56HEwE up=true  --  wait-until Logical_Switch_Port lport_061655_2qSTZl up=true  --  wait-until Logical_Switch_Port lport_061655_2uB5Wf up=true  --  wait-until Logical_Switch_Port lport_061655_KlIzt0 up=true  --  wait-until Logical_Switch_Port lport_061655_vkH6D7 up=true  --  wait-until Logical_Switch_Port lport_061655_4PkDgA up=true  --  wait-until Logical_Switch_Port lport_061655_eAoJNe up=true  --  wait-until Logical_Switch_Port lport_061655_saFZ9q up=true  --  wait-until Logical_Switch_Port lport_061655_EPF7jz up=true  --  wait-until Logical_Switch_Port lport_061655_hopS8t up=true  --  wait-until Logical_Switch_Port lport_061655_SvnTPG up=true  --  wait-until Logical_Switch_Port lport_061655_yRJ6SZ up=true  --  wait-until Logical_Switch_Port lport_061655_4uR0ra up=true  --  wait-until Logical_Switch_Port lport_061655_tR0G3A up=true  --  wait-until Logical_Switch_Port lport_061655_lyu07C up=true  --  wait-until Logical_Switch_Port lport_061655_7fthI7 up=true  --  wait-until Logical_Switch_Port lport_061655_5pCRKu up=true  --  wait-until Logical_Switch_Port lport_061655_c5hEV5 up=true  --  wait-until Logical_Switch_Port lport_061655_mupX4q up=true  --  wait-until Logical_Switch_Port lport_061655_mtp7Ou up=true  --  wait-until Logical_Switch_Port lport_061655_ShRWnC up=true  --  wait-until Logical_Switch_Port lport_061655_Y6KIfB up=true  --  wait-until Logical_Switch_Port lport_061655_dcVj4B up=true  --  wait-until Logical_Switch_Port lport_061655_N0igAX up=true  --  wait-until Logical_Switch_Port lport_061655_1UeaGP up=true  --  wait-until Logical_Switch_Port lport_061655_Ll2U1D up=true  --  wait-until Logical_Switch_Port lport_061655_pODFGp up=true  --  wait-until Logical_Switch_Port lport_061655_sSjD5O up=true  --  wait-until Logical_Switch_Port lport_061655_3sewAw up=true  --  wait-until Logical_Switch_Port lport_061655_E7h3cz up=true  --  wait-until Logical_Switch_Port lport_061655_V76555 up=true  --  wait-until Logical_Switch_Port lport_061655_MffJeU up=true  --  wait-until Logical_Switch_Port lport_061655_hJoN2J up=true  --  wait-until Logical_Switch_Port lport_061655_SDtG9k up=true  --  wait-until Logical_Switch_Port lport_061655_nRE75s up=true  --  wait-until Logical_Switch_Port lport_061655_O0YeT8 up=true  --  wait-until Logical_Switch_Port lport_061655_bVmKOg up=true  --  wait-until Logical_Switch_Port lport_061655_rGZBWY up=true  --  wait-until Logical_Switch_Port lport_061655_AcEW7h up=true  --  wait-until Logical_Switch_Port lport_061655_Bs4mlH up=true  --  wait-until Logical_Switch_Port lport_061655_IKy0wp up=true  --  wait-until Logical_Switch_Port lport_061655_5HMoSl up=true  --  wait-until Logical_Switch_Port lport_061655_1Us1M7 up=true  --  wait-until Logical_Switch_Port lport_061655_DRXaBf up=true  --  wait-until Logical_Switch_Port lport_061655_81WdUD up=true  --  wait-until Logical_Switch_Port lport_061655_9JzeGd up=true  --  wait-until Logical_Switch_Port lport_061655_WmTR8Y up=true  --  wait-until Logical_Switch_Port lport_061655_umC3iN up=true  --  wait-until Logical_Switch_Port lport_061655_dPPYW4 up=true  --  wait-until Logical_Switch_Port lport_061655_283P1z up=true  --  wait-until Logical_Switch_Port lport_061655_pc1Qdn up=true  --  wait-until Logical_Switch_Port lport_061655_CwTO06 up=true  --  wait-until Logical_Switch_Port lport_061655_63c8DA up=true  --  wait-until Logical_Switch_Port lport_061655_vYNiNq up=true  --  wait-until Logical_Switch_Port lport_061655_42mXS3 up=true  --  wait-until Logical_Switch_Port lport_061655_OtzsS1 up=true  --  wait-until Logical_Switch_Port lport_061655_8UH87E up=true  --  wait-until Logical_Switch_Port lport_061655_xSHpJn up=true  --  wait-until Logical_Switch_Port lport_061655_5Q2NIi up=true  --  wait-until Logical_Switch_Port lport_061655_dPqfPj up=true  --  wait-until Logical_Switch_Port lport_061655_Bm8pJf up=true  --  wait-until Logical_Switch_Port lport_061655_LKAReM up=true  --  wait-until Logical_Switch_Port lport_061655_ytCoHb up=true  --  wait-until Logical_Switch_Port lport_061655_yILXgZ up=true  --  wait-until Logical_Switch_Port lport_061655_g8GzCJ up=true  --  wait-until Logical_Switch_Port lport_061655_eG4dbJ up=true  --  wait-until Logical_Switch_Port lport_061655_0yET58 up=true  --  wait-until Logical_Switch_Port lport_061655_6gFqTl up=true  --  wait-until Logical_Switch_Port lport_061655_DVQTsS up=true  --  wait-until Logical_Switch_Port lport_061655_N23hkP up=true  --  wait-until Logical_Switch_Port lport_061655_tIj9xK up=true  --  wait-until Logical_Switch_Port lport_061655_iNsIIH up=true  --  wait-until Logical_Switch_Port lport_061655_GFAgvA up=true  --  wait-until Logical_Switch_Port lport_061655_5JyYGW up=true  --  wait-until Logical_Switch_Port lport_061655_4mNMmr up=true  --  wait-until Logical_Switch_Port lport_061655_Iz5XkI up=true  --  wait-until Logical_Switch_Port lport_061655_e1jkAI up=true  --  wait-until Logical_Switch_Port lport_061655_ieVfKo up=true  --  wait-until Logical_Switch_Port lport_061655_62oYRg up=true  --  wait-until Logical_Switch_Port lport_061655_OYD0LG up=true  --  wait-until Logical_Switch_Port lport_061655_rOHQ4b up=true  --  wait-until Logical_Switch_Port lport_061655_f0KjaQ up=true  --  wait-until Logical_Switch_Port lport_061655_sny1VL up=true  --  wait-until Logical_Switch_Port lport_061655_j2JWWH up=true  --  wait-until Logical_Switch_Port lport_061655_mRouhl up=true  --  wait-until Logical_Switch_Port lport_061655_zS9vmJ up=true  --  wait-until Logical_Switch_Port lport_061655_e32nMc up=true  --  wait-until Logical_Switch_Port lport_061655_ily9et up=true  --  wait-until Logical_Switch_Port lport_061655_AlcdTn up=true  --  wait-until Logical_Switch_Port lport_061655_RDbRxL up=true  --  wait-until Logical_Switch_Port lport_061655_y6Kgl5 up=true  --  wait-until Logical_Switch_Port lport_061655_Lc43BE up=true  --  wait-until Logical_Switch_Port lport_061655_Rjzole up=true  --  wait-until Logical_Switch_Port lport_061655_NazcpO up=true  --  wait-until Logical_Switch_Port lport_061655_FQry05 up=true  --  wait-until Logical_Switch_Port lport_061655_RkP8k7 up=true  --  wait-until Logical_Switch_Port lport_061655_l2ESGz up=true  --  wait-until Logical_Switch_Port lport_061655_COu6LG up=true  --  wait-until Logical_Switch_Port lport_061655_90yshA up=true  --  wait-until Logical_Switch_Port lport_061655_Pv60hH up=true  --  wait-until Logical_Switch_Port lport_061655_XEpLFI up=true  --  wait-until Logical_Switch_Port lport_061655_kjWCuO up=true  --  wait-until Logical_Switch_Port lport_061655_khAp6Z up=true  --  wait-until Logical_Switch_Port lport_061655_cjbojI up=true  --  wait-until Logical_Switch_Port lport_061655_ZnyMvF up=true  --  wait-until Logical_Switch_Port lport_061655_0Mfom1 up=true  --  wait-until Logical_Switch_Port lport_061655_rZiefU up=true  --  wait-until Logical_Switch_Port lport_061655_joHWu3 up=true  --  wait-until Logical_Switch_Port lport_061655_RVLOUb up=true  --  wait-until Logical_Switch_Port lport_061655_lA1d3O up=true  --  wait-until Logical_Switch_Port lport_061655_UMVqpy up=true  --  wait-until Logical_Switch_Port lport_061655_SeKLVY up=true  --  wait-until Logical_Switch_Port lport_061655_cYsYsl up=true  --  wait-until Logical_Switch_Port lport_061655_riJM9G up=true  --  wait-until Logical_Switch_Port lport_061655_PO6hai up=true  --  wait-until Logical_Switch_Port lport_061655_jOlktW up=true  --  wait-until Logical_Switch_Port lport_061655_TmUhV7 up=true  --  wait-until Logical_Switch_Port lport_061655_eA2oTk up=true  --  wait-until Logical_Switch_Port lport_061655_YGjtr0 up=true  --  wait-until Logical_Switch_Port lport_061655_hxTSoC up=true  --  wait-until Logical_Switch_Port lport_061655_sxDAk4 up=true  --  wait-until Logical_Switch_Port lport_061655_3wn1Wo up=true  --  wait-until Logical_Switch_Port lport_061655_fLSblg up=true  --  wait-until Logical_Switch_Port lport_061655_z9mbF0 up=true  --  wait-until Logical_Switch_Port lport_061655_Ma1aCC up=true  --  wait-until Logical_Switch_Port lport_061655_r9pemi up=true  --  wait-until Logical_Switch_Port lport_061655_4SiIxc up=true  --  wait-until Logical_Switch_Port lport_061655_PQLmiy up=true  --  wait-until Logical_Switch_Port lport_061655_hiCFbN up=true  --  wait-until Logical_Switch_Port lport_061655_tq53qo up=true  --  wait-until Logical_Switch_Port lport_061655_m6INMC up=true  --  wait-until Logical_Switch_Port lport_061655_BNTBYc up=true  --  wait-until Logical_Switch_Port lport_061655_l8D7Pa up=true  --  wait-until Logical_Switch_Port lport_061655_uXJ0jA up=true  --  wait-until Logical_Switch_Port lport_061655_euGG4c up=true  --  wait-until Logical_Switch_Port lport_061655_3Rb9vW up=true  --  wait-until Logical_Switch_Port lport_061655_LBdyRC up=true  --  wait-until Logical_Switch_Port lport_061655_m8f1z2 up=true  --  wait-until Logical_Switch_Port lport_061655_y43Tgk up=true  --  wait-until Logical_Switch_Port lport_061655_Bp3Lam up=true  --  wait-until Logical_Switch_Port lport_061655_Rih8W4 up=true  --  wait-until Logical_Switch_Port lport_061655_W4FWXk up=true  --  wait-until Logical_Switch_Port lport_061655_oCEbpz up=true  --  wait-until Logical_Switch_Port lport_061655_2yxfSE up=true  --  wait-until Logical_Switch_Port lport_061655_wgf07q up=true  --  wait-until Logical_Switch_Port lport_061655_GDeUKT up=true  --  wait-until Logical_Switch_Port lport_061655_q7yus9 up=true  --  wait-until Logical_Switch_Port lport_061655_lKBKIr up=true  --  wait-until Logical_Switch_Port lport_061655_QJGPge up=true  --  wait-until Logical_Switch_Port lport_061655_xedi22 up=true  --  wait-until Logical_Switch_Port lport_061655_7zNDMV up=true  --  wait-until Logical_Switch_Port lport_061655_toI9fn up=true  --  wait-until Logical_Switch_Port lport_061655_b2KCoO up=true  --  wait-until Logical_Switch_Port lport_061655_MxrRIg up=true  --  wait-until Logical_Switch_Port lport_061655_Aj9xf8 up=true  --  wait-until Logical_Switch_Port lport_061655_merPtm up=true  --  wait-until Logical_Switch_Port lport_061655_D3xqQi up=true  --  wait-until Logical_Switch_Port lport_061655_rOfDFK up=true  --  wait-until Logical_Switch_Port lport_061655_yT0Ths up=true  --  wait-until Logical_Switch_Port lport_061655_Kjt6MM up=true  --  wait-until Logical_Switch_Port lport_061655_EKQzMg up=true  --  wait-until Logical_Switch_Port lport_061655_9FfBeQ up=true  --  wait-until Logical_Switch_Port lport_061655_ZcNGP1 up=true  --  wait-until Logical_Switch_Port lport_061655_Cpt5rx up=true  --  wait-until Logical_Switch_Port lport_061655_7HEvnj up=true  --  wait-until Logical_Switch_Port lport_061655_GavDqK up=true  --  wait-until Logical_Switch_Port lport_061655_wCJX28 up=true  --  wait-until Logical_Switch_Port lport_061655_5AKgDk up=true  --  wait-until Logical_Switch_Port lport_061655_lASzjT up=true  --  wait-until Logical_Switch_Port lport_061655_3762Yt up=true  --  wait-until Logical_Switch_Port lport_061655_GBj8SX up=true  --  wait-until Logical_Switch_Port lport_061655_GVpzgO up=true  --  wait-until Logical_Switch_Port lport_061655_CMst3W up=true  --  wait-until Logical_Switch_Port lport_061655_lOxQye up=true  --  wait-until Logical_Switch_Port lport_061655_23VS20 up=true  --  wait-until Logical_Switch_Port lport_061655_h8cqH2 up=true  --  wait-until Logical_Switch_Port lport_061655_045bss up=true  --  wait-until Logical_Switch_Port lport_061655_gm9Q7V up=true  --  wait-until Logical_Switch_Port lport_061655_0vC48x up=true  --  wait-until Logical_Switch_Port lport_061655_4nspda up=true  --  wait-until Logical_Switch_Port lport_061655_73XrNB up=true  --  wait-until Logical_Switch_Port lport_061655_sxYb4R up=true  --  wait-until Logical_Switch_Port lport_061655_5rDfkG up=true  --  wait-until Logical_Switch_Port lport_061655_j9kPHl up=true  --  wait-until Logical_Switch_Port lport_061655_yUSUkZ up=true  --  lsp-add lswitch_061655_NylqGZ lport_061655_mosIIj  --  lsp-set-addresses lport_061655_mosIIj 06:a5:4d:57:cf:08\\ 172.145.4.0  --  lsp-set-port-security lport_061655_mosIIj 06:a5:4d:57:cf:08  --  lsp-add lswitch_061655_NylqGZ lport_061655_FHxCaa  --  lsp-set-addresses lport_061655_FHxCaa 06:a5:4d:0d:38:69\\ 172.145.4.1  --  lsp-set-port-security lport_061655_FHxCaa 06:a5:4d:0d:38:69  --  lsp-add lswitch_061655_NylqGZ lport_061655_Gdkxcb  --  lsp-set-addresses lport_061655_Gdkxcb 06:a5:4d:82:2e:91\\ 172.145.4.2  --  lsp-set-port-security lport_061655_Gdkxcb 06:a5:4d:82:2e:91  --  lsp-add lswitch_061655_NylqGZ lport_061655_5xFRyT  --  lsp-set-addresses lport_061655_5xFRyT 06:a5:4d:a8:d4:20\\ 172.145.4.3  --  lsp-set-port-security lport_061655_5xFRyT 06:a5:4d:a8:d4:20  --  lsp-add lswitch_061655_NylqGZ lport_061655_t8V1Wr  --  lsp-set-addresses lport_061655_t8V1Wr 06:a5:4d:af:d6:91\\ 172.145.4.4  --  lsp-set-port-security lport_061655_t8V1Wr 06:a5:4d:af:d6:91  --  lsp-add lswitch_061655_NylqGZ lport_061655_HADGaf  --  lsp-set-addresses lport_061655_HADGaf 06:a5:4d:8a:74:41\\ 172.145.4.5  --  lsp-set-port-security lport_061655_HADGaf 06:a5:4d:8a:74:41  --  lsp-add lswitch_061655_NylqGZ lport_061655_UkyZdC  --  lsp-set-addresses lport_061655_UkyZdC 06:a5:4d:d6:78:ac\\ 172.145.4.6  --  lsp-set-port-security lport_061655_UkyZdC 06:a5:4d:d6:78:ac  --  lsp-add lswitch_061655_NylqGZ lport_061655_qlPxxC  --  lsp-set-addresses lport_061655_qlPxxC 06:a5:4d:25:c4:75\\ 172.145.4.7  --  lsp-set-port-security lport_061655_qlPxxC 06:a5:4d:25:c4:75  --  lsp-add lswitch_061655_NylqGZ lport_061655_Rf4Fci  --  lsp-set-addresses lport_061655_Rf4Fci 06:a5:4d:d2:6e:35\\ 172.145.4.8  --  lsp-set-port-security lport_061655_Rf4Fci 06:a5:4d:d2:6e:35  --  lsp-add lswitch_061655_NylqGZ lport_061655_cwEhsr  --  lsp-set-addresses lport_061655_cwEhsr 06:a5:4d:0c:80:8e\\ 172.145.4.9  --  lsp-set-port-security lport_061655_cwEhsr 06:a5:4d:0c:80:8e  --  lsp-add lswitch_061655_NylqGZ lport_061655_P9VhBZ  --  lsp-set-addresses lport_061655_P9VhBZ 06:a5:4d:70:9e:3f\\ 172.145.4.10  --  lsp-set-port-security lport_061655_P9VhBZ 06:a5:4d:70:9e:3f  --  lsp-add lswitch_061655_NylqGZ lport_061655_8N9spJ  --  lsp-set-addresses lport_061655_8N9spJ 06:a5:4d:2a:00:ee\\ 172.145.4.11  --  lsp-set-port-security lport_061655_8N9spJ 06:a5:4d:2a:00:ee  --  lsp-add lswitch_061655_NylqGZ lport_061655_aPDGaA  --  lsp-set-addresses lport_061655_aPDGaA 06:a5:4d:57:1b:03\\ 172.145.4.12  --  lsp-set-port-security lport_061655_aPDGaA 06:a5:4d:57:1b:03  --  lsp-add lswitch_061655_NylqGZ lport_061655_ejVApU  --  lsp-set-addresses lport_061655_ejVApU 06:a5:4d:a5:8c:77\\ 172.145.4.13  --  lsp-set-port-security lport_061655_ejVApU 06:a5:4d:a5:8c:77  --  lsp-add lswitch_061655_NylqGZ lport_061655_KoL7vi  --  lsp-set-addresses lport_061655_KoL7vi 06:a5:4d:ca:ed:65\\ 172.145.4.14  --  lsp-set-port-security lport_061655_KoL7vi 06:a5:4d:ca:ed:65  --  lsp-add lswitch_061655_NylqGZ lport_061655_j3adpq  --  lsp-set-addresses lport_061655_j3adpq 06:a5:4d:1d:09:85\\ 172.145.4.15  --  lsp-set-port-security lport_061655_j3adpq 06:a5:4d:1d:09:85  --  lsp-add lswitch_061655_NylqGZ lport_061655_DJy3Op  --  lsp-set-addresses lport_061655_DJy3Op 06:a5:4d:41:eb:d7\\ 172.145.4.16  --  lsp-set-port-security lport_061655_DJy3Op 06:a5:4d:41:eb:d7  --  lsp-add lswitch_061655_NylqGZ lport_061655_RydyIo  --  lsp-set-addresses lport_061655_RydyIo 06:a5:4d:dc:a2:8e\\ 172.145.4.17  --  lsp-set-port-security lport_061655_RydyIo 06:a5:4d:dc:a2:8e  --  lsp-add lswitch_061655_NylqGZ lport_061655_UHlRLG  --  lsp-set-addresses lport_061655_UHlRLG 06:a5:4d:d4:e5:fe\\ 172.145.4.18  --  lsp-set-port-security lport_061655_UHlRLG 06:a5:4d:d4:e5:fe  --  lsp-add lswitch_061655_NylqGZ lport_061655_t9PB4C  --  lsp-set-addresses lport_061655_t9PB4C 06:a5:4d:ac:a7:13\\ 172.145.4.19  --  lsp-set-port-security lport_061655_t9PB4C 06:a5:4d:ac:a7:13  --  lsp-add lswitch_061655_NylqGZ lport_061655_tbil9n  --  lsp-set-addresses lport_061655_tbil9n 06:a5:4d:a0:dc:0a\\ 172.145.4.20  --  lsp-set-port-security lport_061655_tbil9n 06:a5:4d:a0:dc:0a  --  lsp-add lswitch_061655_NylqGZ lport_061655_Qg9b5x  --  lsp-set-addresses lport_061655_Qg9b5x 06:a5:4d:60:37:9c\\ 172.145.4.21  --  lsp-set-port-security lport_061655_Qg9b5x 06:a5:4d:60:37:9c  --  lsp-add lswitch_061655_NylqGZ lport_061655_b3R2Pv  --  lsp-set-addresses lport_061655_b3R2Pv 06:a5:4d:2e:86:0a\\ 172.145.4.22  --  lsp-set-port-security lport_061655_b3R2Pv 06:a5:4d:2e:86:0a  --  lsp-add lswitch_061655_NylqGZ lport_061655_sUI1uc  --  lsp-set-addresses lport_061655_sUI1uc 06:a5:4d:94:54:cf\\ 172.145.4.23  --  lsp-set-port-security lport_061655_sUI1uc 06:a5:4d:94:54:cf  --  lsp-add lswitch_061655_NylqGZ lport_061655_Y5EDai  --  lsp-set-addresses lport_061655_Y5EDai 06:a5:4d:e0:f6:4c\\ 172.145.4.24  --  lsp-set-port-security lport_061655_Y5EDai 06:a5:4d:e0:f6:4c  --  lsp-add lswitch_061655_NylqGZ lport_061655_XsHhBS  --  lsp-set-addresses lport_061655_XsHhBS 06:a5:4d:07:a1:c3\\ 172.145.4.25  --  lsp-set-port-security lport_061655_XsHhBS 06:a5:4d:07:a1:c3  --  lsp-add lswitch_061655_NylqGZ lport_061655_Re6BxV  --  lsp-set-addresses lport_061655_Re6BxV 06:a5:4d:51:60:0f\\ 172.145.4.26  --  lsp-set-port-security lport_061655_Re6BxV 06:a5:4d:51:60:0f  --  lsp-add lswitch_061655_NylqGZ lport_061655_vGmqbm  --  lsp-set-addresses lport_061655_vGmqbm 06:a5:4d:7b:78:84\\ 172.145.4.27  --  lsp-set-port-security lport_061655_vGmqbm 06:a5:4d:7b:78:84  --  lsp-add lswitch_061655_NylqGZ lport_061655_metwYQ  --  lsp-set-addresses lport_061655_metwYQ 06:a5:4d:c7:10:41\\ 172.145.4.28  --  lsp-set-port-security lport_061655_metwYQ 06:a5:4d:c7:10:41  --  lsp-add lswitch_061655_NylqGZ lport_061655_8oWpPv  --  lsp-set-addresses lport_061655_8oWpPv 06:a5:4d:4d:bd:4f\\ 172.145.4.29  --  lsp-set-port-security lport_061655_8oWpPv 06:a5:4d:4d:bd:4f  --  lsp-add lswitch_061655_NylqGZ lport_061655_4n6CwZ  --  lsp-set-addresses lport_061655_4n6CwZ 06:a5:4d:32:58:11\\ 172.145.4.30  --  lsp-set-port-security lport_061655_4n6CwZ 06:a5:4d:32:58:11  --  lsp-add lswitch_061655_NylqGZ lport_061655_EQnOQP  --  lsp-set-addresses lport_061655_EQnOQP 06:a5:4d:f1:a1:7a\\ 172.145.4.31  --  lsp-set-port-security lport_061655_EQnOQP 06:a5:4d:f1:a1:7a  --  lsp-add lswitch_061655_NylqGZ lport_061655_1MP1Z9  --  lsp-set-addresses lport_061655_1MP1Z9 06:a5:4d:20:c3:1b\\ 172.145.4.32  --  lsp-set-port-security lport_061655_1MP1Z9 06:a5:4d:20:c3:1b  --  lsp-add lswitch_061655_NylqGZ lport_061655_xeIjqk  --  lsp-set-addresses lport_061655_xeIjqk 06:a5:4d:79:c8:cc\\ 172.145.4.33  --  lsp-set-port-security lport_061655_xeIjqk 06:a5:4d:79:c8:cc  --  lsp-add lswitch_061655_NylqGZ lport_061655_pRvRpD  --  lsp-set-addresses lport_061655_pRvRpD 06:a5:4d:31:e7:0d\\ 172.145.4.34  --  lsp-set-port-security lport_061655_pRvRpD 06:a5:4d:31:e7:0d  --  lsp-add lswitch_061655_NylqGZ lport_061655_Zyyhpt  --  lsp-set-addresses lport_061655_Zyyhpt 06:a5:4d:fb:c7:59\\ 172.145.4.35  --  lsp-set-port-security lport_061655_Zyyhpt 06:a5:4d:fb:c7:59  --  lsp-add lswitch_061655_NylqGZ lport_061655_5H6fBL  --  lsp-set-addresses lport_061655_5H6fBL 06:a5:4d:46:1a:51\\ 172.145.4.36  --  lsp-set-port-security lport_061655_5H6fBL 06:a5:4d:46:1a:51  --  lsp-add lswitch_061655_NylqGZ lport_061655_LJmWAn  --  lsp-set-addresses lport_061655_LJmWAn 06:a5:4d:6b:6b:b2\\ 172.145.4.37  --  lsp-set-port-security lport_061655_LJmWAn 06:a5:4d:6b:6b:b2  --  lsp-add lswitch_061655_NylqGZ lport_061655_Mtz6c9  --  lsp-set-addresses lport_061655_Mtz6c9 06:a5:4d:9f:55:9b\\ 172.145.4.38  --  lsp-set-port-security lport_061655_Mtz6c9 06:a5:4d:9f:55:9b  --  lsp-add lswitch_061655_NylqGZ lport_061655_4n8s2E  --  lsp-set-addresses lport_061655_4n8s2E 06:a5:4d:b7:aa:b2\\ 172.145.4.39  --  lsp-set-port-security lport_061655_4n8s2E 06:a5:4d:b7:aa:b2  --  lsp-add lswitch_061655_NylqGZ lport_061655_0nJ38C  --  lsp-set-addresses lport_061655_0nJ38C 06:a5:4d:e1:fb:51\\ 172.145.4.40  --  lsp-set-port-security lport_061655_0nJ38C 06:a5:4d:e1:fb:51  --  lsp-add lswitch_061655_NylqGZ lport_061655_pzWR1i  --  lsp-set-addresses lport_061655_pzWR1i 06:a5:4d:0f:6e:2f\\ 172.145.4.41  --  lsp-set-port-security lport_061655_pzWR1i 06:a5:4d:0f:6e:2f  --  lsp-add lswitch_061655_NylqGZ lport_061655_dmKLKb  --  lsp-set-addresses lport_061655_dmKLKb 06:a5:4d:b0:85:ee\\ 172.145.4.42  --  lsp-set-port-security lport_061655_dmKLKb 06:a5:4d:b0:85:ee  --  lsp-add lswitch_061655_NylqGZ lport_061655_WtD3ps  --  lsp-set-addresses lport_061655_WtD3ps 06:a5:4d:3a:c6:fb\\ 172.145.4.43  --  lsp-set-port-security lport_061655_WtD3ps 06:a5:4d:3a:c6:fb  --  lsp-add lswitch_061655_NylqGZ lport_061655_LQgAaa  --  lsp-set-addresses lport_061655_LQgAaa 06:a5:4d:46:7a:18\\ 172.145.4.44  --  lsp-set-port-security lport_061655_LQgAaa 06:a5:4d:46:7a:18  --  lsp-add lswitch_061655_NylqGZ lport_061655_p0VA6L  --  lsp-set-addresses lport_061655_p0VA6L 06:a5:4d:6a:d8:2b\\ 172.145.4.45  --  lsp-set-port-security lport_061655_p0VA6L 06:a5:4d:6a:d8:2b  --  lsp-add lswitch_061655_NylqGZ lport_061655_uYd9T9  --  lsp-set-addresses lport_061655_uYd9T9 06:a5:4d:b4:b5:fd\\ 172.145.4.46  --  lsp-set-port-security lport_061655_uYd9T9 06:a5:4d:b4:b5:fd  --  lsp-add lswitch_061655_NylqGZ lport_061655_YByOCm  --  lsp-set-addresses lport_061655_YByOCm 06:a5:4d:80:76:eb\\ 172.145.4.47  --  lsp-set-port-security lport_061655_YByOCm 06:a5:4d:80:76:eb  --  lsp-add lswitch_061655_NylqGZ lport_061655_D60N0j  --  lsp-set-addresses lport_061655_D60N0j 06:a5:4d:c8:78:88\\ 172.145.4.48  --  lsp-set-port-security lport_061655_D60N0j 06:a5:4d:c8:78:88  --  lsp-add lswitch_061655_NylqGZ lport_061655_ckGzcI  --  lsp-set-addresses lport_061655_ckGzcI 06:a5:4d:89:0d:06\\ 172.145.4.49  --  lsp-set-port-security lport_061655_ckGzcI 06:a5:4d:89:0d:06  --  lsp-add lswitch_061655_NylqGZ lport_061655_n5dkMT  --  lsp-set-addresses lport_061655_n5dkMT 06:a5:4d:27:3e:f5\\ 172.145.4.50  --  lsp-set-port-security lport_061655_n5dkMT 06:a5:4d:27:3e:f5  --  lsp-add lswitch_061655_NylqGZ lport_061655_nJ5ujF  --  lsp-set-addresses lport_061655_nJ5ujF 06:a5:4d:09:22:4f\\ 172.145.4.51  --  lsp-set-port-security lport_061655_nJ5ujF 06:a5:4d:09:22:4f  --  lsp-add lswitch_061655_NylqGZ lport_061655_ZKJm7d  --  lsp-set-addresses lport_061655_ZKJm7d 06:a5:4d:1e:6f:4d\\ 172.145.4.52  --  lsp-set-port-security lport_061655_ZKJm7d 06:a5:4d:1e:6f:4d  --  lsp-add lswitch_061655_NylqGZ lport_061655_dGduC7  --  lsp-set-addresses lport_061655_dGduC7 06:a5:4d:79:70:84\\ 172.145.4.53  --  lsp-set-port-security lport_061655_dGduC7 06:a5:4d:79:70:84  --  lsp-add lswitch_061655_NylqGZ lport_061655_Wk8JAp  --  lsp-set-addresses lport_061655_Wk8JAp 06:a5:4d:28:f1:b2\\ 172.145.4.54  --  lsp-set-port-security lport_061655_Wk8JAp 06:a5:4d:28:f1:b2  --  lsp-add lswitch_061655_NylqGZ lport_061655_cSeaXq  --  lsp-set-addresses lport_061655_cSeaXq 06:a5:4d:05:05:5c\\ 172.145.4.55  --  lsp-set-port-security lport_061655_cSeaXq 06:a5:4d:05:05:5c  --  lsp-add lswitch_061655_NylqGZ lport_061655_y0gFZk  --  lsp-set-addresses lport_061655_y0gFZk 06:a5:4d:19:08:05\\ 172.145.4.56  --  lsp-set-port-security lport_061655_y0gFZk 06:a5:4d:19:08:05  --  lsp-add lswitch_061655_NylqGZ lport_061655_ImVgip  --  lsp-set-addresses lport_061655_ImVgip 06:a5:4d:89:f7:a3\\ 172.145.4.57  --  lsp-set-port-security lport_061655_ImVgip 06:a5:4d:89:f7:a3  --  lsp-add lswitch_061655_NylqGZ lport_061655_IFvwYG  --  lsp-set-addresses lport_061655_IFvwYG 06:a5:4d:15:12:84\\ 172.145.4.58  --  lsp-set-port-security lport_061655_IFvwYG 06:a5:4d:15:12:84  --  lsp-add lswitch_061655_NylqGZ lport_061655_Fj9DpD  --  lsp-set-addresses lport_061655_Fj9DpD 06:a5:4d:69:26:69\\ 172.145.4.59  --  lsp-set-port-security lport_061655_Fj9DpD 06:a5:4d:69:26:69  --  lsp-add lswitch_061655_NylqGZ lport_061655_PQz91R  --  lsp-set-addresses lport_061655_PQz91R 06:a5:4d:1d:e8:09\\ 172.145.4.60  --  lsp-set-port-security lport_061655_PQz91R 06:a5:4d:1d:e8:09  --  lsp-add lswitch_061655_NylqGZ lport_061655_BxHPBn  --  lsp-set-addresses lport_061655_BxHPBn 06:a5:4d:e9:e6:66\\ 172.145.4.61  --  lsp-set-port-security lport_061655_BxHPBn 06:a5:4d:e9:e6:66  --  lsp-add lswitch_061655_NylqGZ lport_061655_0ofM74  --  lsp-set-addresses lport_061655_0ofM74 06:a5:4d:cd:01:6a\\ 172.145.4.62  --  lsp-set-port-security lport_061655_0ofM74 06:a5:4d:cd:01:6a  --  lsp-add lswitch_061655_NylqGZ lport_061655_eb0Om2  --  lsp-set-addresses lport_061655_eb0Om2 06:a5:4d:b5:d2:79\\ 172.145.4.63  --  lsp-set-port-security lport_061655_eb0Om2 06:a5:4d:b5:d2:79  --  lsp-add lswitch_061655_NylqGZ lport_061655_LxUl12  --  lsp-set-addresses lport_061655_LxUl12 06:a5:4d:49:e8:35\\ 172.145.4.64  --  lsp-set-port-security lport_061655_LxUl12 06:a5:4d:49:e8:35  --  lsp-add lswitch_061655_NylqGZ lport_061655_mvrh5q  --  lsp-set-addresses lport_061655_mvrh5q 06:a5:4d:53:cd:a2\\ 172.145.4.65  --  lsp-set-port-security lport_061655_mvrh5q 06:a5:4d:53:cd:a2  --  lsp-add lswitch_061655_NylqGZ lport_061655_a2yx22  --  lsp-set-addresses lport_061655_a2yx22 06:a5:4d:dc:f2:3f\\ 172.145.4.66  --  lsp-set-port-security lport_061655_a2yx22 06:a5:4d:dc:f2:3f  --  lsp-add lswitch_061655_NylqGZ lport_061655_IIAN5e  --  lsp-set-addresses lport_061655_IIAN5e 06:a5:4d:86:2e:84\\ 172.145.4.67  --  lsp-set-port-security lport_061655_IIAN5e 06:a5:4d:86:2e:84  --  lsp-add lswitch_061655_NylqGZ lport_061655_2krqMW  --  lsp-set-addresses lport_061655_2krqMW 06:a5:4d:37:97:6f\\ 172.145.4.68  --  lsp-set-port-security lport_061655_2krqMW 06:a5:4d:37:97:6f  --  lsp-add lswitch_061655_NylqGZ lport_061655_Jsqy4P  --  lsp-set-addresses lport_061655_Jsqy4P 06:a5:4d:30:e4:a6\\ 172.145.4.69  --  lsp-set-port-security lport_061655_Jsqy4P 06:a5:4d:30:e4:a6  --  lsp-add lswitch_061655_NylqGZ lport_061655_DG9Sl0  --  lsp-set-addresses lport_061655_DG9Sl0 06:a5:4d:b2:57:73\\ 172.145.4.70  --  lsp-set-port-security lport_061655_DG9Sl0 06:a5:4d:b2:57:73  --  lsp-add lswitch_061655_NylqGZ lport_061655_Oh657x  --  lsp-set-addresses lport_061655_Oh657x 06:a5:4d:ed:c9:8c\\ 172.145.4.71  --  lsp-set-port-security lport_061655_Oh657x 06:a5:4d:ed:c9:8c  --  lsp-add lswitch_061655_NylqGZ lport_061655_QkipXK  --  lsp-set-addresses lport_061655_QkipXK 06:a5:4d:2a:1e:0b\\ 172.145.4.72  --  lsp-set-port-security lport_061655_QkipXK 06:a5:4d:2a:1e:0b  --  lsp-add lswitch_061655_NylqGZ lport_061655_XcIlZ0  --  lsp-set-addresses lport_061655_XcIlZ0 06:a5:4d:fe:a5:ed\\ 172.145.4.73  --  lsp-set-port-security lport_061655_XcIlZ0 06:a5:4d:fe:a5:ed  --  lsp-add lswitch_061655_NylqGZ lport_061655_vVc9vs  --  lsp-set-addresses lport_061655_vVc9vs 06:a5:4d:d2:2d:5e\\ 172.145.4.74  --  lsp-set-port-security lport_061655_vVc9vs 06:a5:4d:d2:2d:5e  --  lsp-add lswitch_061655_NylqGZ lport_061655_Lc1sws  --  lsp-set-addresses lport_061655_Lc1sws 06:a5:4d:6c:ff:45\\ 172.145.4.75  --  lsp-set-port-security lport_061655_Lc1sws 06:a5:4d:6c:ff:45  --  lsp-add lswitch_061655_NylqGZ lport_061655_9GkTy8  --  lsp-set-addresses lport_061655_9GkTy8 06:a5:4d:f1:b7:a6\\ 172.145.4.76  --  lsp-set-port-security lport_061655_9GkTy8 06:a5:4d:f1:b7:a6  --  lsp-add lswitch_061655_NylqGZ lport_061655_Vh4iTD  --  lsp-set-addresses lport_061655_Vh4iTD 06:a5:4d:e9:6e:8f\\ 172.145.4.77  --  lsp-set-port-security lport_061655_Vh4iTD 06:a5:4d:e9:6e:8f  --  lsp-add lswitch_061655_NylqGZ lport_061655_FJGtNw  --  lsp-set-addresses lport_061655_FJGtNw 06:a5:4d:1b:69:f5\\ 172.145.4.78  --  lsp-set-port-security lport_061655_FJGtNw 06:a5:4d:1b:69:f5  --  lsp-add lswitch_061655_NylqGZ lport_061655_HXYIoC  --  lsp-set-addresses lport_061655_HXYIoC 06:a5:4d:2e:e0:fe\\ 172.145.4.79  --  lsp-set-port-security lport_061655_HXYIoC 06:a5:4d:2e:e0:fe  --  lsp-add lswitch_061655_NylqGZ lport_061655_iDbJkD  --  lsp-set-addresses lport_061655_iDbJkD 06:a5:4d:10:22:9f\\ 172.145.4.80  --  lsp-set-port-security lport_061655_iDbJkD 06:a5:4d:10:22:9f  --  lsp-add lswitch_061655_NylqGZ lport_061655_1DPCqO  --  lsp-set-addresses lport_061655_1DPCqO 06:a5:4d:1d:e7:f3\\ 172.145.4.81  --  lsp-set-port-security lport_061655_1DPCqO 06:a5:4d:1d:e7:f3  --  lsp-add lswitch_061655_NylqGZ lport_061655_LxRKSm  --  lsp-set-addresses lport_061655_LxRKSm 06:a5:4d:1f:0a:f9\\ 172.145.4.82  --  lsp-set-port-security lport_061655_LxRKSm 06:a5:4d:1f:0a:f9  --  lsp-add lswitch_061655_NylqGZ lport_061655_iAkZFS  --  lsp-set-addresses lport_061655_iAkZFS 06:a5:4d:52:64:7f\\ 172.145.4.83  --  lsp-set-port-security lport_061655_iAkZFS 06:a5:4d:52:64:7f  --  lsp-add lswitch_061655_NylqGZ lport_061655_0jPco2  --  lsp-set-addresses lport_061655_0jPco2 06:a5:4d:aa:8e:07\\ 172.145.4.84  --  lsp-set-port-security lport_061655_0jPco2 06:a5:4d:aa:8e:07  --  lsp-add lswitch_061655_NylqGZ lport_061655_frqJch  --  lsp-set-addresses lport_061655_frqJch 06:a5:4d:62:6d:76\\ 172.145.4.85  --  lsp-set-port-security lport_061655_frqJch 06:a5:4d:62:6d:76  --  lsp-add lswitch_061655_NylqGZ lport_061655_9JMsui  --  lsp-set-addresses lport_061655_9JMsui 06:a5:4d:db:3e:bd\\ 172.145.4.86  --  lsp-set-port-security lport_061655_9JMsui 06:a5:4d:db:3e:bd  --  lsp-add lswitch_061655_NylqGZ lport_061655_Ze5ag9  --  lsp-set-addresses lport_061655_Ze5ag9 06:a5:4d:13:80:e7\\ 172.145.4.87  --  lsp-set-port-security lport_061655_Ze5ag9 06:a5:4d:13:80:e7  --  lsp-add lswitch_061655_NylqGZ lport_061655_JJ5ko3  --  lsp-set-addresses lport_061655_JJ5ko3 06:a5:4d:0b:ab:48\\ 172.145.4.88  --  lsp-set-port-security lport_061655_JJ5ko3 06:a5:4d:0b:ab:48  --  lsp-add lswitch_061655_NylqGZ lport_061655_lIl8El  --  lsp-set-addresses lport_061655_lIl8El 06:a5:4d:e2:6d:99\\ 172.145.4.89  --  lsp-set-port-security lport_061655_lIl8El 06:a5:4d:e2:6d:99  --  lsp-add lswitch_061655_NylqGZ lport_061655_4Kpfw5  --  lsp-set-addresses lport_061655_4Kpfw5 06:a5:4d:52:5a:53\\ 172.145.4.90  --  lsp-set-port-security lport_061655_4Kpfw5 06:a5:4d:52:5a:53  --  lsp-add lswitch_061655_NylqGZ lport_061655_OgHJNz  --  lsp-set-addresses lport_061655_OgHJNz 06:a5:4d:f2:2b:99\\ 172.145.4.91  --  lsp-set-port-security lport_061655_OgHJNz 06:a5:4d:f2:2b:99  --  lsp-add lswitch_061655_NylqGZ lport_061655_y5ji1E  --  lsp-set-addresses lport_061655_y5ji1E 06:a5:4d:e8:7a:f0\\ 172.145.4.92  --  lsp-set-port-security lport_061655_y5ji1E 06:a5:4d:e8:7a:f0  --  lsp-add lswitch_061655_NylqGZ lport_061655_1rPYP4  --  lsp-set-addresses lport_061655_1rPYP4 06:a5:4d:88:1a:f9\\ 172.145.4.93  --  lsp-set-port-security lport_061655_1rPYP4 06:a5:4d:88:1a:f9  --  lsp-add lswitch_061655_NylqGZ lport_061655_jeQs5M  --  lsp-set-addresses lport_061655_jeQs5M 06:a5:4d:ca:8d:e4\\ 172.145.4.94  --  lsp-set-port-security lport_061655_jeQs5M 06:a5:4d:ca:8d:e4  --  lsp-add lswitch_061655_NylqGZ lport_061655_u9qJFX  --  lsp-set-addresses lport_061655_u9qJFX 06:a5:4d:6c:33:f0\\ 172.145.4.95  --  lsp-set-port-security lport_061655_u9qJFX 06:a5:4d:6c:33:f0  --  lsp-add lswitch_061655_NylqGZ lport_061655_fFCmFp  --  lsp-set-addresses lport_061655_fFCmFp 06:a5:4d:58:b9:3b\\ 172.145.4.96  --  lsp-set-port-security lport_061655_fFCmFp 06:a5:4d:58:b9:3b  --  lsp-add lswitch_061655_NylqGZ lport_061655_Ps8xBz  --  lsp-set-addresses lport_061655_Ps8xBz 06:a5:4d:4f:22:4f\\ 172.145.4.97  --  lsp-set-port-security lport_061655_Ps8xBz 06:a5:4d:4f:22:4f  --  lsp-add lswitch_061655_NylqGZ lport_061655_mFa6W4  --  lsp-set-addresses lport_061655_mFa6W4 06:a5:4d:80:cd:2c\\ 172.145.4.98  --  lsp-set-port-security lport_061655_mFa6W4 06:a5:4d:80:cd:2c  --  lsp-add lswitch_061655_NylqGZ lport_061655_l0LSrS  --  lsp-set-addresses lport_061655_l0LSrS 06:a5:4d:68:4d:a4\\ 172.145.4.99  --  lsp-set-port-security lport_061655_l0LSrS 06:a5:4d:68:4d:a4' failed with exit_status 1. Last stderr data: 'ovn-nbctl: tcp:192.168.220.101:6641,tcp:192.168.220.102:6641,tcp:192.168.220.103:6641: database connection failed (End of file)\n'.", "traceback": "Traceback (most recent call last):\n  File \"/ebay/home/aginwala/rally-repo/rally/rally/task/runner.py\", line 66, in _run_scenario_once\n    deprecated_output = getattr(scenario_inst, method_name)(**kwargs)\n  File \"/usr/local/lib/python2.7/dist-packages/rally_ovs/plugins/ovs/scenarios/ovn_network.py\", line 91, in create_routers_bind_ports\n    lports = self._create_lports(network, port_create_args, ports_per_network)\n  File \"/ebay/home/aginwala/rally-repo/rally/rally/task/atomic.py\", line 84, in func_atomic_actions\n    f = func(self, *args, **kwargs)\n  File \"/usr/local/lib/python2.7/dist-packages/rally_ovs/plugins/ovs/scenarios/ovn.py\", line 158, in _create_lports\n    ovn_nbctl.flush()\n  File \"/usr/local/lib/python2.7/dist-packages/rally_ovs/plugins/ovs/ovsclients_impl.py\", line 96, in flush\n    stdout=sys.stdout, stderr=sys.stderr)\n  File \"/ebay/home/aginwala/rally-repo/rally/rally/common/sshutils.py\", line 164, in run\n    timeout=timeout)\n  File \"/ebay/home/aginwala/rally-repo/rally/rally/common/sshutils.py\", line 233, in _run\n    raise SSHError(details)\nSSHError: Command '. controller-sandbox/sandbox.rc\novn-nbctl --db=\"tcp:192.168.220.101:6641,tcp:192.168.220.102:6641,tcp:192.168.220.103:6641\" --  wait-until Logical_Switch_Port lport_061655_SKbDHz up=true  --  wait-until Logical_Switch_Port lport_061655_zx9LXe up=true  --  wait-until Logical_Switch_Port lport_061655_WaZhYY up=true  --  wait-until Logical_Switch_Port lport_061655_ndoqXt up=true  --  wait-until Logical_Switch_Port lport_061655_VErBZE up=true  --  wait-until Logical_Switch_Port lport_061655_Rt23JP up=true  --  wait-until Logical_Switch_Port lport_061655_IjoLd4 up=true  --  wait-until Logical_Switch_Port lport_061655_QrCthK up=true  --  wait-until Logical_Switch_Port lport_061655_DWwdfo up=true  --  wait-until Logical_Switch_Port lport_061655_IddIIJ up=true  --  wait-until Logical_Switch_Port lport_061655_Hh5DMX up=true  --  wait-until Logical_Switch_Port lport_061655_2h7anv up=true  --  wait-until Logical_Switch_Port lport_061655_VnNNs1 up=true  --  wait-until Logical_Switch_Port lport_061655_en8ICi up=true  --  wait-until Logical_Switch_Port lport_061655_GDe1mV up=true  --  wait-until Logical_Switch_Port lport_061655_T2wmZY up=true  --  wait-until Logical_Switch_Port lport_061655_EDVF7x up=true  --  wait-until Logical_Switch_Port lport_061655_A7FY7Y up=true  --  wait-until Logical_Switch_Port lport_061655_L3U8XT up=true  --  wait-until Logical_Switch_Port lport_061655_MSqUMP up=true  --  wait-until Logical_Switch_Port lport_061655_OyLaVp up=true  --  wait-until Logical_Switch_Port lport_061655_tO1yfH up=true  --  wait-until Logical_Switch_Port lport_061655_5v1hJA up=true  --  wait-until Logical_Switch_Port lport_061655_LTKoZW up=true  --  wait-until Logical_Switch_Port lport_061655_G965Jh up=true  --  wait-until Logical_Switch_Port lport_061655_F4Ei67 up=true  --  wait-until Logical_Switch_Port lport_061655_SS6ZHi up=true  --  wait-until Logical_Switch_Port lport_061655_Nt2OHs up=true  --  wait-until Logical_Switch_Port lport_061655_XdWzIP up=true  --  wait-until Logical_Switch_Port lport_061655_nPvc8X up=true  --  wait-until Logical_Switch_Port lport_061655_8pWpyC up=true  --  wait-until Logical_Switch_Port lport_061655_FGNg3Q up=true  --  wait-until Logical_Switch_Port lport_061655_qmetyE up=true  --  wait-until Logical_Switch_Port lport_061655_FyZSLr up=true  --  wait-until Logical_Switch_Port lport_061655_wBOt3h up=true  --  wait-until Logical_Switch_Port lport_061655_XUENpz up=true  --  wait-until Logical_Switch_Port lport_061655_CPiJuj up=true  --  wait-until Logical_Switch_Port lport_061655_HNpYOI up=true  --  wait-until Logical_Switch_Port lport_061655_9r1Q4x up=true  --  wait-until Logical_Switch_Port lport_061655_pWwG33 up=true  --  wait-until Logical_Switch_Port lport_061655_t1c2pN up=true  --  wait-until Logical_Switch_Port lport_061655_5aQPdM up=true  --  wait-until Logical_Switch_Port lport_061655_EpDUJB up=true  --  wait-until Logical_Switch_Port lport_061655_5Lzon9 up=true  --  wait-until Logical_Switch_Port lport_061655_xQ62L4 up=true  --  wait-until Logical_Switch_Port lport_061655_p970K6 up=true  --  wait-until Logical_Switch_Port lport_061655_SxIEr2 up=true  --  wait-until Logical_Switch_Port lport_061655_y1D9Qd up=true  --  wait-until Logical_Switch_Port lport_061655_wJI7zl up=true  --  wait-until Logical_Switch_Port lport_061655_miLRcI up=true  --  wait-until Logical_Switch_Port lport_061655_GXROYj up=true  --  wait-until Logical_Switch_Port lport_061655_1U1vn1 up=true  --  wait-until Logical_Switch_Port lport_061655_0YCDDu up=true  --  wait-until Logical_Switch_Port lport_061655_mmW2A6 up=true  --  wait-until Logical_Switch_Port lport_061655_JuWwDg up=true  --  wait-until Logical_Switch_Port lport_061655_zA7C68 up=true  --  wait-until Logical_Switch_Port lport_061655_Mt3zly up=true  --  wait-until Logical_Switch_Port lport_061655_Kk8wDO up=true  --  wait-until Logical_Switch_Port lport_061655_3xF6CV up=true  --  wait-until Logical_Switch_Port lport_061655_bicaWl up=true  --  wait-until Logical_Switch_Port lport_061655_aVe2LH up=true  --  wait-until Logical_Switch_Port lport_061655_HtY5uI up=true  --  wait-until Logical_Switch_Port lport_061655_vLcGBv up=true  --  wait-until Logical_Switch_Port lport_061655_O9a9QL up=true  --  wait-until Logical_Switch_Port lport_061655_4ZzXTz up=true  --  wait-until Logical_Switch_Port lport_061655_56HEwE up=true  --  wait-until Logical_Switch_Port lport_061655_2qSTZl up=true  --  wait-until Logical_Switch_Port lport_061655_2uB5Wf up=true  --  wait-until Logical_Switch_Port lport_061655_KlIzt0 up=true  --  wait-until Logical_Switch_Port lport_061655_vkH6D7 up=true  --  wait-until Logical_Switch_Port lport_061655_4PkDgA up=true  --  wait-until Logical_Switch_Port lport_061655_eAoJNe up=true  --  wait-until Logical_Switch_Port lport_061655_saFZ9q up=true  --  wait-until Logical_Switch_Port lport_061655_EPF7jz up=true  --  wait-until Logical_Switch_Port lport_061655_hopS8t up=true  --  wait-until Logical_Switch_Port lport_061655_SvnTPG up=true  --  wait-until Logical_Switch_Port lport_061655_yRJ6SZ up=true  --  wait-until Logical_Switch_Port lport_061655_4uR0ra up=true  --  wait-until Logical_Switch_Port lport_061655_tR0G3A up=true  --  wait-until Logical_Switch_Port lport_061655_lyu07C up=true  --  wait-until Logical_Switch_Port lport_061655_7fthI7 up=true  --  wait-until Logical_Switch_Port lport_061655_5pCRKu up=true  --  wait-until Logical_Switch_Port lport_061655_c5hEV5 up=true  --  wait-until Logical_Switch_Port lport_061655_mupX4q up=true  --  wait-until Logical_Switch_Port lport_061655_mtp7Ou up=true  --  wait-until Logical_Switch_Port lport_061655_ShRWnC up=true  --  wait-until Logical_Switch_Port lport_061655_Y6KIfB up=true  --  wait-until Logical_Switch_Port lport_061655_dcVj4B up=true  --  wait-until Logical_Switch_Port lport_061655_N0igAX up=true  --  wait-until Logical_Switch_Port lport_061655_1UeaGP up=true  --  wait-until Logical_Switch_Port lport_061655_Ll2U1D up=true  --  wait-until Logical_Switch_Port lport_061655_pODFGp up=true  --  wait-until Logical_Switch_Port lport_061655_sSjD5O up=true  --  wait-until Logical_Switch_Port lport_061655_3sewAw up=true  --  wait-until Logical_Switch_Port lport_061655_E7h3cz up=true  --  wait-until Logical_Switch_Port lport_061655_V76555 up=true  --  wait-until Logical_Switch_Port lport_061655_MffJeU up=true  --  wait-until Logical_Switch_Port lport_061655_hJoN2J up=true  --  wait-until Logical_Switch_Port lport_061655_SDtG9k up=true  --  wait-until Logical_Switch_Port lport_061655_nRE75s up=true  --  wait-until Logical_Switch_Port lport_061655_O0YeT8 up=true  --  wait-until Logical_Switch_Port lport_061655_bVmKOg up=true  --  wait-until Logical_Switch_Port lport_061655_rGZBWY up=true  --  wait-until Logical_Switch_Port lport_061655_AcEW7h up=true  --  wait-until Logical_Switch_Port lport_061655_Bs4mlH up=true  --  wait-until Logical_Switch_Port lport_061655_IKy0wp up=true  --  wait-until Logical_Switch_Port lport_061655_5HMoSl up=true  --  wait-until Logical_Switch_Port lport_061655_1Us1M7 up=true  --  wait-until Logical_Switch_Port lport_061655_DRXaBf up=true  --  wait-until Logical_Switch_Port lport_061655_81WdUD up=true  --  wait-until Logical_Switch_Port lport_061655_9JzeGd up=true  --  wait-until Logical_Switch_Port lport_061655_WmTR8Y up=true  --  wait-until Logical_Switch_Port lport_061655_umC3iN up=true  --  wait-until Logical_Switch_Port lport_061655_dPPYW4 up=true  --  wait-until Logical_Switch_Port lport_061655_283P1z up=true  --  wait-until Logical_Switch_Port lport_061655_pc1Qdn up=true  --  wait-until Logical_Switch_Port lport_061655_CwTO06 up=true  --  wait-until Logical_Switch_Port lport_061655_63c8DA up=true  --  wait-until Logical_Switch_Port lport_061655_vYNiNq up=true  --  wait-until Logical_Switch_Port lport_061655_42mXS3 up=true  --  wait-until Logical_Switch_Port lport_061655_OtzsS1 up=true  --  wait-until Logical_Switch_Port lport_061655_8UH87E up=true  --  wait-until Logical_Switch_Port lport_061655_xSHpJn up=true  --  wait-until Logical_Switch_Port lport_061655_5Q2NIi up=true  --  wait-until Logical_Switch_Port lport_061655_dPqfPj up=true  --  wait-until Logical_Switch_Port lport_061655_Bm8pJf up=true  --  wait-until Logical_Switch_Port lport_061655_LKAReM up=true  --  wait-until Logical_Switch_Port lport_061655_ytCoHb up=true  --  wait-until Logical_Switch_Port lport_061655_yILXgZ up=true  --  wait-until Logical_Switch_Port lport_061655_g8GzCJ up=true  --  wait-until Logical_Switch_Port lport_061655_eG4dbJ up=true  --  wait-until Logical_Switch_Port lport_061655_0yET58 up=true  --  wait-until Logical_Switch_Port lport_061655_6gFqTl up=true  --  wait-until Logical_Switch_Port lport_061655_DVQTsS up=true  --  wait-until Logical_Switch_Port lport_061655_N23hkP up=true  --  wait-until Logical_Switch_Port lport_061655_tIj9xK up=true  --  wait-until Logical_Switch_Port lport_061655_iNsIIH up=true  --  wait-until Logical_Switch_Port lport_061655_GFAgvA up=true  --  wait-until Logical_Switch_Port lport_061655_5JyYGW up=true  --  wait-until Logical_Switch_Port lport_061655_4mNMmr up=true  --  wait-until Logical_Switch_Port lport_061655_Iz5XkI up=true  --  wait-until Logical_Switch_Port lport_061655_e1jkAI up=true  --  wait-until Logical_Switch_Port lport_061655_ieVfKo up=true  --  wait-until Logical_Switch_Port lport_061655_62oYRg up=true  --  wait-until Logical_Switch_Port lport_061655_OYD0LG up=true  --  wait-until Logical_Switch_Port lport_061655_rOHQ4b up=true  --  wait-until Logical_Switch_Port lport_061655_f0KjaQ up=true  --  wait-until Logical_Switch_Port lport_061655_sny1VL up=true  --  wait-until Logical_Switch_Port lport_061655_j2JWWH up=true  --  wait-until Logical_Switch_Port lport_061655_mRouhl up=true  --  wait-until Logical_Switch_Port lport_061655_zS9vmJ up=true  --  wait-until Logical_Switch_Port lport_061655_e32nMc up=true  --  wait-until Logical_Switch_Port lport_061655_ily9et up=true  --  wait-until Logical_Switch_Port lport_061655_AlcdTn up=true  --  wait-until Logical_Switch_Port lport_061655_RDbRxL up=true  --  wait-until Logical_Switch_Port lport_061655_y6Kgl5 up=true  --  wait-until Logical_Switch_Port lport_061655_Lc43BE up=true  --  wait-until Logical_Switch_Port lport_061655_Rjzole up=true  --  wait-until Logical_Switch_Port lport_061655_NazcpO up=true  --  wait-until Logical_Switch_Port lport_061655_FQry05 up=true  --  wait-until Logical_Switch_Port lport_061655_RkP8k7 up=true  --  wait-until Logical_Switch_Port lport_061655_l2ESGz up=true  --  wait-until Logical_Switch_Port lport_061655_COu6LG up=true  --  wait-until Logical_Switch_Port lport_061655_90yshA up=true  --  wait-until Logical_Switch_Port lport_061655_Pv60hH up=true  --  wait-until Logical_Switch_Port lport_061655_XEpLFI up=true  --  wait-until Logical_Switch_Port lport_061655_kjWCuO up=true  --  wait-until Logical_Switch_Port lport_061655_khAp6Z up=true  --  wait-until Logical_Switch_Port lport_061655_cjbojI up=true  --  wait-until Logical_Switch_Port lport_061655_ZnyMvF up=true  --  wait-until Logical_Switch_Port lport_061655_0Mfom1 up=true  --  wait-until Logical_Switch_Port lport_061655_rZiefU up=true  --  wait-until Logical_Switch_Port lport_061655_joHWu3 up=true  --  wait-until Logical_Switch_Port lport_061655_RVLOUb up=true  --  wait-until Logical_Switch_Port lport_061655_lA1d3O up=true  --  wait-until Logical_Switch_Port lport_061655_UMVqpy up=true  --  wait-until Logical_Switch_Port lport_061655_SeKLVY up=true  --  wait-until Logical_Switch_Port lport_061655_cYsYsl up=true  --  wait-until Logical_Switch_Port lport_061655_riJM9G up=true  --  wait-until Logical_Switch_Port lport_061655_PO6hai up=true  --  wait-until Logical_Switch_Port lport_061655_jOlktW up=true  --  wait-until Logical_Switch_Port lport_061655_TmUhV7 up=true  --  wait-until Logical_Switch_Port lport_061655_eA2oTk up=true  --  wait-until Logical_Switch_Port lport_061655_YGjtr0 up=true  --  wait-until Logical_Switch_Port lport_061655_hxTSoC up=true  --  wait-until Logical_Switch_Port lport_061655_sxDAk4 up=true  --  wait-until Logical_Switch_Port lport_061655_3wn1Wo up=true  --  wait-until Logical_Switch_Port lport_061655_fLSblg up=true  --  wait-until Logical_Switch_Port lport_061655_z9mbF0 up=true  --  wait-until Logical_Switch_Port lport_061655_Ma1aCC up=true  --  wait-until Logical_Switch_Port lport_061655_r9pemi up=true  --  wait-until Logical_Switch_Port lport_061655_4SiIxc up=true  --  wait-until Logical_Switch_Port lport_061655_PQLmiy up=true  --  wait-until Logical_Switch_Port lport_061655_hiCFbN up=true  --  wait-until Logical_Switch_Port lport_061655_tq53qo up=true  --  wait-until Logical_Switch_Port lport_061655_m6INMC up=true  --  wait-until Logical_Switch_Port lport_061655_BNTBYc up=true  --  wait-until Logical_Switch_Port lport_061655_l8D7Pa up=true  --  wait-until Logical_Switch_Port lport_061655_uXJ0jA up=true  --  wait-until Logical_Switch_Port lport_061655_euGG4c up=true  --  wait-until Logical_Switch_Port lport_061655_3Rb9vW up=true  --  wait-until Logical_Switch_Port lport_061655_LBdyRC up=true  --  wait-until Logical_Switch_Port lport_061655_m8f1z2 up=true  --  wait-until Logical_Switch_Port lport_061655_y43Tgk up=true  --  wait-until Logical_Switch_Port lport_061655_Bp3Lam up=true  --  wait-until Logical_Switch_Port lport_061655_Rih8W4 up=true  --  wait-until Logical_Switch_Port lport_061655_W4FWXk up=true  --  wait-until Logical_Switch_Port lport_061655_oCEbpz up=true  --  wait-until Logical_Switch_Port lport_061655_2yxfSE up=true  --  wait-until Logical_Switch_Port lport_061655_wgf07q up=true  --  wait-until Logical_Switch_Port lport_061655_GDeUKT up=true  --  wait-until Logical_Switch_Port lport_061655_q7yus9 up=true  --  wait-until Logical_Switch_Port lport_061655_lKBKIr up=true  --  wait-until Logical_Switch_Port lport_061655_QJGPge up=true  --  wait-until Logical_Switch_Port lport_061655_xedi22 up=true  --  wait-until Logical_Switch_Port lport_061655_7zNDMV up=true  --  wait-until Logical_Switch_Port lport_061655_toI9fn up=true  --  wait-until Logical_Switch_Port lport_061655_b2KCoO up=true  --  wait-until Logical_Switch_Port lport_061655_MxrRIg up=true  --  wait-until Logical_Switch_Port lport_061655_Aj9xf8 up=true  --  wait-until Logical_Switch_Port lport_061655_merPtm up=true  --  wait-until Logical_Switch_Port lport_061655_D3xqQi up=true  --  wait-until Logical_Switch_Port lport_061655_rOfDFK up=true  --  wait-until Logical_Switch_Port lport_061655_yT0Ths up=true  --  wait-until Logical_Switch_Port lport_061655_Kjt6MM up=true  --  wait-until Logical_Switch_Port lport_061655_EKQzMg up=true  --  wait-until Logical_Switch_Port lport_061655_9FfBeQ up=true  --  wait-until Logical_Switch_Port lport_061655_ZcNGP1 up=true  --  wait-until Logical_Switch_Port lport_061655_Cpt5rx up=true  --  wait-until Logical_Switch_Port lport_061655_7HEvnj up=true  --  wait-until Logical_Switch_Port lport_061655_GavDqK up=true  --  wait-until Logical_Switch_Port lport_061655_wCJX28 up=true  --  wait-until Logical_Switch_Port lport_061655_5AKgDk up=true  --  wait-until Logical_Switch_Port lport_061655_lASzjT up=true  --  wait-until Logical_Switch_Port lport_061655_3762Yt up=true  --  wait-until Logical_Switch_Port lport_061655_GBj8SX up=true  --  wait-until Logical_Switch_Port lport_061655_GVpzgO up=true  --  wait-until Logical_Switch_Port lport_061655_CMst3W up=true  --  wait-until Logical_Switch_Port lport_061655_lOxQye up=true  --  wait-until Logical_Switch_Port lport_061655_23VS20 up=true  --  wait-until Logical_Switch_Port lport_061655_h8cqH2 up=true  --  wait-until Logical_Switch_Port lport_061655_045bss up=true  --  wait-until Logical_Switch_Port lport_061655_gm9Q7V up=true  --  wait-until Logical_Switch_Port lport_061655_0vC48x up=true  --  wait-until Logical_Switch_Port lport_061655_4nspda up=true  --  wait-until Logical_Switch_Port lport_061655_73XrNB up=true  --  wait-until Logical_Switch_Port lport_061655_sxYb4R up=true  --  wait-until Logical_Switch_Port lport_061655_5rDfkG up=true  --  wait-until Logical_Switch_Port lport_061655_j9kPHl up=true  --  wait-until Logical_Switch_Port lport_061655_yUSUkZ up=true  --  lsp-add lswitch_061655_NylqGZ lport_061655_mosIIj  --  lsp-set-addresses lport_061655_mosIIj 06:a5:4d:57:cf:08\\ 172.145.4.0  --  lsp-set-port-security lport_061655_mosIIj 06:a5:4d:57:cf:08  --  lsp-add lswitch_061655_NylqGZ lport_061655_FHxCaa  --  lsp-set-addresses lport_061655_FHxCaa 06:a5:4d:0d:38:69\\ 172.145.4.1  --  lsp-set-port-security lport_061655_FHxCaa 06:a5:4d:0d:38:69  --  lsp-add lswitch_061655_NylqGZ lport_061655_Gdkxcb  --  lsp-set-addresses lport_061655_Gdkxcb 06:a5:4d:82:2e:91\\ 172.145.4.2  --  lsp-set-port-security lport_061655_Gdkxcb 06:a5:4d:82:2e:91  --  lsp-add lswitch_061655_NylqGZ lport_061655_5xFRyT  --  lsp-set-addresses lport_061655_5xFRyT 06:a5:4d:a8:d4:20\\ 172.145.4.3  --  lsp-set-port-security lport_061655_5xFRyT 06:a5:4d:a8:d4:20  --  lsp-add lswitch_061655_NylqGZ lport_061655_t8V1Wr  --  lsp-set-addresses lport_061655_t8V1Wr 06:a5:4d:af:d6:91\\ 172.145.4.4  --  lsp-set-port-security lport_061655_t8V1Wr 06:a5:4d:af:d6:91  --  lsp-add lswitch_061655_NylqGZ lport_061655_HADGaf  --  lsp-set-addresses lport_061655_HADGaf 06:a5:4d:8a:74:41\\ 172.145.4.5  --  lsp-set-port-security lport_061655_HADGaf 06:a5:4d:8a:74:41  --  lsp-add lswitch_061655_NylqGZ lport_061655_UkyZdC  --  lsp-set-addresses lport_061655_UkyZdC 06:a5:4d:d6:78:ac\\ 172.145.4.6  --  lsp-set-port-security lport_061655_UkyZdC 06:a5:4d:d6:78:ac  --  lsp-add lswitch_061655_NylqGZ lport_061655_qlPxxC  --  lsp-set-addresses lport_061655_qlPxxC 06:a5:4d:25:c4:75\\ 172.145.4.7  --  lsp-set-port-security lport_061655_qlPxxC 06:a5:4d:25:c4:75  --  lsp-add lswitch_061655_NylqGZ lport_061655_Rf4Fci  --  lsp-set-addresses lport_061655_Rf4Fci 06:a5:4d:d2:6e:35\\ 172.145.4.8  --  lsp-set-port-security lport_061655_Rf4Fci 06:a5:4d:d2:6e:35  --  lsp-add lswitch_061655_NylqGZ lport_061655_cwEhsr  --  lsp-set-addresses lport_061655_cwEhsr 06:a5:4d:0c:80:8e\\ 172.145.4.9  --  lsp-set-port-security lport_061655_cwEhsr 06:a5:4d:0c:80:8e  --  lsp-add lswitch_061655_NylqGZ lport_061655_P9VhBZ  --  lsp-set-addresses lport_061655_P9VhBZ 06:a5:4d:70:9e:3f\\ 172.145.4.10  --  lsp-set-port-security lport_061655_P9VhBZ 06:a5:4d:70:9e:3f  --  lsp-add lswitch_061655_NylqGZ lport_061655_8N9spJ  --  lsp-set-addresses lport_061655_8N9spJ 06:a5:4d:2a:00:ee\\ 172.145.4.11  --  lsp-set-port-security lport_061655_8N9spJ 06:a5:4d:2a:00:ee  --  lsp-add lswitch_061655_NylqGZ lport_061655_aPDGaA  --  lsp-set-addresses lport_061655_aPDGaA 06:a5:4d:57:1b:03\\ 172.145.4.12  --  lsp-set-port-security lport_061655_aPDGaA 06:a5:4d:57:1b:03  --  lsp-add lswitch_061655_NylqGZ lport_061655_ejVApU  --  lsp-set-addresses lport_061655_ejVApU 06:a5:4d:a5:8c:77\\ 172.145.4.13  --  lsp-set-port-security lport_061655_ejVApU 06:a5:4d:a5:8c:77  --  lsp-add lswitch_061655_NylqGZ lport_061655_KoL7vi  --  lsp-set-addresses lport_061655_KoL7vi 06:a5:4d:ca:ed:65\\ 172.145.4.14  --  lsp-set-port-security lport_061655_KoL7vi 06:a5:4d:ca:ed:65  --  lsp-add lswitch_061655_NylqGZ lport_061655_j3adpq  --  lsp-set-addresses lport_061655_j3adpq 06:a5:4d:1d:09:85\\ 172.145.4.15  --  lsp-set-port-security lport_061655_j3adpq 06:a5:4d:1d:09:85  --  lsp-add lswitch_061655_NylqGZ lport_061655_DJy3Op  --  lsp-set-addresses lport_061655_DJy3Op 06:a5:4d:41:eb:d7\\ 172.145.4.16  --  lsp-set-port-security lport_061655_DJy3Op 06:a5:4d:41:eb:d7  --  lsp-add lswitch_061655_NylqGZ lport_061655_RydyIo  --  lsp-set-addresses lport_061655_RydyIo 06:a5:4d:dc:a2:8e\\ 172.145.4.17  --  lsp-set-port-security lport_061655_RydyIo 06:a5:4d:dc:a2:8e  --  lsp-add lswitch_061655_NylqGZ lport_061655_UHlRLG  --  lsp-set-addresses lport_061655_UHlRLG 06:a5:4d:d4:e5:fe\\ 172.145.4.18  --  lsp-set-port-security lport_061655_UHlRLG 06:a5:4d:d4:e5:fe  --  lsp-add lswitch_061655_NylqGZ lport_061655_t9PB4C  --  lsp-set-addresses lport_061655_t9PB4C 06:a5:4d:ac:a7:13\\ 172.145.4.19  --  lsp-set-port-security lport_061655_t9PB4C 06:a5:4d:ac:a7:13  --  lsp-add lswitch_061655_NylqGZ lport_061655_tbil9n  --  lsp-set-addresses lport_061655_tbil9n 06:a5:4d:a0:dc:0a\\ 172.145.4.20  --  lsp-set-port-security lport_061655_tbil9n 06:a5:4d:a0:dc:0a  --  lsp-add lswitch_061655_NylqGZ lport_061655_Qg9b5x  --  lsp-set-addresses lport_061655_Qg9b5x 06:a5:4d:60:37:9c\\ 172.145.4.21  --  lsp-set-port-security lport_061655_Qg9b5x 06:a5:4d:60:37:9c  --  lsp-add lswitch_061655_NylqGZ lport_061655_b3R2Pv  --  lsp-set-addresses lport_061655_b3R2Pv 06:a5:4d:2e:86:0a\\ 172.145.4.22  --  lsp-set-port-security lport_061655_b3R2Pv 06:a5:4d:2e:86:0a  --  lsp-add lswitch_061655_NylqGZ lport_061655_sUI1uc  --  lsp-set-addresses lport_061655_sUI1uc 06:a5:4d:94:54:cf\\ 172.145.4.23  --  lsp-set-port-security lport_061655_sUI1uc 06:a5:4d:94:54:cf  --  lsp-add lswitch_061655_NylqGZ lport_061655_Y5EDai  --  lsp-set-addresses lport_061655_Y5EDai 06:a5:4d:e0:f6:4c\\ 172.145.4.24  --  lsp-set-port-security lport_061655_Y5EDai 06:a5:4d:e0:f6:4c  --  lsp-add lswitch_061655_NylqGZ lport_061655_XsHhBS  --  lsp-set-addresses lport_061655_XsHhBS 06:a5:4d:07:a1:c3\\ 172.145.4.25  --  lsp-set-port-security lport_061655_XsHhBS 06:a5:4d:07:a1:c3  --  lsp-add lswitch_061655_NylqGZ lport_061655_Re6BxV  --  lsp-set-addresses lport_061655_Re6BxV 06:a5:4d:51:60:0f\\ 172.145.4.26  --  lsp-set-port-security lport_061655_Re6BxV 06:a5:4d:51:60:0f  --  lsp-add lswitch_061655_NylqGZ lport_061655_vGmqbm  --  lsp-set-addresses lport_061655_vGmqbm 06:a5:4d:7b:78:84\\ 172.145.4.27  --  lsp-set-port-security lport_061655_vGmqbm 06:a5:4d:7b:78:84  --  lsp-add lswitch_061655_NylqGZ lport_061655_metwYQ  --  lsp-set-addresses lport_061655_metwYQ 06:a5:4d:c7:10:41\\ 172.145.4.28  --  lsp-set-port-security lport_061655_metwYQ 06:a5:4d:c7:10:41  --  lsp-add lswitch_061655_NylqGZ lport_061655_8oWpPv  --  lsp-set-addresses lport_061655_8oWpPv 06:a5:4d:4d:bd:4f\\ 172.145.4.29  --  lsp-set-port-security lport_061655_8oWpPv 06:a5:4d:4d:bd:4f  --  lsp-add lswitch_061655_NylqGZ lport_061655_4n6CwZ  --  lsp-set-addresses lport_061655_4n6CwZ 06:a5:4d:32:58:11\\ 172.145.4.30  --  lsp-set-port-security lport_061655_4n6CwZ 06:a5:4d:32:58:11  --  lsp-add lswitch_061655_NylqGZ lport_061655_EQnOQP  --  lsp-set-addresses lport_061655_EQnOQP 06:a5:4d:f1:a1:7a\\ 172.145.4.31  --  lsp-set-port-security lport_061655_EQnOQP 06:a5:4d:f1:a1:7a  --  lsp-add lswitch_061655_NylqGZ lport_061655_1MP1Z9  --  lsp-set-addresses lport_061655_1MP1Z9 06:a5:4d:20:c3:1b\\ 172.145.4.32  --  lsp-set-port-security lport_061655_1MP1Z9 06:a5:4d:20:c3:1b  --  lsp-add lswitch_061655_NylqGZ lport_061655_xeIjqk  --  lsp-set-addresses lport_061655_xeIjqk 06:a5:4d:79:c8:cc\\ 172.145.4.33  --  lsp-set-port-security lport_061655_xeIjqk 06:a5:4d:79:c8:cc  --  lsp-add lswitch_061655_NylqGZ lport_061655_pRvRpD  --  lsp-set-addresses lport_061655_pRvRpD 06:a5:4d:31:e7:0d\\ 172.145.4.34  --  lsp-set-port-security lport_061655_pRvRpD 06:a5:4d:31:e7:0d  --  lsp-add lswitch_061655_NylqGZ lport_061655_Zyyhpt  --  lsp-set-addresses lport_061655_Zyyhpt 06:a5:4d:fb:c7:59\\ 172.145.4.35  --  lsp-set-port-security lport_061655_Zyyhpt 06:a5:4d:fb:c7:59  --  lsp-add lswitch_061655_NylqGZ lport_061655_5H6fBL  --  lsp-set-addresses lport_061655_5H6fBL 06:a5:4d:46:1a:51\\ 172.145.4.36  --  lsp-set-port-security lport_061655_5H6fBL 06:a5:4d:46:1a:51  --  lsp-add lswitch_061655_NylqGZ lport_061655_LJmWAn  --  lsp-set-addresses lport_061655_LJmWAn 06:a5:4d:6b:6b:b2\\ 172.145.4.37  --  lsp-set-port-security lport_061655_LJmWAn 06:a5:4d:6b:6b:b2  --  lsp-add lswitch_061655_NylqGZ lport_061655_Mtz6c9  --  lsp-set-addresses lport_061655_Mtz6c9 06:a5:4d:9f:55:9b\\ 172.145.4.38  --  lsp-set-port-security lport_061655_Mtz6c9 06:a5:4d:9f:55:9b  --  lsp-add lswitch_061655_NylqGZ lport_061655_4n8s2E  --  lsp-set-addresses lport_061655_4n8s2E 06:a5:4d:b7:aa:b2\\ 172.145.4.39  --  lsp-set-port-security lport_061655_4n8s2E 06:a5:4d:b7:aa:b2  --  lsp-add lswitch_061655_NylqGZ lport_061655_0nJ38C  --  lsp-set-addresses lport_061655_0nJ38C 06:a5:4d:e1:fb:51\\ 172.145.4.40  --  lsp-set-port-security lport_061655_0nJ38C 06:a5:4d:e1:fb:51  --  lsp-add lswitch_061655_NylqGZ lport_061655_pzWR1i  --  lsp-set-addresses lport_061655_pzWR1i 06:a5:4d:0f:6e:2f\\ 172.145.4.41  --  lsp-set-port-security lport_061655_pzWR1i 06:a5:4d:0f:6e:2f  --  lsp-add lswitch_061655_NylqGZ lport_061655_dmKLKb  --  lsp-set-addresses lport_061655_dmKLKb 06:a5:4d:b0:85:ee\\ 172.145.4.42  --  lsp-set-port-security lport_061655_dmKLKb 06:a5:4d:b0:85:ee  --  lsp-add lswitch_061655_NylqGZ lport_061655_WtD3ps  --  lsp-set-addresses lport_061655_WtD3ps 06:a5:4d:3a:c6:fb\\ 172.145.4.43  --  lsp-set-port-security lport_061655_WtD3ps 06:a5:4d:3a:c6:fb  --  lsp-add lswitch_061655_NylqGZ lport_061655_LQgAaa  --  lsp-set-addresses lport_061655_LQgAaa 06:a5:4d:46:7a:18\\ 172.145.4.44  --  lsp-set-port-security lport_061655_LQgAaa 06:a5:4d:46:7a:18  --  lsp-add lswitch_061655_NylqGZ lport_061655_p0VA6L  --  lsp-set-addresses lport_061655_p0VA6L 06:a5:4d:6a:d8:2b\\ 172.145.4.45  --  lsp-set-port-security lport_061655_p0VA6L 06:a5:4d:6a:d8:2b  --  lsp-add lswitch_061655_NylqGZ lport_061655_uYd9T9  --  lsp-set-addresses lport_061655_uYd9T9 06:a5:4d:b4:b5:fd\\ 172.145.4.46  --  lsp-set-port-security lport_061655_uYd9T9 06:a5:4d:b4:b5:fd  --  lsp-add lswitch_061655_NylqGZ lport_061655_YByOCm  --  lsp-set-addresses lport_061655_YByOCm 06:a5:4d:80:76:eb\\ 172.145.4.47  --  lsp-set-port-security lport_061655_YByOCm 06:a5:4d:80:76:eb  --  lsp-add lswitch_061655_NylqGZ lport_061655_D60N0j  --  lsp-set-addresses lport_061655_D60N0j 06:a5:4d:c8:78:88\\ 172.145.4.48  --  lsp-set-port-security lport_061655_D60N0j 06:a5:4d:c8:78:88  --  lsp-add lswitch_061655_NylqGZ lport_061655_ckGzcI  --  lsp-set-addresses lport_061655_ckGzcI 06:a5:4d:89:0d:06\\ 172.145.4.49  --  lsp-set-port-security lport_061655_ckGzcI 06:a5:4d:89:0d:06  --  lsp-add lswitch_061655_NylqGZ lport_061655_n5dkMT  --  lsp-set-addresses lport_061655_n5dkMT 06:a5:4d:27:3e:f5\\ 172.145.4.50  --  lsp-set-port-security lport_061655_n5dkMT 06:a5:4d:27:3e:f5  --  lsp-add lswitch_061655_NylqGZ lport_061655_nJ5ujF  --  lsp-set-addresses lport_061655_nJ5ujF 06:a5:4d:09:22:4f\\ 172.145.4.51  --  lsp-set-port-security lport_061655_nJ5ujF 06:a5:4d:09:22:4f  --  lsp-add lswitch_061655_NylqGZ lport_061655_ZKJm7d  --  lsp-set-addresses lport_061655_ZKJm7d 06:a5:4d:1e:6f:4d\\ 172.145.4.52  --  lsp-set-port-security lport_061655_ZKJm7d 06:a5:4d:1e:6f:4d  --  lsp-add lswitch_061655_NylqGZ lport_061655_dGduC7  --  lsp-set-addresses lport_061655_dGduC7 06:a5:4d:79:70:84\\ 172.145.4.53  --  lsp-set-port-security lport_061655_dGduC7 06:a5:4d:79:70:84  --  lsp-add lswitch_061655_NylqGZ lport_061655_Wk8JAp  --  lsp-set-addresses lport_061655_Wk8JAp 06:a5:4d:28:f1:b2\\ 172.145.4.54  --  lsp-set-port-security lport_061655_Wk8JAp 06:a5:4d:28:f1:b2  --  lsp-add lswitch_061655_NylqGZ lport_061655_cSeaXq  --  lsp-set-addresses lport_061655_cSeaXq 06:a5:4d:05:05:5c\\ 172.145.4.55  --  lsp-set-port-security lport_061655_cSeaXq 06:a5:4d:05:05:5c  --  lsp-add lswitch_061655_NylqGZ lport_061655_y0gFZk  --  lsp-set-addresses lport_061655_y0gFZk 06:a5:4d:19:08:05\\ 172.145.4.56  --  lsp-set-port-security lport_061655_y0gFZk 06:a5:4d:19:08:05  --  lsp-add lswitch_061655_NylqGZ lport_061655_ImVgip  --  lsp-set-addresses lport_061655_ImVgip 06:a5:4d:89:f7:a3\\ 172.145.4.57  --  lsp-set-port-security lport_061655_ImVgip 06:a5:4d:89:f7:a3  --  lsp-add lswitch_061655_NylqGZ lport_061655_IFvwYG  --  lsp-set-addresses lport_061655_IFvwYG 06:a5:4d:15:12:84\\ 172.145.4.58  --  lsp-set-port-security lport_061655_IFvwYG 06:a5:4d:15:12:84  --  lsp-add lswitch_061655_NylqGZ lport_061655_Fj9DpD  --  lsp-set-addresses lport_061655_Fj9DpD 06:a5:4d:69:26:69\\ 172.145.4.59  --  lsp-set-port-security lport_061655_Fj9DpD 06:a5:4d:69:26:69  --  lsp-add lswitch_061655_NylqGZ lport_061655_PQz91R  --  lsp-set-addresses lport_061655_PQz91R 06:a5:4d:1d:e8:09\\ 172.145.4.60  --  lsp-set-port-security lport_061655_PQz91R 06:a5:4d:1d:e8:09  --  lsp-add lswitch_061655_NylqGZ lport_061655_BxHPBn  --  lsp-set-addresses lport_061655_BxHPBn 06:a5:4d:e9:e6:66\\ 172.145.4.61  --  lsp-set-port-security lport_061655_BxHPBn 06:a5:4d:e9:e6:66  --  lsp-add lswitch_061655_NylqGZ lport_061655_0ofM74  --  lsp-set-addresses lport_061655_0ofM74 06:a5:4d:cd:01:6a\\ 172.145.4.62  --  lsp-set-port-security lport_061655_0ofM74 06:a5:4d:cd:01:6a  --  lsp-add lswitch_061655_NylqGZ lport_061655_eb0Om2  --  lsp-set-addresses lport_061655_eb0Om2 06:a5:4d:b5:d2:79\\ 172.145.4.63  --  lsp-set-port-security lport_061655_eb0Om2 06:a5:4d:b5:d2:79  --  lsp-add lswitch_061655_NylqGZ lport_061655_LxUl12  --  lsp-set-addresses lport_061655_LxUl12 06:a5:4d:49:e8:35\\ 172.145.4.64  --  lsp-set-port-security lport_061655_LxUl12 06:a5:4d:49:e8:35  --  lsp-add lswitch_061655_NylqGZ lport_061655_mvrh5q  --  lsp-set-addresses lport_061655_mvrh5q 06:a5:4d:53:cd:a2\\ 172.145.4.65  --  lsp-set-port-security lport_061655_mvrh5q 06:a5:4d:53:cd:a2  --  lsp-add lswitch_061655_NylqGZ lport_061655_a2yx22  --  lsp-set-addresses lport_061655_a2yx22 06:a5:4d:dc:f2:3f\\ 172.145.4.66  --  lsp-set-port-security lport_061655_a2yx22 06:a5:4d:dc:f2:3f  --  lsp-add lswitch_061655_NylqGZ lport_061655_IIAN5e  --  lsp-set-addresses lport_061655_IIAN5e 06:a5:4d:86:2e:84\\ 172.145.4.67  --  lsp-set-port-security lport_061655_IIAN5e 06:a5:4d:86:2e:84  --  lsp-add lswitch_061655_NylqGZ lport_061655_2krqMW  --  lsp-set-addresses lport_061655_2krqMW 06:a5:4d:37:97:6f\\ 172.145.4.68  --  lsp-set-port-security lport_061655_2krqMW 06:a5:4d:37:97:6f  --  lsp-add lswitch_061655_NylqGZ lport_061655_Jsqy4P  --  lsp-set-addresses lport_061655_Jsqy4P 06:a5:4d:30:e4:a6\\ 172.145.4.69  --  lsp-set-port-security lport_061655_Jsqy4P 06:a5:4d:30:e4:a6  --  lsp-add lswitch_061655_NylqGZ lport_061655_DG9Sl0  --  lsp-set-addresses lport_061655_DG9Sl0 06:a5:4d:b2:57:73\\ 172.145.4.70  --  lsp-set-port-security lport_061655_DG9Sl0 06:a5:4d:b2:57:73  --  lsp-add lswitch_061655_NylqGZ lport_061655_Oh657x  --  lsp-set-addresses lport_061655_Oh657x 06:a5:4d:ed:c9:8c\\ 172.145.4.71  --  lsp-set-port-security lport_061655_Oh657x 06:a5:4d:ed:c9:8c  --  lsp-add lswitch_061655_NylqGZ lport_061655_QkipXK  --  lsp-set-addresses lport_061655_QkipXK 06:a5:4d:2a:1e:0b\\ 172.145.4.72  --  lsp-set-port-security lport_061655_QkipXK 06:a5:4d:2a:1e:0b  --  lsp-add lswitch_061655_NylqGZ lport_061655_XcIlZ0  --  lsp-set-addresses lport_061655_XcIlZ0 06:a5:4d:fe:a5:ed\\ 172.145.4.73  --  lsp-set-port-security lport_061655_XcIlZ0 06:a5:4d:fe:a5:ed  --  lsp-add lswitch_061655_NylqGZ lport_061655_vVc9vs  --  lsp-set-addresses lport_061655_vVc9vs 06:a5:4d:d2:2d:5e\\ 172.145.4.74  --  lsp-set-port-security lport_061655_vVc9vs 06:a5:4d:d2:2d:5e  --  lsp-add lswitch_061655_NylqGZ lport_061655_Lc1sws  --  lsp-set-addresses lport_061655_Lc1sws 06:a5:4d:6c:ff:45\\ 172.145.4.75  --  lsp-set-port-security lport_061655_Lc1sws 06:a5:4d:6c:ff:45  --  lsp-add lswitch_061655_NylqGZ lport_061655_9GkTy8  --  lsp-set-addresses lport_061655_9GkTy8 06:a5:4d:f1:b7:a6\\ 172.145.4.76  --  lsp-set-port-security lport_061655_9GkTy8 06:a5:4d:f1:b7:a6  --  lsp-add lswitch_061655_NylqGZ lport_061655_Vh4iTD  --  lsp-set-addresses lport_061655_Vh4iTD 06:a5:4d:e9:6e:8f\\ 172.145.4.77  --  lsp-set-port-security lport_061655_Vh4iTD 06:a5:4d:e9:6e:8f  --  lsp-add lswitch_061655_NylqGZ lport_061655_FJGtNw  --  lsp-set-addresses lport_061655_FJGtNw 06:a5:4d:1b:69:f5\\ 172.145.4.78  --  lsp-set-port-security lport_061655_FJGtNw 06:a5:4d:1b:69:f5  --  lsp-add lswitch_061655_NylqGZ lport_061655_HXYIoC  --  lsp-set-addresses lport_061655_HXYIoC 06:a5:4d:2e:e0:fe\\ 172.145.4.79  --  lsp-set-port-security lport_061655_HXYIoC 06:a5:4d:2e:e0:fe  --  lsp-add lswitch_061655_NylqGZ lport_061655_iDbJkD  --  lsp-set-addresses lport_061655_iDbJkD 06:a5:4d:10:22:9f\\ 172.145.4.80  --  lsp-set-port-security lport_061655_iDbJkD 06:a5:4d:10:22:9f  --  lsp-add lswitch_061655_NylqGZ lport_061655_1DPCqO  --  lsp-set-addresses lport_061655_1DPCqO 06:a5:4d:1d:e7:f3\\ 172.145.4.81  --  lsp-set-port-security lport_061655_1DPCqO 06:a5:4d:1d:e7:f3  --  lsp-add lswitch_061655_NylqGZ lport_061655_LxRKSm  --  lsp-set-addresses lport_061655_LxRKSm 06:a5:4d:1f:0a:f9\\ 172.145.4.82  --  lsp-set-port-security lport_061655_LxRKSm 06:a5:4d:1f:0a:f9  --  lsp-add lswitch_061655_NylqGZ lport_061655_iAkZFS  --  lsp-set-addresses lport_061655_iAkZFS 06:a5:4d:52:64:7f\\ 172.145.4.83  --  lsp-set-port-security lport_061655_iAkZFS 06:a5:4d:52:64:7f  --  lsp-add lswitch_061655_NylqGZ lport_061655_0jPco2  --  lsp-set-addresses lport_061655_0jPco2 06:a5:4d:aa:8e:07\\ 172.145.4.84  --  lsp-set-port-security lport_061655_0jPco2 06:a5:4d:aa:8e:07  --  lsp-add lswitch_061655_NylqGZ lport_061655_frqJch  --  lsp-set-addresses lport_061655_frqJch 06:a5:4d:62:6d:76\\ 172.145.4.85  --  lsp-set-port-security lport_061655_frqJch 06:a5:4d:62:6d:76  --  lsp-add lswitch_061655_NylqGZ lport_061655_9JMsui  --  lsp-set-addresses lport_061655_9JMsui 06:a5:4d:db:3e:bd\\ 172.145.4.86  --  lsp-set-port-security lport_061655_9JMsui 06:a5:4d:db:3e:bd  --  lsp-add lswitch_061655_NylqGZ lport_061655_Ze5ag9  --  lsp-set-addresses lport_061655_Ze5ag9 06:a5:4d:13:80:e7\\ 172.145.4.87  --  lsp-set-port-security lport_061655_Ze5ag9 06:a5:4d:13:80:e7  --  lsp-add lswitch_061655_NylqGZ lport_061655_JJ5ko3  --  lsp-set-addresses lport_061655_JJ5ko3 06:a5:4d:0b:ab:48\\ 172.145.4.88  --  lsp-set-port-security lport_061655_JJ5ko3 06:a5:4d:0b:ab:48  --  lsp-add lswitch_061655_NylqGZ lport_061655_lIl8El  --  lsp-set-addresses lport_061655_lIl8El 06:a5:4d:e2:6d:99\\ 172.145.4.89  --  lsp-set-port-security lport_061655_lIl8El 06:a5:4d:e2:6d:99  --  lsp-add lswitch_061655_NylqGZ lport_061655_4Kpfw5  --  lsp-set-addresses lport_061655_4Kpfw5 06:a5:4d:52:5a:53\\ 172.145.4.90  --  lsp-set-port-security lport_061655_4Kpfw5 06:a5:4d:52:5a:53  --  lsp-add lswitch_061655_NylqGZ lport_061655_OgHJNz  --  lsp-set-addresses lport_061655_OgHJNz 06:a5:4d:f2:2b:99\\ 172.145.4.91  --  lsp-set-port-security lport_061655_OgHJNz 06:a5:4d:f2:2b:99  --  lsp-add lswitch_061655_NylqGZ lport_061655_y5ji1E  --  lsp-set-addresses lport_061655_y5ji1E 06:a5:4d:e8:7a:f0\\ 172.145.4.92  --  lsp-set-port-security lport_061655_y5ji1E 06:a5:4d:e8:7a:f0  --  lsp-add lswitch_061655_NylqGZ lport_061655_1rPYP4  --  lsp-set-addresses lport_061655_1rPYP4 06:a5:4d:88:1a:f9\\ 172.145.4.93  --  lsp-set-port-security lport_061655_1rPYP4 06:a5:4d:88:1a:f9  --  lsp-add lswitch_061655_NylqGZ lport_061655_jeQs5M  --  lsp-set-addresses lport_061655_jeQs5M 06:a5:4d:ca:8d:e4\\ 172.145.4.94  --  lsp-set-port-security lport_061655_jeQs5M 06:a5:4d:ca:8d:e4  --  lsp-add lswitch_061655_NylqGZ lport_061655_u9qJFX  --  lsp-set-addresses lport_061655_u9qJFX 06:a5:4d:6c:33:f0\\ 172.145.4.95  --  lsp-set-port-security lport_061655_u9qJFX 06:a5:4d:6c:33:f0  --  lsp-add lswitch_061655_NylqGZ lport_061655_fFCmFp  --  lsp-set-addresses lport_061655_fFCmFp 06:a5:4d:58:b9:3b\\ 172.145.4.96  --  lsp-set-port-security lport_061655_fFCmFp 06:a5:4d:58:b9:3b  --  lsp-add lswitch_061655_NylqGZ lport_061655_Ps8xBz  --  lsp-set-addresses lport_061655_Ps8xBz 06:a5:4d:4f:22:4f\\ 172.145.4.97  --  lsp-set-port-security lport_061655_Ps8xBz 06:a5:4d:4f:22:4f  --  lsp-add lswitch_061655_NylqGZ lport_061655_mFa6W4  --  lsp-set-addresses lport_061655_mFa6W4 06:a5:4d:80:cd:2c\\ 172.145.4.98  --  lsp-set-port-security lport_061655_mFa6W4 06:a5:4d:80:cd:2c  --  lsp-add lswitch_061655_NylqGZ lport_061655_l0LSrS  --  lsp-set-addresses lport_061655_l0LSrS 06:a5:4d:68:4d:a4\\ 172.145.4.99  --  lsp-set-port-security lport_061655_l0LSrS 06:a5:4d:68:4d:a4' failed with exit_status 1. Last stderr data: 'ovn-nbctl: tcp:192.168.220.101:6641,tcp:192.168.220.102:6641,tcp:192.168.220.103:6641: database connection failed (End of file)\n'.\n", "iteration": 0}], "name": "create_routers_bind_ports", "runner": "serial", "iterations_count": 1, "output_errors": [], "pos": "0", "load_duration": 799.6804630756378, "sla_success": true, "met": "create_routers_bind_ports", "atomic": {"pie": [["ovn_network.create_routers", 2.408381938934326], ["ovn_network.create_network", 12.002037048339844], ["ovn.create_lswitch", 12.001687049865723], ["ovn.create_lport", 0.29075002670288086], ["ovn_network.bind_port", 174.66766810417175], ["ovn_network.wait_port_up", 0.004086971282958984], ["ovn.create_lport (2)", 65.69439220428467], ["ovn_network.bind_port (2)", 184.09909296035767], ["ovn_network.wait_port_up (2)", 0.004004001617431641], ["ovn.create_lport (3)", 0.6764140129089355], ["ovn_network.bind_port (3)", 172.1946451663971], ["ovn_network.wait_port_up (3)", 0.0040130615234375], ["ovn.create_lport (4)", 164.2729790210724]], "iter": [["ovn_network.create_routers", [[1, 2.408381938934326]]], ["ovn_network.create_network", [[1, 12.002037048339844]]], ["ovn.create_lswitch", [[1, 12.001687049865723]]], ["ovn.create_lport", [[1, 0.29075002670288086]]], ["ovn_network.bind_port", [[1, 174.66766810417175]]], ["ovn_network.wait_port_up", [[1, 0.004086971282958984]]], ["ovn.create_lport (2)", [[1, 65.69439220428467]]], ["ovn_network.bind_port (2)", [[1, 184.09909296035767]]], ["ovn_network.wait_port_up (2)", [[1, 0.004004001617431641]]], ["ovn.create_lport (3)", [[1, 0.6764140129089355]]], ["ovn_network.bind_port (3)", [[1, 172.1946451663971]]], ["ovn_network.wait_port_up (3)", [[1, 0.0040130615234375]]], ["ovn.create_lport (4)", [[1, 164.2729790210724]]], ["failed_duration", [[1, 11.340041399002075]]]], "histogram": {"data": [[{"disabled": 0, "values": [{"y": 1, "x": 2.408381938934326}], "key": "ovn_network.create_routers", "view": "Square Root Choice"}, {"disabled": 1, "values": [{"y": 1, "x": 12.002037048339844}], "key": "ovn_network.create_network", "view": "Square Root Choice"}, {"disabled": 2, "values": [{"y": 1, "x": 12.001687049865723}], "key": "ovn.create_lswitch", "view": "Square Root Choice"}, {"disabled": 3, "values": [{"y": 1, "x": 0.29075002670288086}], "key": "ovn.create_lport", "view": "Square Root Choice"}, {"disabled": 4, "values": [{"y": 1, "x": 174.66766810417175}], "key": "ovn_network.bind_port", "view": "Square Root Choice"}, {"disabled": 5, "values": [{"y": 1, "x": 0.004086971282958984}], "key": "ovn_network.wait_port_up", "view": "Square Root Choice"}, {"disabled": 6, "values": [{"y": 1, "x": 65.69439220428467}], "key": "ovn.create_lport (2)", "view": "Square Root Choice"}, {"disabled": 7, "values": [{"y": 1, "x": 184.09909296035767}], "key": "ovn_network.bind_port (2)", "view": "Square Root Choice"}, {"disabled": 8, "values": [{"y": 1, "x": 0.004004001617431641}], "key": "ovn_network.wait_port_up (2)", "view": "Square Root Choice"}, {"disabled": 9, "values": [{"y": 1, "x": 0.6764140129089355}], "key": "ovn.create_lport (3)", "view": "Square Root Choice"}, {"disabled": 10, "values": [{"y": 1, "x": 172.1946451663971}], "key": "ovn_network.bind_port (3)", "view": "Square Root Choice"}, {"disabled": 11, "values": [{"y": 1, "x": 0.0040130615234375}], "key": "ovn_network.wait_port_up (3)", "view": "Square Root Choice"}, {"disabled": 12, "values": [{"y": 1, "x": 164.2729790210724}], "key": "ovn.create_lport (4)", "view": "Square Root Choice"}], [{"disabled": 0, "values": [{"y": 1, "x": 2.408381938934326}], "key": "ovn_network.create_routers", "view": "Sturges Formula"}, {"disabled": 1, "values": [{"y": 1, "x": 12.002037048339844}], "key": "ovn_network.create_network", "view": "Sturges Formula"}, {"disabled": 2, "values": [{"y": 1, "x": 12.001687049865723}], "key": "ovn.create_lswitch", "view": "Sturges Formula"}, {"disabled": 3, "values": [{"y": 1, "x": 0.29075002670288086}], "key": "ovn.create_lport", "view": "Sturges Formula"}, {"disabled": 4, "values": [{"y": 1, "x": 174.66766810417175}], "key": "ovn_network.bind_port", "view": "Sturges Formula"}, {"disabled": 5, "values": [{"y": 1, "x": 0.004086971282958984}], "key": "ovn_network.wait_port_up", "view": "Sturges Formula"}, {"disabled": 6, "values": [{"y": 1, "x": 65.69439220428467}], "key": "ovn.create_lport (2)", "view": "Sturges Formula"}, {"disabled": 7, "values": [{"y": 1, "x": 184.09909296035767}], "key": "ovn_network.bind_port (2)", "view": "Sturges Formula"}, {"disabled": 8, "values": [{"y": 1, "x": 0.004004001617431641}], "key": "ovn_network.wait_port_up (2)", "view": "Sturges Formula"}, {"disabled": 9, "values": [{"y": 1, "x": 0.6764140129089355}], "key": "ovn.create_lport (3)", "view": "Sturges Formula"}, {"disabled": 10, "values": [{"y": 1, "x": 172.1946451663971}], "key": "ovn_network.bind_port (3)", "view": "Sturges Formula"}, {"disabled": 11, "values": [{"y": 1, "x": 0.0040130615234375}], "key": "ovn_network.wait_port_up (3)", "view": "Sturges Formula"}, {"disabled": 12, "values": [{"y": 1, "x": 164.2729790210724}], "key": "ovn.create_lport (4)", "view": "Sturges Formula"}], [{"disabled": 0, "values": [{"y": 1, "x": 2.408381938934326}, {"y": 0, "x": 2.408381938934326}], "key": "ovn_network.create_routers", "view": "Rice Rule"}, {"disabled": 1, "values": [{"y": 1, "x": 12.002037048339844}, {"y": 0, "x": 12.002037048339844}], "key": "ovn_network.create_network", "view": "Rice Rule"}, {"disabled": 2, "values": [{"y": 1, "x": 12.001687049865723}, {"y": 0, "x": 12.001687049865723}], "key": "ovn.create_lswitch", "view": "Rice Rule"}, {"disabled": 3, "values": [{"y": 1, "x": 0.29075002670288086}, {"y": 0, "x": 0.29075002670288086}], "key": "ovn.create_lport", "view": "Rice Rule"}, {"disabled": 4, "values": [{"y": 1, "x": 174.66766810417175}, {"y": 0, "x": 174.66766810417175}], "key": "ovn_network.bind_port", "view": "Rice Rule"}, {"disabled": 5, "values": [{"y": 1, "x": 0.004086971282958984}, {"y": 0, "x": 0.004086971282958984}], "key": "ovn_network.wait_port_up", "view": "Rice Rule"}, {"disabled": 6, "values": [{"y": 1, "x": 65.69439220428467}, {"y": 0, "x": 65.69439220428467}], "key": "ovn.create_lport (2)", "view": "Rice Rule"}, {"disabled": 7, "values": [{"y": 1, "x": 184.09909296035767}, {"y": 0, "x": 184.09909296035767}], "key": "ovn_network.bind_port (2)", "view": "Rice Rule"}, {"disabled": 8, "values": [{"y": 1, "x": 0.004004001617431641}, {"y": 0, "x": 0.004004001617431641}], "key": "ovn_network.wait_port_up (2)", "view": "Rice Rule"}, {"disabled": 9, "values": [{"y": 1, "x": 0.6764140129089355}, {"y": 0, "x": 0.6764140129089355}], "key": "ovn.create_lport (3)", "view": "Rice Rule"}, {"disabled": 10, "values": [{"y": 1, "x": 172.1946451663971}, {"y": 0, "x": 172.1946451663971}], "key": "ovn_network.bind_port (3)", "view": "Rice Rule"}, {"disabled": 11, "values": [{"y": 1, "x": 0.0040130615234375}, {"y": 0, "x": 0.0040130615234375}], "key": "ovn_network.wait_port_up (3)", "view": "Rice Rule"}, {"disabled": 12, "values": [{"y": 1, "x": 164.2729790210724}, {"y": 0, "x": 164.2729790210724}], "key": "ovn.create_lport (4)", "view": "Rice Rule"}]], "views": [{"id": 0, "name": "Square Root Choice"}, {"id": 1, "name": "Sturges Formula"}, {"id": 2, "name": "Rice Rule"}]}}, "iterations": {"pie": [["success", 0], ["errors", 1]], "iter": [["duration", [[1, 0]]], ["idle_duration", [[1, 0]]], ["failed_duration", [[1, 799.6601929664612]]]], "histogram": {"data": [[{"disabled": null, "values": [{"y": 1, "x": 0.0}], "key": "task", "view": "Square Root Choice"}], [{"disabled": null, "values": [{"y": 1, "x": 0.0}], "key": "task", "view": "Sturges Formula"}], [{"disabled": null, "values": [{"y": 1, "x": 0.0}, {"y": 0, "x": 0.0}], "key": "task", "view": "Rice Rule"}]], "views": [{"id": 0, "name": "Square Root Choice"}, {"id": 1, "name": "Sturges Formula"}, {"id": 2, "name": "Rice Rule"}]}}, "additive_output": [], "table": {"rows": [["ovn_network.create_routers", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", 1], ["ovn_network.create_network", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", 1], ["ovn.create_lswitch", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", 1], ["ovn.create_lport", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", 1], ["ovn_network.bind_port", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", 1], ["ovn_network.wait_port_up", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", 1], ["ovn.create_lport (2)", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", 1], ["ovn_network.bind_port (2)", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", 1], ["ovn_network.wait_port_up (2)", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", 1], ["ovn.create_lport (3)", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", 1], ["ovn_network.bind_port (3)", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", 1], ["ovn_network.wait_port_up (3)", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", 1], ["ovn.create_lport (4)", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", 1], ["total", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", 1]], "cols": ["Action", "Min (sec)", "Median (sec)", "90%ile (sec)", "95%ile (sec)", "Max (sec)", "Avg (sec)", "Success", "Count"]}, "full_duration": 799.806813955307, "config": "{\n  \"OvnNetwork.create_routers_bind_ports\": [\n    {\n      \"runner\": {\n        \"type\": \"serial\", \n        \"times\": 1\n      }, \n      \"args\": {\n        \"port_create_args\": {\n          \"batch\": 100\n        }, \n        \"router_create_args\": {\n          \"amount\": 8, \n          \"batch\": 1\n        }, \n        \"network_create_args\": {\n          \"start_cidr\": \"172.145.1.0/24\", \n          \"batch\": 1\n        }, \n        \"networks_per_router\": 5, \n        \"ports_per_network\": 250, \n        \"port_bind_args\": {\n          \"wait_up\": true, \n          \"wait_sync\": \"none\"\n        }\n      }, \n      \"context\": {\n        \"sandbox\": {}, \n        \"ovn_multihost\": {\n          \"controller\": \"ovn-overlay-controller-node\"\n        }\n      }\n    }\n  ]\n}", "sla": [], "complete_output": [[]], "cls": "OvnNetwork"}];
+
+      $scope.location = {
+        /* #/path/hash/sub/div */
+        normalize: function(str) {
+          /* Remove unwanted characters from string */
+          if (typeof str !== "string") { return "" }
+          return str.replace(/[^\w\-\.]/g, "")
+        },
+        uri: function(obj) {
+          /* Getter/Setter */
+          if (! obj) {
+            var uri = {path: "", hash: "", sub: "", div: ""};
+            var arr = ["div", "sub", "hash", "path"];
+            angular.forEach($location.url().split("/"), function(value){
+              var v = $scope.location.normalize(value);
+              if (v) { var k = arr.pop(); if (k) { this[k] = v }}
+            }, uri);
+            return uri
+          }
+          var arr = [obj.path, obj.hash, obj.sub, obj.div], res = [];
+          for (var i in arr) { if (! arr[i]) { break }; res.push(arr[i]) }
+          return $location.url("/" + res.join("/"))
+        },
+        path: function(path, hash) {
+          /* Getter/Setter */
+          if (path === "") { return this.uri({}) }
+          path = this.normalize(path);
+          var uri = this.uri();
+          if (! path) { return uri.path }
+          uri.path = path;
+          var _hash = this.normalize(hash);
+          if (_hash || hash === "") { uri.hash = _hash }
+          return this.uri(uri)
+        },
+        hash: function(hash) {
+          /* Getter/Setter */
+          if (hash) { this.uri({path:this.uri().path, hash:hash}) }
+          return this.uri().hash
+        }
+      }
+
+      /* Dispatch */
+
+      $scope.route = function(uri) {
+        if (! $scope.scenarios_map) { return }
+        if (uri.path in $scope.scenarios_map) {
+          $scope.view = {is_scenario:true};
+          $scope.scenario = $scope.scenarios_map[uri.path];
+          $scope.nav_idx = $scope.nav_map[uri.path];
+          if ($scope.scenario.iterations.histogram.views.length) {
+            $scope.mainHistogram = $scope.scenario.iterations.histogram.views[0]
+          }
+          if ($scope.scenario.atomic.histogram.views.length) {
+            $scope.atomicHistogram = $scope.scenario.atomic.histogram.views[0]
+          }
+          $scope.outputIteration = 0;
+          $scope.showTab(uri);
+        } else {
+          $scope.scenario = null;
+          if (uri.path === "source") {
+            $scope.view = {is_source:true}
+          } else {
+            $scope.view = {is_main:true}
+          }
+        }
+      }
+
+      $scope.$on("$locationChangeSuccess", function (event, newUrl, oldUrl) {
+        $scope.route($scope.location.uri())
+      });
+
+      $scope.showNav = function(nav_idx) { $scope.nav_idx = nav_idx }
+
+      /* Tabs */
+
+      $scope.tabs = [
+        {
+          id: "overview",
+          name: "Overview",
+          visible: function(){ return !! $scope.scenario.iterations.pie.length }
+        },{
+          id: "details",
+          name: "Details",
+          visible: function(){ return !! $scope.scenario.atomic.pie.length }
+        },{
+          id: "output",
+          name: "Scenario Data",
+          visible: function(){ return $scope.scenario.output.length }
+        },{
+          id: "failures",
+          name: "Failures",
+          visible: function(){ return !! $scope.scenario.errors.length }
+        },{
+          id: "task",
+          name: "Input task",
+          visible: function(){ return !! $scope.scenario.config }
+        }
+      ];
+      $scope.tabs_map = {};
+      angular.forEach($scope.tabs,
+                      function(tab){ this[tab.id] = tab }, $scope.tabs_map);
+
+      $scope.showTab = function(uri) {
+        $scope.tab = uri.hash in $scope.tabs_map ? uri.hash : "overview";
+        if (! $scope.scenario.output) {
+          var has_additive = !! $scope.scenario.additive_output.length;
+          var has_complete = !! ($scope.scenario.complete_output.length
+                                 && $scope.scenario.complete_output[0].length);
+          $scope.scenario.output = {
+            has_additive: has_additive,
+            has_complete: has_complete,
+            length: has_additive + has_complete,
+            active: has_additive ? "additive" : (has_complete ? "complete" : "")
+          }
+        }
+        if (uri.hash === "output") {
+          if (uri.sub && $scope.scenario.output["has_" + uri.sub]) {
+            $scope.scenario.output.active = uri.sub
+          }
+        }
+      }
+
+      for (var i in $scope.tabs) {
+        if ($scope.tabs[i].id === $scope.location.hash()) {
+          $scope.tab = $scope.tabs[i].id
+        }
+        $scope.tabs[i].isVisible = function() {
+          if ($scope.scenario) {
+            if (this.visible()) { return true }
+            /* If tab should be hidden but is selected - show another one */
+            if (this.id === $scope.location.hash()) {
+              for (var i in $scope.tabs) {
+                var tab = $scope.tabs[i];
+                if (tab.id != this.id && tab.visible()) {
+                  $scope.tab = tab.id;
+                  return false
+                }
+              }
+            }
+          }
+          return false
+        }
+      }
+
+      $scope.showError = function(message) {
+          return (function (e) {
+            e.style.display = "block";
+            e.textContent = message
+          })(document.getElementById("page-error"))
+      }
+
+      /* Initialization */
+
+      angular.element(document).ready(function(){
+        if (! $scope.scenarios.length) {
+          return $scope.showError("No data...")
+        }
+
+        /* Compose data mapping */
+
+        $scope.nav = [];
+        $scope.nav_map = {};
+        $scope.scenarios_map = {};
+        var met = [], itr = 0, cls_idx = 0;
+        var prev_cls, prev_met;
+
+        for (var idx in $scope.scenarios) {
+          var sc = $scope.scenarios[idx];
+          if (! prev_cls) {
+            prev_cls = sc.cls
+          }
+          else if (prev_cls !== sc.cls) {
+            $scope.nav.push({cls:prev_cls, met:met, idx:cls_idx});
+            prev_cls = sc.cls;
+            met = [];
+            itr = 1;
+            cls_idx += 1
+          }
+
+          if (prev_met !== sc.met) { itr = 1 };
+          sc.ref = $scope.location.normalize(sc.cls+"."+sc.met+(itr > 1 ? "-"+itr : ""));
+          $scope.scenarios_map[sc.ref] = sc;
+          $scope.nav_map[sc.ref] = cls_idx;
+          met.push({name:sc.name, itr:itr, idx:idx, ref:sc.ref});
+          prev_met = sc.met;
+          itr += 1;
+        }
+
+        if (met.length) {
+          $scope.nav.push({cls:prev_cls, met:met, idx:cls_idx})
+        }
+
+        /* Start */
+
+        var uri = $scope.location.uri();
+        uri.path = $scope.location.path();
+        $scope.route(uri);
+        $scope.$digest()
+      });
+    }])
+    .directive("widget", function($compile) {
+
+      var Chart = {
+        _render: function(node, data, chart){
+          nv.addGraph(function() {
+            d3.select(node).datum(data).transition().duration(0).call(chart);
+            nv.utils.windowResize(chart.update)
+          })
+        },
+        /* NOTE(amaretskiy): this is actually a result of
+           d3.scale.category20().range(), excluding red color (#d62728)
+           which is reserved for errors */
+        _colors: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c",
+                  "#98df8a", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b",
+                  "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7",
+                  "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"],
+        _widgets: {
+          Pie: "pie",
+          StackedArea: "stack",
+          Histogram: "histogram"
+        },
+        get_chart: function(widget) {
+          if (widget in this._widgets) {
+            var name = this._widgets[widget];
+            return Chart[name]
+          }
+          return function() { console.log("Error: unexpected widget:", widget) }
+        },
+        pie: function(node, data) {
+          var chart = nv.models.pieChart()
+            .x(function(d) { return d.key })
+            .y(function(d) { return d.values })
+            .showLabels(true)
+            .labelType("percent")
+            .donut(true)
+            .donutRatio(0.25)
+            .donutLabelsOutside(true)
+            .color(function(d){
+              if (d.data && d.data.color) { return d.data.color }
+            });
+
+          var data_ = [], colors = [], colors_map = {errors: "#d62728"};
+          for (var i in data) {
+            var key = data[i][0];
+            if (! (key in colors_map)) {
+              if (! colors.length) { colors = Chart._colors.slice() }
+              colors_map[key] = colors.shift()
+            }
+            data_.push({key:key, values:data[i][1], color:colors_map[key]})
+          }
+          Chart._render(node, data_, chart)
+        },
+        stack: function(node, data, opts) {
+          var chart = nv.models.stackedAreaChart()
+            .x(function(d) { return d[0] })
+            .y(function(d) { return d[1] })
+            .useInteractiveGuideline(opts.guide)
+            .showControls(opts.controls)
+            .clipEdge(true);
+          chart.xAxis
+            .tickFormat(d3.format(opts.xformat || "d"))
+            .axisLabel(opts.xname || "")
+            .showMaxMin(false);
+          chart.yAxis
+            .tickFormat(d3.format(opts.yformat || ",.3f"))
+            .axisLabel(opts.yname || "");
+          var data_ = [];
+          for (var i in data) {
+            var d = {key:data[i][0], values:data[i][1]};
+            if (d.key === "failed_duration") {
+              d.color = "#d62728"
+            }
+            data_.push(d)
+          }
+          Chart._render(node, data_, chart)
+        },
+        histogram: function(node, data) {
+          var chart = nv.models.multiBarChart()
+            .reduceXTicks(true)
+            .showControls(false)
+            .transitionDuration(0)
+            .groupSpacing(0.05);
+          chart
+            .legend.radioButtonMode(true);
+          chart.xAxis
+            .axisLabel("Duration (seconds)")
+            .tickFormat(d3.format(",.2f"));
+          chart.yAxis
+            .axisLabel("Iterations (frequency)")
+            .tickFormat(d3.format("d"));
+          Chart._render(node, data, chart)
+        }
+      };
+
+      return {
+        restrict: "A",
+        scope: { data: "=" },
+        link: function(scope, element, attrs) {
+          scope.$watch("data", function(data) {
+            if (! data) { return console.log("Chart has no data to render!") }
+            if (attrs.widget === "Table") {
+              var ng_class = attrs.lastrowClass ? " ng-class='{"+attrs.lastrowClass+":$last}'" : "";
+              var template = "<table class='striped'><thead>" +
+                "<tr><th ng-repeat='i in data.cols track by $index'>{{i}}<tr>" +
+                "</thead><tbody>" +
+                "<tr" + ng_class + " ng-repeat='row in data.rows track by $index'>" +
+                "<td ng-repeat='i in row track by $index'>{{i}}" +
+                "<tr>" +
+                "</tbody></table>";
+              var el = element.empty().append($compile(template)(scope)).children()[0]
+            } else {
+              /* Hide widget if not enough data */
+              if (attrs.widget === "StackedArea") {
+                if ((! data.length) || (data[0].length < 1) || (data[0][1].length < 2)) {
+                  return element.empty().css({display:"none"})
+                }
+              }
+              else if (attrs.widget === "Pie") {
+                if (! data.length) {
+                  return element.empty().css({display:"none"})
+                }
+              }
+
+              var options = {
+                xname: attrs.nameX || "",
+                yname: attrs.nameY || "",
+                xformat: attrs.formatX || "d",
+                yformat: attrs.formatY || ",.3f",
+                controls: attrs.controls === "true",
+                guide: attrs.guide === "true"
+              };
+              var el = element.addClass("chart").css({display:"block"}).html("<svg></svg>").children()[0];
+              Chart.get_chart(attrs.widget)(el, data, options)
+            }
+
+            if (attrs.description) {
+              var desc_el = angular.element("<div>").addClass(attrs.descriptionClass || "h3").text(attrs.description);
+              angular.element(el).parent().prepend(desc_el)
+            }
+
+            if (attrs.title) {
+              var title_el = angular.element("<div>").addClass(attrs.titleClass || "h2").text(attrs.title);
+              angular.element(el).parent().prepend(title_el)
+            }
+          });
+        }
+      }
+    })
+  }
+
+</script>
+  <style>
+    body { margin:0; padding:0 0 50px; font-size:14px; font-family:Helvetica,Arial,sans-serif }
+    a, a:active, a:focus, a:visited { text-decoration:none; outline:none }
+    p { margin:0; padding:5px 0 }
+    p.thesis { padding:10px 0 }
+    h1 { color:#666; margin:0 0 20px; font-size:30px; font-weight:normal }
+    h2, .h2 { color:#666; margin:24px 0 6px; font-size:25px; font-weight:normal }
+    h3, .h3 { color:#777; margin:12px 0 4px; font-size:18px; font-weight:normal }
+    table { border-collapse:collapse; border-spacing:0; width:100%; font-size:12px; margin:0 0 10px }
+    table th { text-align:left; padding:8px; color:#000; border:2px solid #ddd; border-width:0 0 2px 0 }
+    table th.sortable { cursor:pointer }
+    table td { text-align:left; border-top:1px solid #ddd; padding:8px; color:#333 }
+    table.compact td { padding:4px 8px }
+    table.striped tr:nth-child(odd) td { background:#f9f9f9 }
+    table.linked tbody tr:hover { background:#f9f9f9; cursor:pointer }
+    .rich, .rich td { font-weight:bold }
+    .code { padding:10px; font-size:13px; color:#333; background:#f6f6f6; border:1px solid #e5e5e5; border-radius:4px }
+
+    .header { text-align:left; background:#333; font-size:18px; padding:13px 0; margin-bottom:20px; color:#fff; background-image:linear-gradient(to bottom, #444 0px, #222 100%) }
+    .header a, .header a:visited, .header a:focus { color:#999 }
+
+    .notify-error { padding:5px 10px; background:#fee; color:red }
+    .status-skip, .status-skip td { color:grey }
+    .status-pass, .status-pass td { color:green }
+    .status-fail, .status-fail td { color:red }
+    .capitalize { text-transform:capitalize }
+    
+    .aside { margin:0 20px 0 0; display:block; width:255px; float:left }
+    .aside > div { margin-bottom: 15px }
+    .aside > div div:first-child { border-top-left-radius:4px; border-top-right-radius:4px }
+    .aside > div div:last-child { border-bottom-left-radius:4px; border-bottom-right-radius:4px }
+    .navcls { color:#678; background:#eee; border:1px solid #ddd; margin-bottom:-1px; display:block; padding:8px 9px; font-weight:bold; text-align:left; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; cursor:pointer }
+    .navcls.expanded { color:#469 }
+    .navcls.active { background:#428bca; background-image:linear-gradient(to bottom, #428bca 0px, #3278b3 100%); border-color:#3278b3; color:#fff }
+    .navmet { color:#555; background:#fff; border:1px solid #ddd; font-size:12px; display:block; margin-bottom:-1px; padding:8px 10px; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; cursor:pointer }
+    .navmet:hover { background:#f8f8f8 }
+    .navmet.active, .navmet.active:hover { background:#428bca; background-image:linear-gradient(to bottom, #428bca 0px, #3278b3 100%); border-color:#3278b3; color:#fff }
+
+    .tabs { list-style:outside none none; margin:0 0 5px; padding:0; border-bottom:1px solid #ddd }
+    .tabs:after { clear:both }
+    .tabs li { float:left; margin-bottom:-1px; display:block; position:relative }
+    .tabs li div { border:1px solid transparent; border-radius:4px 4px 0 0; line-height:20px; margin-right:2px; padding:10px 15px; color:#428bca }
+    .tabs li div:hover { border-color:#eee #eee #ddd; background:#eee; cursor:pointer; }
+    .tabs li.active div { background:#fff; border-color:#ddd #ddd transparent; border-style:solid; border-width:1px; color:#555; cursor:default }
+    .failure-mesg { color:#900 }
+    .failure-trace { color:#333; white-space:pre; overflow:auto }
+
+    .link { color:#428BCA; padding:5px 15px 5px 5px; text-decoration:underline; cursor:pointer }
+    .link.active { color:#333; text-decoration:none }
+
+    .chart { padding:0; margin:0 }
+    .chart svg { height:300px; padding:0; margin:0 }
+    .chart.lower svg { height:180px }
+
+    .expandable { cursor:pointer }
+    .clearfix { clear:both }
+    .sortable > .arrow { display:inline-block; width:12px; height:inherit; color:#c90 }
+    .content-main { margin:0 5px; display:block; float:left }
+
+    .content-wrap {  margin:0 auto; padding:0 5px </%block>}
+    
+    @media only screen and (min-width: 320px)  { .content-wrap { width:900px  } .content-main { width:600px } }
+    @media only screen and (min-width: 900px)  { .content-wrap { width:880px  } .content-main { width:590px } }
+    @media only screen and (min-width: 1000px) { .content-wrap { width:980px  } .content-main { width:690px } }
+    @media only screen and (min-width: 1100px) { .content-wrap { width:1080px } .content-main { width:790px } }
+    @media only screen and (min-width: 1200px) { .content-wrap { width:1180px } .content-main { width:890px } }
+
+  </style>
+</head>
+<body ng-controller="TaskController">
+
+  <div class="header">
+    <div class="content-wrap">
+      <a href="https://github.com/openstack/rally">Rally</a>&nbsp;
+      <span>task results</span>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+    
+
+    <p id="page-error" class="notify-error" style="display:none"></p>
+
+    <div id="content-nav" class="aside" ng-show="scenarios.length" ng-cloack>
+      <div>
+        <div class="navcls"
+             ng-class="{active:view.is_main}"
+             ng-click="location.path('')">Task overview</div>
+        <div class="navcls"
+             ng-class="{active:view.is_source}"
+             ng-click="location.path('source', '')">Input file</div>
+      </div>
+      <div>
+        <div class="navcls" title="{{n.cls}}"
+             ng-repeat-start="n in nav track by $index"
+             ng-click="showNav(n.idx)"
+             ng-class="{expanded:n.idx==nav_idx}">
+                <span ng-hide="n.idx==nav_idx">&#9658;</span>
+                <span ng-show="n.idx==nav_idx">&#9660;</span>
+                {{n.cls}}</div>
+        <div class="navmet" title="{{m.name}}"
+             ng-show="n.idx==nav_idx"
+             ng-class="{active:m.ref==scenario.ref}"
+             ng-click="location.path(m.ref)"
+             ng-repeat="m in n.met track by $index"
+             ng-repeat-end>{{m.name}}</div>
+      </div>
+    </div>
+
+    <div id="content-main" class="content-main" ng-show="scenarios.length" ng-cloak>
+
+      <div ng-show="view.is_main">
+        <h1>Task overview</h1>
+        <table class="linked compact"
+               ng-init="ov_srt='ref'; ov_dir=false">
+          <thead>
+            <tr>
+              <th class="sortable"
+                  title="Scenario name, with optional suffix of call number"
+                  ng-click="ov_srt='ref'; ov_dir=!ov_dir">
+                Scenario
+                <span class="arrow">
+                  <b ng-show="ov_srt=='ref' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='ref' && ov_dir">&#x25be;</b>
+                </span>
+              <th class="sortable"
+                  title="How long the scenario run, without context duration"
+                  ng-click="ov_srt='load_duration'; ov_dir=!ov_dir">
+                Load duration (s)
+                <span class="arrow">
+                  <b ng-show="ov_srt=='load_duration' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='load_duration' && ov_dir">&#x25be;</b>
+                </span>
+              <th class="sortable"
+                  title="Scenario duration plus context duration"
+                  ng-click="ov_srt='full_duration'; ov_dir=!ov_dir">
+                Full duration (s)
+                <span class="arrow">
+                  <b ng-show="ov_srt=='full_duration' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='full_duration' && ov_dir">&#x25be;</b>
+                </span>
+              <th class="sortable" title="Number of iterations"
+                  ng-click="ov_srt='iterations_count'; ov_dir=!ov_dir">
+                Iterations
+                <span class="arrow">
+                  <b ng-show="ov_srt=='iterations_count' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='iterations_count' && ov_dir">&#x25be;</b>
+                </span>
+              <th class="sortable" title="Scenario runner type"
+                  ng-click="ov_srt='runner'; ov_dir=!ov_dir">
+                Runner
+                <span class="arrow">
+                  <b ng-show="ov_srt=='runner' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='runner' && ov_dir">&#x25be;</b>
+                </span>
+              <th class="sortable" title="Number of errors occurred"
+                  ng-click="ov_srt='errors.length'; ov_dir=!ov_dir">
+                Errors
+                <span class="arrow">
+                  <b ng-show="ov_srt=='errors.length' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='errors.length' && ov_dir">&#x25be;</b>
+                </span>
+              <th class="sortable" title="Whether SLA check is successful"
+                  ng-click="ov_srt='sla_success'; ov_dir=!ov_dir">
+                Success (SLA)
+                <span class="arrow">
+                  <b ng-show="ov_srt=='sla_success' && !ov_dir">&#x25b4;</b>
+                  <b ng-show="ov_srt=='sla_success' && ov_dir">&#x25be;</b>
+                </span>
+            <tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="sc in scenarios | orderBy:ov_srt:ov_dir"
+                ng-click="location.path(sc.ref)">
+              <td>{{sc.ref}}
+              <td>{{sc.load_duration | number:3}}
+              <td>{{sc.full_duration | number:3}}
+              <td>{{sc.iterations_count}}
+              <td>{{sc.runner}}
+              <td>{{sc.errors.length}}
+              <td>
+                <span ng-show="sc.sla_success" class="status-pass">&#x2714;</span>
+                <span ng-hide="sc.sla_success" class="status-fail">&#x2716;</span>
+            <tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div ng-show="view.is_source">
+        <h1>Input file</h1>
+        <pre class="code">{{source}}</pre>
+      </div>
+
+      <div ng-show="view.is_scenario">
+        <h1>{{scenario.cls}}.<wbr>{{scenario.name}} ({{scenario.full_duration | number:3}}s)</h1>
+        <ul class="tabs">
+          <li ng-repeat="t in tabs"
+              ng-show="t.isVisible()"
+              ng-class="{active:t.id == tab}"
+              ng-click="location.hash(t.id)">
+            <div>{{t.name}}</div>
+          </li>
+          <div class="clearfix"></div>
+        </ul>
+        <div ng-include="tab"></div>
+
+        <script type="text/ng-template" id="overview">
+          <p class="thesis">
+            Load duration: <b>{{scenario.load_duration | number:3}} s</b> &nbsp;
+            Full duration: <b>{{scenario.full_duration | number:3}} s</b> &nbsp;
+            Iterations: <b>{{scenario.iterations_count}}</b> &nbsp;
+            Failures: <b>{{scenario.errors.length}}</b>
+          </p>
+
+          <div ng-show="scenario.sla.length">
+            <h2>Service-level agreement</h2>
+            <table class="striped">
+              <thead>
+                <tr>
+                  <th>Criterion
+                  <th>Detail
+                  <th>Success
+                <tr>
+              </thead>
+              <tbody>
+                <tr class="rich"
+                    ng-repeat="row in scenario.sla track by $index"
+                    ng-class="{'status-fail':!row.success, 'status-pass':row.success}">
+                  <td>{{row.criterion}}
+                  <td>{{row.detail}}
+                  <td class="capitalize">{{row.success}}
+                <tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div widget="Table"
+               data="scenario.table"
+               lastrow-class="rich"
+               title="Total durations">
+          </div>
+
+          <div widget="StackedArea"
+               data="scenario.iterations.iter"
+               name-x="Iteration sequence number"
+               controls="true"
+               guide="true">
+          </div>
+
+          <div widget="StackedArea"
+               data="scenario.load_profile"
+               title="Load Profile"
+               title-class="h3"
+               name-x="Timeline (seconds)"
+               format-x=",.2f"
+               class="lower">
+          </div>
+
+          <div widget="Pie"
+               data="scenario.iterations.pie"
+               title="Distribution"
+               title-class="h3"
+               style="float:left; width:40%; margin-top:15px">
+          </div>
+
+          <div widget="Histogram"
+               ng-if="scenario.iterations.histogram.data.length"
+               data="scenario.iterations.histogram.data[mainHistogram.id]"
+               style="float:left; width:59%; margin-top:15px; position:relative; top:40px">
+          </div>
+
+          <select ng-model="mainHistogram"
+                  ng-show="scenario.iterations.histogram.data.length"
+                  ng-options="i.name for i in scenario.iterations.histogram.views track by i.id"
+                  style="float:right; margin:45px 35px 0">
+          </select>
+
+          <div class="clearfix"></div>
+
+        </script>
+
+        <script type="text/ng-template" id="details">
+
+          <div widget="StackedArea"
+               data="scenario.atomic.iter"
+               title="Atomic Action Durations"
+               name-x="Iteration sequence number"
+               controls="true"
+               guide="true">
+          </div>
+
+          <div widget="Pie"
+               data="scenario.atomic.pie"
+               title="Distribution"
+               title-class="h3"
+               style="float:left; width:40%; margin-top:15px">
+          </div>
+
+          <div widget="Histogram" data="scenario.atomic.histogram.data[atomicHistogram.id]"
+               ng-if="scenario.atomic.histogram.data.length"
+               style="float:left; width:59%; margin-top:15px; position:relative; top:40px">
+          </div>
+
+          <select ng-show="scenario.atomic.histogram.data.length"
+                  ng-model="atomicHistogram"
+                  ng-options="i.name for i in scenario.atomic.histogram.views track by i.id"
+                  style="float:right; margin:45px 35px 0">
+          </select>
+
+          <div class="clearfix"></div>
+
+        </script>
+
+        <script type="text/ng-template" id="output">
+
+          <div style="padding:10px 0 0">
+            <span class="link"
+                  ng-click="location.hash('output/additive')"
+                  ng-class="{active:scenario.output.active === 'additive'}"
+                  ng-if="scenario.output.has_additive">Aggregated</span>
+            <span class="link"
+                  ng-click="location.hash('output/complete')"
+                  ng-class="{active:scenario.output.active === 'complete'}"
+                  ng-if="scenario.output.has_complete">Per iteration</span>
+          </div>
+
+          <div ng-repeat="chart in scenario.additive_output"
+               ng-if="scenario.output.active === 'additive'">
+            <div widget="{{chart.widget}}"
+                 title="{{chart.title}}"
+                 description="{{chart.description}}"
+                 data="chart.data">
+            </div>
+          </div>
+
+          <div ng-if="scenario.output.active === 'complete'" style="padding:10px 0 0">
+            <select ng-model="outputIteration">
+              <option ng-repeat="i in scenario.complete_output track by $index"
+                      value="{{$index}}">
+                Iteration {{$index}}
+            </select>
+
+            <div ng-repeat="chart in scenario.complete_output[outputIteration]">
+              <div widget="{{chart.widget}}"
+                   title="{{chart.title}}"
+                   description="{{chart.description}}"
+                   data="chart.data">
+              </div>
+            </div>
+          </div>
+        </script>
+
+        <script type="text/ng-template" id="failures">
+          <h2>Task failures (<ng-pluralize
+            count="scenario.errors.length"
+            when="{'1': '1 iteration', 'other': '{} iterations'}"></ng-pluralize> failed)
+          </h2>
+          <table class="striped">
+            <thead>
+              <tr>
+                <th>
+                <th>Iteration
+                <th>Exception type
+                <th>Exception message
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="expandable"
+                  ng-repeat-start="i in scenario.errors track by $index"
+                  ng-click="i.expanded = ! i.expanded">
+                <td>
+                  <span ng-hide="i.expanded">&#9658;</span>
+                  <span ng-show="i.expanded">&#9660;</span>
+                <td>{{i.iteration}}
+                <td>{{i.type}}
+                <td class="failure-mesg">{{i.message}}
+              </tr>
+              <tr ng-show="i.expanded" ng-repeat-end>
+                <td colspan="4" class="failure-trace">{{i.traceback}}
+              </tr>
+            </tbody>
+          </table>
+        </script>
+
+        <script type="text/ng-template" id="task">
+          <h2>Subtask Configuration</h2>
+          <pre class="code">{{scenario.config}}</pre>
+        </script>
+      </div>
+
+    </div>
+    <div class="clearfix"></div>
+
+
+  </div>
+
+  <script type="text/javascript">
+    if (! window.angular) {(function(f){
+      f(document.getElementById("content-nav"), "none");
+      f(document.getElementById("content-main"), "none");
+      f(document.getElementById("page-error"), "block").textContent = "Failed to load AngularJS framework"
+    })(function(e, s){e.style.display = s; return e})}
+</script>
+</body>
+</html>
