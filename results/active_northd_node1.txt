@@ -1,0 +1,45 @@
+root@test1:~# tail -f /var/log/openvswitch/ovn-northd.log
+2018-04-23T07:38:42.868Z|00158|ovn_northd|INFO|ovn-northd lock lost. This ovn-northd instance is now on standby.
+2018-04-23T07:38:42.868Z|00159|reconnect|WARN|tcp:192.168.220.101:6642: connection dropped (Connection reset by peer)
+2018-04-23T07:38:51.872Z|00160|reconnect|INFO|tcp:192.168.220.103:6642: connected
+2018-04-23T07:38:55.356Z|00161|ovn_northd|INFO|ovn-northd lock acquired. This ovn-northd instance is now active.
+2018-04-23T07:38:55.999Z|00162|ovsdb_idl|INFO|tcp:192.168.220.103:6642: clustered database server is not cluster leader; trying another server
+2018-04-23T07:39:04.002Z|00163|reconnect|INFO|tcp:192.168.220.102:6642: connected
+2018-04-23T07:39:04.002Z|00164|ovn_northd|INFO|ovn-northd lock lost. This ovn-northd instance is now on standby.
+2018-04-23T08:09:38.191Z|00165|unixctl|DBG|replying with success, id=0: ""
+2018-04-23T08:09:38.191Z|00166|jsonrpc|DBG|unix#0: send reply, result="", id=0
+2018-04-23T08:09:38.191Z|00167|poll_loop|DBG|wakeup due to [POLLIN][POLLHUP] on fd 13 (/var/run/openvswitch/ovn-northd.880.ctl<->) at lib/stream-fd.c:157
+2018-04-23T08:12:20.257Z|00168|poll_loop|DBG|wakeup due to [POLLIN] on fd 12 (192.168.220.101:51792<->192.168.220.102:6642) at lib/stream-fd.c:157
+2018-04-23T08:12:20.258Z|00169|jsonrpc|DBG|tcp:192.168.220.102:6642: received notification, method="update2", params=[["monid","_Server"],{"Database":{"0b733201-7bad-4c3e-a2c6-bbbe81378b51":{"modify":{"leader":false}}}}]
+2018-04-23T08:12:20.258Z|00170|ovsdb_idl|INFO|tcp:192.168.220.102:6642: clustered database server is not cluster leader; trying another server
+2018-04-23T08:12:20.258Z|00171|reconnect|DBG|tcp:192.168.220.102:6642: entering RECONNECT
+2018-04-23T08:12:20.258Z|00172|ovsdb_idl|DBG|tcp:192.168.220.102:6642: MONITORING -> RETRY at lib/ovsdb-idl.c:1794
+2018-04-23T08:12:20.258Z|00173|poll_loop|DBG|wakeup due to 0-ms timeout at lib/reconnect.c:643
+2018-04-23T08:12:20.258Z|00174|reconnect|DBG|tcp:192.168.220.102:6642: entering BACKOFF
+2018-04-23T08:12:28.266Z|00175|poll_loop|DBG|wakeup due to 8008-ms timeout at lib/reconnect.c:643 (0% CPU usage)
+2018-04-23T08:12:28.267Z|00176|reconnect|DBG|tcp:192.168.220.101:6642: entering CONNECTING
+2018-04-23T08:12:28.267Z|00177|poll_loop|DBG|wakeup due to [POLLOUT] on fd 12 (192.168.220.101:55748<->192.168.220.101:6642) at lib/stream-fd.c:153 (0% CPU usage)
+2018-04-23T08:12:28.267Z|00178|reconnect|INFO|tcp:192.168.220.101:6642: connected
+2018-04-23T08:12:28.267Z|00179|reconnect|DBG|tcp:192.168.220.101:6642: entering ACTIVE
+2018-04-23T08:12:28.267Z|00180|jsonrpc|DBG|tcp:192.168.220.101:6642: send request, method="get_schema", params=["_Server"], id=16242
+2018-04-23T08:12:28.267Z|00181|ovsdb_idl|DBG|tcp:192.168.220.101:6642: RETRY -> SERVER_SCHEMA_REQUESTED at lib/ovsdb-idl.c:633
+2018-04-23T08:12:28.268Z|00182|jsonrpc|DBG|tcp:192.168.220.101:6642: send request, method="lock", params=["ovn_northd"], id=16243
+2018-04-23T08:13:13.854Z|00183|poll_loop|DBG|wakeup due to [POLLIN] on fd 12 (192.168.220.101:55748<->192.168.220.101:6642) at lib/stream-fd.c:157
+2018-04-23T08:13:13.855Z|00184|jsonrpc|DBG|tcp:192.168.220.101:6642: received reply, result={"cksum":"3236486585 698","name":"_Server","version":"1.1.0","tables":{"Database":{"columns":{"model":{"type":{"key":{"type":"string","enum":["set",["clustered","standalone"]]}}},"name":{"type":"string"},"connected":{"type":"boolean"},"leader":{"type":"boolean"},"schema":{"type":{"min":0,"key":"string"}},"sid":{"type":{"min":0,"key":"uuid"}},"cid":{"type":{"min":0,"key":"uuid"}},"index":{"type":{"min":0,"key":"integer"}}}}}}, id=16242
+2018-04-23T08:13:13.855Z|00185|jsonrpc|DBG|tcp:192.168.220.101:6642: send request, method="monitor_cond", params=["_Server",["monid","_Server"],{"Database":[{"where":[["name","==","OVN_Southbound"]],"columns":["cid","connected","index","leader","model","name","schema","sid"]}]}], id=16244
+2018-04-23T08:13:13.855Z|00186|ovsdb_idl|DBG|tcp:192.168.220.101:6642: SERVER_SCHEMA_REQUESTED -> SERVER_MONITOR_COND_REQUESTED at lib/ovsdb-idl.c:664
+2018-04-23T08:13:14.099Z|00187|poll_loop|DBG|wakeup due to [POLLIN] on fd 12 (192.168.220.101:55748<->192.168.220.101:6642) at lib/stream-fd.c:157
+2018-04-23T08:13:14.099Z|00188|jsonrpc|DBG|tcp:192.168.220.101:6642: received reply, result={"locked":true}, id=16243
+2018-04-23T08:13:14.099Z|00189|ovn_northd|INFO|ovn-northd lock acquired. This ovn-northd instance is now active.
+2018-04-23T08:13:14.100Z|00190|hmap|DBG|ovn/lib/chassis-index.c:57: 7 nodes in bucket (256 nodes, 128 buckets)
+2018-04-23T08:13:14.100Z|00191|hmap|DBG|ovn/lib/chassis-index.c:57: 7 nodes in bucket (256 nodes, 128 buckets)
+2018-04-23T08:13:14.100Z|00192|hmap|DBG|ovn/lib/chassis-index.c:57: 6 nodes in bucket (256 nodes, 128 buckets)
+2018-04-23T08:13:14.100Z|00193|hmap|DBG|ovn/lib/chassis-index.c:57: 6 nodes in bucket (512 nodes, 256 buckets)
+2018-04-23T08:13:14.100Z|00194|hmap|DBG|ovn/lib/chassis-index.c:57: 6 nodes in bucket (512 nodes, 256 buckets)
+2018-04-23T08:13:14.100Z|00195|hmap|DBG|ovn/lib/chassis-index.c:57: 6 nodes in bucket (512 nodes, 256 buckets)
+2018-04-23T08:13:14.100Z|00196|hmap|DBG|ovn/lib/chassis-index.c:57: 6 nodes in bucket (512 nodes, 256 buckets)
+2018-04-23T08:13:14.101Z|00197|hmap|DBG|ovn/northd/ovn-northd.c:842: 7 nodes in bucket (32 nodes, 16 buckets)
+2018-04-23T08:13:14.101Z|00198|hmap|DBG|ovn/northd/ovn-northd.c:842: 7 nodes in bucket (64 nodes, 32 buckets)
+2018-04-23T08:13:14.101Z|00199|hmap|DBG|ovn/northd/ovn-northd.c:842: 6 nodes in bucket (64 nodes, 32 buckets)
+2018-04-23T08:13:14.153Z|00200|poll_loop|DBG|wakeup due to [POLLIN] on fd 12 (192.168.220.101:55748<->192.168.220.101:6642) at lib/stream-fd.c:157
+2018-04-23T08:13:14.153Z|00201|jsonrpc|DBG|tcp:192.168.220.101:6642: received reply, result={"Database":{"525f82c6-2867-45d5-a86f-ddcd33c8cec7":{"initial":{"name":"OVN_Southbound","model":"clustered","schema":"{\"cksum\":\"1839738004 13639\",\"name\":\"OVN_Southbound\",\"tables\":{\"Address_Set\":{\"columns\":{\"addresses\":{\"type\":{\"key\":\"strin
